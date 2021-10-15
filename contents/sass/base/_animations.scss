@@ -1,0 +1,23 @@
+@keyframes elipse-animation {
+    from{
+        transform: rotateZ(0deg);
+    }
+    to{
+        transform: rotateZ(360deg);
+    }
+}
+
+@keyframes js-logo-animation {
+    0%{
+        transform: translateY(0rem);
+    }
+
+    50%{
+        transform: translateY(1rem);
+    }
+
+    100%{
+        transform: translateY(0rem);
+    }
+
+}
