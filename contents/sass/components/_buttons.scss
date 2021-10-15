@@ -14,6 +14,12 @@
         box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.2);
     }
 
+    &-nav{
+        font-size: 2rem !important;
+        padding: 1rem 2rem !important;
+        margin-bottom: 1rem;
+    }
+
     &::before{
         content: "";
         position: absolute;
