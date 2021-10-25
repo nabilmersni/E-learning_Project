@@ -16,19 +16,19 @@
             <a href="#"><img class="navigation__logo" src="./contents/img/logo-test.png" alt="platform-logo"></a>
 
             <ul class="navigation__list">
-                <li class="navigation__item"><a href="#" class="navigation__link">Home</a></li>
-                <li class="navigation__item"><a href="#" class="navigation__link">Course</a></li>
-                <li class="navigation__item"><a href="#" class="navigation__link">About</a></li>
-                <li class="navigation__item"><a href="#" class="navigation__link">Instructor</a></li>
-                <li class="navigation__item"><a href="#" class="navigation__link">Login</a></li>
+                <li class="navigation__item"><a href="#home" class="navigation__link">Home</a></li>
+                <li class="navigation__item"><a href="#course" class="navigation__link">Course</a></li>
+                <li class="navigation__item"><a href="#about" class="navigation__link">About</a></li>
+                <li class="navigation__item"><a href="#instructor" class="navigation__link">Instructor</a></li>
+                <li class="navigation__item"><a href="./views/logIn.html" class="navigation__link">Login</a></li>
                 <div class="navigation__btn">
-                    <a href="#" class="primary-btn primary-btn-nav">Sign up</a>
+                    <a href="./views/signUp.html" class="primary-btn primary-btn-nav">Sign up</a>
                 </div>
             </ul>
         </nav>
     </div>
 
-    <header class="header">
+    <header id="home" class="header">
         <img src="./contents/img/header-elipse.png" alt="" class="animated-elipse-1" />
         <img src="./contents/img/header-elipse.png" alt="" class="animated-elipse-2" />
         <img src="./contents/img/js.png" alt="" class="js-logo">
@@ -51,7 +51,7 @@
             <div class="header__content--box">
                 <h1 class="header-heading">Start Your Learning <span>Now!!</span></h1>
                 <br />
-                <a class="primary-btn margin-top-s" href="#">Join For Free</a>
+                <a class="primary-btn margin-top-s" href="./views/signUp.html">Join For Free</a>
             </div>
         </div>
 
@@ -74,7 +74,7 @@
             <img src="./contents/img/courses-elipse.png" alt="" class="animated-elipse-4" />
 
             <div class="courses__shape1"></div>
-            <div class="featured-box">
+            <div id="course" class="featured-box">
                 <div class="featured__item">
                     <img src="./contents/img/video-icon.png" alt="icon" class="featured__item__icon">
                     <p class="featured__item__txt">1000+ Online Course1000+ Online Course</p>
@@ -379,7 +379,7 @@
 
         </section>
 
-        <section class="about-us">
+        <section id="about" class="about-us">
             <div class="benefits__container">
                 <div class="benefits__shape">
                     <img src="./contents/img/benefits-shape.png" alt="" class="benefits__shape__img">
@@ -393,7 +393,7 @@
                         </p>
 
                         <div class="benefits__shape__txt__btn">
-                            <a href="#" class="primary-btn ">Start Learning</a>
+                            <a href="./views/signUp.html" class="primary-btn ">Start Learning</a>
                         </div>
                     </div>
                 </div>
@@ -521,7 +521,7 @@
             </div>
         </section>
 
-        <section class="instructor-call">
+        <section id="instructor" class="instructor-call">
             <img src="./contents/img/instructor-call-img.png" alt="" class="instructor-call__img">
             <div class="instructor-call__content">
                 <h1 class="instructor-call__content__txt">
@@ -529,7 +529,7 @@
                 </h1>
 
                 <div class="instructor-call__content__btn">
-                    <a href="#" class="primary-btn ">Join Us</a>
+                    <a href="./views/signUp.html" class="primary-btn ">Join Us</a>
                 </div>
             </div>
         </section>
@@ -565,6 +565,8 @@
             </p>
         </div>
     </footer>
+
+    <script src="./contents/js/navScript.js"></script>
 </body>
 
 </html>

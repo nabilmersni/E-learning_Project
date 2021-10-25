@@ -1,0 +1,78 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../contents/sass/style.css" />
+    <link rel="icon" href="../contents/img/logo-test.png">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <title>e-learning-logIn</title>
+</head>
+
+<body>
+    <div class="navigation navigation-scrolled-up">
+        <nav class="navigation__nav">
+            <a href="../index.html"><img class="navigation__logo" src="../contents/img/logo-test.png"
+                    alt="platform-logo"></a>
+
+            <ul class="navigation__list">
+                <li class="navigation__item"><a href="../index.html" class="navigation__link">Home</a></li>
+                <li class="navigation__item"><a href="../index.html#course" class="navigation__link">Course</a></li>
+                <li class="navigation__item"><a href="../index.html#about" class="navigation__link">About</a></li>
+                <li class="navigation__item"><a href="../index.html#instructor" class="navigation__link">Instructor</a>
+                </li>
+                <li class="navigation__item"><a href="#" class="navigation__link">Login</a></li>
+                <div class="navigation__btn">
+                    <a href="./signUp.html" class="primary-btn primary-btn-nav">Sign up</a>
+                </div>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <div class="form__container">
+            <!-- <img src="../contents/img/signUpIll.png" alt="" class="form__ill"> -->
+
+            <div class="form__ill">
+                <lottie-player class="form__ill__lottie-player"
+                    src="https://assets3.lottiefiles.com/packages/lf20_q5pk6p1k.json" background="transparent" speed="1"
+                    loop autoplay></lottie-player>
+            </div>
+
+            <form method="POST" action="#" class="form">
+                <h1 class="form__heading">Log In</h1>
+                <div class="form__input__group">
+                    <label for="email" class="form__input__label">Email<span>*</span></label>
+                    <input id="email" name="email" type="email" class="form__input" placeholder="Email">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="form__input__icon">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </div>
+
+                <div class="form__input__group">
+                    <label for="password" class="form__input__label">Password<span>*</span></label>
+                    <input id="password" name="password" type="password" class="form__input" placeholder="Password">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="form__input__icon">
+                        <path
+                            d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4">
+                        </path>
+                    </svg>
+                </div>
+                <!-- <a href="#" class="primary-btn primary-btn-form">Log In</a> -->
+                <input class="primary-btn primary-btn-form" type="submit" value="Log In">
+                <p class="form__member">
+                    Don't have an account yet?
+                    <a class="form__member__link" href="./signUp.html">Sign Up!</a>
+                </p>
+
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>
