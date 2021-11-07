@@ -10,12 +10,15 @@
 
 @import "components/buttons";
 @import "components/course-card";
+@import "components/stat-box";
 @import "components/testimonial-card";
 
 
 
 @import "layout/benefits";
 @import "layout/courses";
+@import "layout/dash-side-bar";
+@import "layout/dash-top-bar";
 @import "layout/footer";
 @import "layout/form-signUp-login";
 @import "layout/header";
@@ -25,4 +28,6 @@
 
 
 
+@import "page/dashboard";
+@import "page/instructor-dash-home";
 @import "page/landing-page";
