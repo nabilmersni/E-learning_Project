@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
 @-webkit-keyframes elipse-animation {
   from {
     -webkit-transform: rotateZ(0deg);
@@ -1626,6 +1626,169 @@ input[type="number"] {
   width: 50rem;
   -webkit-animation: elipse-animation-2 60s ease infinite;
           animation: elipse-animation-2 60s ease infinite;
+}
+
+.users-list__title {
+  margin-left: 3rem;
+  color: #6568F3;
+}
+
+.users {
+  margin: 8rem 4rem 0 4rem;
+  position: relative;
+  height: 53rem;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding-right: 3rem;
+}
+
+.users .users-list {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-column: 1/3;
+  border-radius: 3rem;
+  color: #4A5BCF;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  padding-top: 0;
+}
+
+.users .users-list__body {
+  margin-top: 1.6rem;
+}
+
+.user-table {
+  border-collapse: separate;
+  border-spacing: 0 1.9rem;
+  font-size: 1.6rem;
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+}
+
+.user-table thead tr {
+  background-color: #D6DBFD;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+  border-spacing: 0 0;
+}
+
+.user-table thead tr th {
+  padding: 2rem;
+  color: #4A5BCF;
+  font-size: 1.8rem;
+}
+
+.user-table thead tr th:first-child {
+  border-left-style: solid;
+  border-top-left-radius: 3rem;
+  border-bottom-left-radius: 0.9rem;
+  border-color: transparent;
+}
+
+.user-table thead tr th:last-child {
+  border-right-style: solid;
+  border-bottom-right-radius: 0.9rem;
+  border-top-right-radius: 3rem;
+  border-color: transparent;
+}
+
+.user-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+  background-color: #ffffff;
+  font-size: 1.7rem;
+}
+
+.user-table tbody tr .fullname-td__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.user-table tbody tr .fullname-td__img-container {
+  width: 6rem;
+  height: 6rem;
+  margin-right: 1.5rem;
+}
+
+.user-table tbody tr .fullname-td__img-container__img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50rem;
+}
+
+.user-table tbody tr .fullname-td__fullname-username__fullname {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.user-table tbody tr .fullname-td__fullname-username__username {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #7b88ff;
+}
+
+.user-table tbody tr .btn-td__btn {
+  background-color: #FAF1F6;
+  border: none;
+  outline: none;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  margin: 0 0.5rem;
+}
+
+.user-table tbody tr .btn-td__btn:hover {
+  background-color: #ffa9a9;
+}
+
+.user-table tbody tr .btn-td__btn__icon {
+  width: 2rem;
+  height: 2.2rem;
+}
+
+.user-table tbody tr .state-td__active, .user-table tbody tr .state-td__unactive {
+  padding: 0.4rem 2.5rem;
+  background-color: #03BF8A;
+  border-radius: 1.2rem;
+  color: white;
+}
+
+.user-table tbody tr .state-td__unactive {
+  background-color: #DC284C;
+}
+
+.user-table tbody tr td {
+  padding: 3rem 2rem;
+  color: #585856;
+  font-weight: 500;
+}
+
+.user-table tbody tr td:first-child {
+  border-left-style: solid;
+  border-top-left-radius: 2rem !important;
+  border-bottom-left-radius: 2rem !important;
+  border-color: transparent;
+}
+
+.user-table tbody tr td:last-child {
+  border-right-style: solid;
+  border-bottom-right-radius: 2rem;
+  border-top-right-radius: 2rem;
+  border-color: transparent;
+}
+
+.one-user {
+  -webkit-box-shadow: 0 0.2rem 2rem rgba(0, 0, 0, 0.07);
+          box-shadow: 0 0.2rem 2rem rgba(0, 0, 0, 0.07);
 }
 
 .dash {
