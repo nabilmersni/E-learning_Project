@@ -43,7 +43,7 @@
                     <h1 class="dash__side-bar__item__txt">Dashboard</h1>
                 </a>
 
-                <a href="#" class="dash__side-bar__item active">
+                <a href="./dash_admin-users.html" class="dash__side-bar__item">
                     <div class="dash__side-bar__item__icon">
 
                         <svg class="dash__side-bar__item__icon-svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -126,7 +126,7 @@
                     <h1 class="dash__side-bar__item__txt">Users</h1>
                 </a>
 
-                <a href="./dash_admin-instructors.html" class="dash__side-bar__item">
+                <a href="./dash_admin-instructors.html" class="dash__side-bar__item ">
                     <div class="dash__side-bar__item__icon">
                         <svg class="dash__side-bar__item__icon-svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
                             xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" x="0" y="0"
@@ -235,7 +235,7 @@
                     <h1 class="dash__side-bar__item__txt">Courses</h1>
                 </a>
 
-                <a href="./dash_admin-profile.html" class="dash__side-bar__item">
+                <a href="#" class="dash__side-bar__item active">
                     <div class="dash__side-bar__item__icon">
 
                         <svg class="dash__side-bar__item__icon-svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -290,22 +290,7 @@
                     <h1 class="dash__side-bar__item__txt">My profile</h1>
                 </a>
 
-                <!-- <a href="#" class="dash__side-bar__item">
-                    <div class="dash__side-bar__item__icon">
-                        <svg class="dash__side-bar__item__icon-svg" id="QA-icon" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 46.48 46.48">
-                            <path id="Path_1041" data-name="Path 1041"
-                                d="M30.088,20.636,30.054,4.077A4.092,4.092,0,0,0,25.969,0H4.085A4.09,4.09,0,0,0,0,4.085V20.607a4.09,4.09,0,0,0,4.085,4.085H6.9v2.723A1.363,1.363,0,0,0,9.078,28.5l5.082-3.811,11.831.036A4.082,4.082,0,0,0,30.088,20.636ZM14.979,19.154a1.362,1.362,0,1,1,1.362-1.362A1.362,1.362,0,0,1,14.979,19.154Zm1.452-5.68v.143a1.362,1.362,0,0,1-2.723,0v-.85a1.819,1.819,0,0,1,1.555-1.8,1.366,1.366,0,0,0,1.169-1.348A1.419,1.419,0,0,0,14.087,8.58a1.362,1.362,0,0,1-1.468-2.294,4.281,4.281,0,0,1,4.41-.248,4.086,4.086,0,0,1-.6,7.437Z"
-                                transform="translate(0 0)" fill="currentColor" />
-                            <path id="Path_1042" data-name="Path 1042"
-                                d="M206.963,210.995h-9.586l0,1.476a6.807,6.807,0,0,1-5.486,6.695h12.255a1.362,1.362,0,1,1,0,2.723H187.809a1.361,1.361,0,0,1-.553-2.605L181,219.264v12.247a4.09,4.09,0,0,0,4.085,4.085H194.3l5.159,2.58a1.363,1.363,0,0,0,1.971-1.218V235.6h5.538a4.09,4.09,0,0,0,4.085-4.085V215.08A4.09,4.09,0,0,0,206.963,210.995Zm-2.814,16.34H187.809a1.362,1.362,0,1,1,0-2.723h16.341a1.362,1.362,0,1,1,0,2.723Z"
-                                transform="translate(-164.569 -191.841)" fill="currentColor" />
-                        </svg>
-                    </div>
-                    <h1 class="dash__side-bar__item__txt">Q&A</h1>
-                </a> -->
-
-                <a href="#" class="dash__side-bar__item ">
+                <a href="#" class="dash__side-bar__item">
                     <div class="dash__side-bar__item__icon">
                         <svg class="dash__side-bar__item__icon-svg" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 46.917 46.917">
@@ -364,9 +349,7 @@
                     <div class="dash__top-bar__container__right">
                         <h1 class="dash__top-bar__fullname">Nabil Mersni</h1>
                         <div class="dash__top-bar__img-container">
-                            <a href="./dash_admin-profile.html">
-                                <img class="dash__top-bar__img" src="../contents/img/me.jpg" alt="">
-                            </a>
+                            <img class="dash__top-bar__img" src="../contents/img/me.jpg" alt="">
                         </div>
                     </div>
                 </div>
@@ -375,271 +358,84 @@
             </nav>
 
             <div class="dash__content">
-                <div class="dash__admin-users__content">
+                <div class="dash__instructor-home">
 
-                    <h1 class="users-list__title">Users List</h1>
-
-                    <div class="users">
-                        <div class="users-list">
-
-
-                            <div class="users-list__body">
-                                <table class="user-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Full name</th>
-                                            <th>email</th>
-                                            <th>phone</th>
-                                            <th>account state</th>
-                                            <th>#</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <tr class="one-user">
-                                            <td class="fullname-td">
-                                                <div class="fullname-td__container">
-                                                    <div class="fullname-td__img-container">
-                                                        <img src="../contents/img/me.jpg"
-                                                            class="fullname-td__img-container__img" alt="">
-                                                    </div>
-                                                    <div class="fullname-td__fullname-username">
-                                                        <p class="fullname-td__fullname-username__fullname">
-                                                            Nabil Mersni</p>
-                                                        <p class="fullname-td__fullname-username__username">
-                                                            Nabill123</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>Nabilmersni123@gmail.com</td>
-                                            <td>41156289</td>
-                                            <td class="state-td">
-                                                <span class="state-td__active">active</span>
-                                                <!-- <span class="state-td__unactive">unactive</span> -->
-                                            </td>
-                                            <td class="btn-td">
-                                                <button class="btn-td__btn"><img src="../contents/img/lock-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-
-                                                <!-- <button class="btn-td__btn"><img src="../contents/img/unlock-icon.png"
-                                                    alt="" class="btn-td__btn__icon"></button> -->
-
-                                                <button class="btn-td__btn"><img src="../contents/img/edit-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-                                                <button class="btn-td__btn"><img src="../contents/img/trash-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-                                            </td>
-
-                                        </tr>
-
-                                        <tr class="one-user">
-                                            <td class="fullname-td">
-                                                <div class="fullname-td__container">
-                                                    <div class="fullname-td__img-container">
-                                                        <img src="../contents/img/me.jpg"
-                                                            class="fullname-td__img-container__img" alt="">
-                                                    </div>
-                                                    <div class="fullname-td__fullname-username">
-                                                        <p class="fullname-td__fullname-username__fullname">
-                                                            Nabil Mersni</p>
-                                                        <p class="fullname-td__fullname-username__username">
-                                                            Nabill123</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>Nabilmersni123@gmail.com</td>
-                                            <td>41156289</td>
-                                            <td class="state-td">
-                                                <span class="state-td__active">active</span>
-                                                <!-- <span class="state-td__unactive">unactive</span> -->
-                                            </td>
-                                            <td class="btn-td">
-                                                <button class="btn-td__btn"><img src="../contents/img/lock-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-
-                                                <!-- <button class="btn-td__btn"><img src="../contents/img/unlock-icon.png"
-                                                    alt="" class="btn-td__btn__icon"></button> -->
-
-                                                <button class="btn-td__btn"><img src="../contents/img/edit-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-                                                <button class="btn-td__btn"><img src="../contents/img/trash-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-                                            </td>
-
-                                        </tr>
-
-                                        <tr class="one-user">
-                                            <td class="fullname-td">
-                                                <div class="fullname-td__container">
-                                                    <div class="fullname-td__img-container">
-                                                        <img src="../contents/img/me.jpg"
-                                                            class="fullname-td__img-container__img" alt="">
-                                                    </div>
-                                                    <div class="fullname-td__fullname-username">
-                                                        <p class="fullname-td__fullname-username__fullname">
-                                                            Nabil Mersni</p>
-                                                        <p class="fullname-td__fullname-username__username">
-                                                            Nabill123</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>Nabilmersni123@gmail.com</td>
-                                            <td>41156289</td>
-                                            <td class="state-td">
-                                                <span class="state-td__active">active</span>
-                                                <!-- <span class="state-td__unactive">unactive</span> -->
-                                            </td>
-                                            <td class="btn-td">
-                                                <button class="btn-td__btn"><img src="../contents/img/lock-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-
-                                                <!-- <button class="btn-td__btn"><img src="../contents/img/unlock-icon.png"
-                                                    alt="" class="btn-td__btn__icon"></button> -->
-
-                                                <button class="btn-td__btn"><img src="../contents/img/edit-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-                                                <button class="btn-td__btn"><img src="../contents/img/trash-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-                                            </td>
-
-                                        </tr>
-
-                                        <tr class="one-user">
-                                            <td class="fullname-td">
-                                                <div class="fullname-td__container">
-                                                    <div class="fullname-td__img-container">
-                                                        <img src="../contents/img/me.jpg"
-                                                            class="fullname-td__img-container__img" alt="">
-                                                    </div>
-                                                    <div class="fullname-td__fullname-username">
-                                                        <p class="fullname-td__fullname-username__fullname">
-                                                            Nabil Mersni</p>
-                                                        <p class="fullname-td__fullname-username__username">
-                                                            Nabill123</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>Nabilmersni123@gmail.com</td>
-                                            <td>41156289</td>
-                                            <td class="state-td">
-                                                <span class="state-td__active">active</span>
-                                                <!-- <span class="state-td__unactive">unactive</span> -->
-                                            </td>
-                                            <td class="btn-td">
-                                                <button class="btn-td__btn"><img src="../contents/img/lock-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-
-                                                <!-- <button class="btn-td__btn"><img src="../contents/img/unlock-icon.png"
-                                                    alt="" class="btn-td__btn__icon"></button> -->
-
-                                                <button class="btn-td__btn"><img src="../contents/img/edit-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-                                                <button class="btn-td__btn"><img src="../contents/img/trash-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-                                            </td>
-
-                                        </tr>
-
-                                        <tr class="one-user">
-                                            <td class="fullname-td">
-                                                <div class="fullname-td__container">
-                                                    <div class="fullname-td__img-container">
-                                                        <img src="../contents/img/me.jpg"
-                                                            class="fullname-td__img-container__img" alt="">
-                                                    </div>
-                                                    <div class="fullname-td__fullname-username">
-                                                        <p class="fullname-td__fullname-username__fullname">
-                                                            Nabil Mersni</p>
-                                                        <p class="fullname-td__fullname-username__username">
-                                                            Nabill123</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>Nabilmersni123@gmail.com</td>
-                                            <td>41156289</td>
-                                            <td class="state-td">
-                                                <span class="state-td__active">active</span>
-                                                <!-- <span class="state-td__unactive">unactive</span> -->
-                                            </td>
-                                            <td class="btn-td">
-                                                <button class="btn-td__btn"><img src="../contents/img/lock-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-
-                                                <!-- <button class="btn-td__btn"><img src="../contents/img/unlock-icon.png"
-                                                    alt="" class="btn-td__btn__icon"></button> -->
-
-                                                <button class="btn-td__btn"><img src="../contents/img/edit-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-                                                <button class="btn-td__btn"><img src="../contents/img/trash-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-                                            </td>
-
-                                        </tr>
-
-                                        <tr class="one-user">
-                                            <td class="fullname-td">
-                                                <div class="fullname-td__container">
-                                                    <div class="fullname-td__img-container">
-                                                        <img src="../contents/img/me.jpg"
-                                                            class="fullname-td__img-container__img" alt="">
-                                                    </div>
-                                                    <div class="fullname-td__fullname-username">
-                                                        <p class="fullname-td__fullname-username__fullname">
-                                                            Nabil Mersni</p>
-                                                        <p class="fullname-td__fullname-username__username">
-                                                            Nabill123</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>Nabilmersni123@gmail.com</td>
-                                            <td>41156289</td>
-                                            <td class="state-td">
-                                                <span class="state-td__active">active</span>
-                                                <!-- <span class="state-td__unactive">unactive</span> -->
-                                            </td>
-                                            <td class="btn-td">
-                                                <button class="btn-td__btn"><img src="../contents/img/lock-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-
-                                                <!-- <button class="btn-td__btn"><img src="../contents/img/unlock-icon.png"
-                                                    alt="" class="btn-td__btn__icon"></button> -->
-
-                                                <button class="btn-td__btn"><img src="../contents/img/edit-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-                                                <button class="btn-td__btn"><img src="../contents/img/trash-icon.png"
-                                                        alt="" class="btn-td__btn__icon">
-                                                </button>
-                                            </td>
-
-                                        </tr>
-
-
-
-
-
-                                    </tbody>
-                                </table>
+                    <div class="update-profile-container">
+                        <div class="update-profile">
+                            <div class="update-profile__header">
+                                <h2 class="update-profile__header__title">Update your profile</h2>
                             </div>
 
+                            <div class="update-profile__body">
+                                <div class="log">
+                                    <form class="update-profile-form log__form">
+
+                                        <div class="upload-file__container">
+
+                                            <h3 class="upload-file__title">Photo</h3>
+
+                                            <div class="upload-file-body">
+
+                                                <div class="upload-file__img-container">
+                                                    <img class="upload-file__img" src="../contents/img/me.jpg" alt="">
+                                                </div>
+
+                                                <div class="upload-file__btn-group">
+
+                                                    <label for="file" class="btn upload-file__upload-btn">Upload</label>
+
+                                                    <button onclick="deleteImg()" type="button"
+                                                        class="btn upload-file__annuler-btn">
+                                                        Delete
+                                                    </button>
+
+                                                    <input onchange="loadFile(event)" id="file" type="file"
+                                                        accept="image/jpeg, image/png"
+                                                        style="visibility: hidden;width:0px;height:0px">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form__group">
+                                            <input type="text" class="form__input form__input--log" id="name"
+                                                placeholder="Full name" autocomplete="false" required>
+                                            <label for="name" class="form__label">Full name</label>
+
+                                        </div>
+
+                                        <div class="form__group">
+                                            <input type="text" class="form__input form__input--log" id="username"
+                                                placeholder="Username" autocomplete="off" required>
+                                            <label for="username" class="form__label">Username</label>
+
+
+                                        </div>
+
+                                        <div class="form__group">
+                                            <input type="number" class="form__input form__input--log" id="phone"
+                                                placeholder="Phone" autocomplete="off" required>
+                                            <label for="phone" class="form__label">Phone</label>
+
+
+                                        </div>
+
+                                        <div class="form__group">
+                                            <input type="email" class="form__input form__input--log" id="email"
+                                                placeholder="Email" autocomplete="off" required>
+                                            <label for="email" class="form__label">Email</label>
+                                        </div>
+
+                                        <button
+                                            style="cursor: pointer; padding: 1rem 2rem; border: none; margin-bottom: 4rem;"
+                                            type="submit" class="secondary-btn">Update
+                                        </button>
+
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                        <!---->
                     </div>
 
                 </div>
@@ -650,6 +446,18 @@
 
 
     <script src="../contents/js/revenue-chart.js"></script>
+
+    <script>
+        var loadFile = function (event) {
+            var image = document.querySelector('.upload-file__img');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+        var deleteImg = () => {
+            var image = document.querySelector('.upload-file__img');
+            image.src = '../contents/img/me.jpg';
+        }
+    </script>
 </body>
 
 </html>
