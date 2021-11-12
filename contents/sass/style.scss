@@ -10,13 +10,15 @@
 
 @import "components/buttons";
 @import "components/course-card";
-@import "components/input";
+@import "components/course";
 @import "components/stat-box";
 @import "components/testimonial-card";
 
 
 
+@import "layout/all-courses";
 @import "layout/benefits";
+@import "layout/course-detail";
 @import "layout/courses";
 @import "layout/dash-side-bar";
 @import "layout/dash-top-bar";
