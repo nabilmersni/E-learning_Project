@@ -133,6 +133,22 @@ $text-color: mix(#000, $primary-color, 64%);
         &:focus + &__icon{
             stroke: black !important;
         }
+
+//--------------------------------------------
+        &__divider{
+            display: flex;
+            align-items: center;
+        }
+
+        &__left-side{
+            flex: 1;
+            margin-right: 1rem;
+        }
+
+        &__right-side{
+            flex: 1;
+            margin-left: 1rem;
+        }
     }
 
     &__member{

@@ -92,3 +92,36 @@
         }
     }
 }
+
+.user-side__top-bar{
+    position: relative;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 3rem !important;
+    width: 100% !important;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.06) !important;
+
+    &__logo{
+        position: absolute;
+        top: 50%;
+        left: 6rem;
+        transform: translateY(-50%);
+        width: 5rem;
+    }
+
+    &__link{
+        color: $primary-light !important;
+        font-size: 1.65rem !important;
+        transition: all 0.2s !important;
+
+        &:hover{
+        color: $secondary !important;
+
+        }
+
+        &::after{
+            display: none;
+        }
+    }
+}
