@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <link href="./asset/style_seance-prive.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="navigation">
+        <nav class="navigation__nav">
+
+            <a href="#"><img class="navigation__logo" src="C:\Users\khali\OneDrive\Bureau\iLearn\views\logo-txt-nobg.png" alt="platform-logo"></a>
+
+            <ul class="navigation__list">
+                <li class="navigation__item"><a href="#home" class="navigation__link">Home</a></li>
+                <li class="navigation__item"><a href="#course" class="navigation__link">Course</a></li>
+                <li class="navigation__item"><a href="#about" class="navigation__link">About</a></li>
+                <li class="navigation__item"><a href="#instructor" class="navigation__link">Instructor</a></li>
+                <li class="navigation__item"><a href="./views/logIn.html" class="navigation__link">Login</a></li>
+                <div class="navigation__btn">
+                    <a href="./views/signUp.html" class="primary-btn primary-btn-nav">Sign up</a>
+                </div>
+            </ul>
+        </nav>
+    </div>
+   
+
+    </header>
+ 
+    
+    <div class="card container col-md-10" > 
+        <div  class="card-body text-center">
+            <div class="row">
+                <div class="col-md-3">
+                    <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                </div>
+                <div class="col-md-3">
+                    <div class="row-md-4">
+                     <h1 class="titreTuteur"><strong>*****************</strong></h1>
+                     <p>_______________________________</p>
+                     <p>_______________________________</p>
+                        <p class="titreTuteur" >Ville, Pays</p>
+                    </div>
+                    <div class="row-md-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <div class="row-md-4">
+                        <div class="col-md-3">
+                            <p>_______________________________</p>
+                        <p><span class="badge rounded-pill bg-secondary">Backgroud check</span></p>
+                        <p><span class="badge rounded-pill bg-secondary">Student favorite</span></p>
+                    </div>
+                    </div>    
+                    
+                </div>
+                <div class="col-md-3">
+                    <h5 class="titreTuteur">Teaching Location:</h5>
+                    <p class="titreTuteur">Online</p>
+                    <p>_______________________________</p>
+                    <p>_______________________________</p>
+                    <p>_______________________________</p>
+                    <h5 class="titreTuteur">Subject:</h5>
+                    <p class="titreTuteur">Html</p>
+                </div>
+                
+                <div class="col-md-3">
+                  <h5 class="titreTuteur">Reserve Your Spot</h5>
+                  <div class="Title">********'s Availability</div>
+
+                  <div class="Grid-Container">
+                    <div class="Grid-Item Day1" ng-click="view.selectDay(1)" ng-class="{ 'Unavailable': !view.weekAvailability[1], 'Selected': (view.day == 1) }">Mo</div>
+                    <div class="Grid-Item Day2" ng-click="view.selectDay(2)" ng-class="{ 'Unavailable': !view.weekAvailability[2], 'Selected': (view.day == 2) }">Tu</div>
+                    <div class="Grid-Item Day3" ng-click="view.selectDay(3)" ng-class="{ 'Unavailable': !view.weekAvailability[3], 'Selected': (view.day == 3) }">We</div>
+                    <div class="Grid-Item Day4" ng-click="view.selectDay(4)" ng-class="{ 'Unavailable': !view.weekAvailability[4], 'Selected': (view.day == 4) }">Th</div>
+                    <div class="Grid-Item Day5" ng-click="view.selectDay(5)" ng-class="{ 'Unavailable': !view.weekAvailability[5], 'Selected': (view.day == 5) }">Fri</div>
+                    <div class="Grid-Item Day6" ng-click="view.selectDay(6)" ng-class="{ 'Unavailable': !view.weekAvailability[6], 'Selected': (view.day == 6) }">Sa</div>
+                    <div class="Grid-Item Day0" ng-click="view.selectDay(0)" ng-class="{ 'Unavailable': !view.weekAvailability[0], 'Selected': (view.day == 0) }">Su</div>
+                  </div>
+                  <div class="Times">
+                    <div ng-if="view.availability['Morning']" class="DaySection Morning">
+                      <div>Mornings</div><div class="Time">
+                        <div ng-repeat="time in view.availability['Morning']">{{ time }}</div>
+                      </div>
+                    </div>
+                    <div ng-if="view.availability['Afternoon']" class="DaySection Afternoon">
+                      <div>Afternoons</div><div class="Time">
+                        <div ng-repeat="time in view.availability['Afternoon']">{{ time }}</div>
+                      </div>
+                    </div>
+                    <div ng-if="view.availability['Evening']" class="DaySection Evening">
+                      <div>Evenings</div><div class="Time">
+                        <div ng-repeat="time in view.availability['Evening']">{{ time }}</div>
+                      </div>
+                    </div>
+                  </div>
+                
+            </div>
+        </div>
+    </div> 
+    <footer class="footer">
+        <div class="footer__container">
+            <img src="./logo-icon-nobg.png" alt="" class="footer__logo">
+            <div class="footer__content">
+                <h1 class="footer__content__title">
+                    Get In Touch
+                </h1>
+                <p class="footer__content__parag">
+                    Follow us on Social media and
+                    stay updated with the latest
+                    information about our services
+                </p>
+                <div class="footer__content__social-media">
+                    <a target="_blank" href="https://www.facebook.com/"><img src="./fb.png" alt=""
+                            class="social-media__logo footer__content__social-media-icon"></a>
+
+                    <a target="_blank" href="https://twitter.com/"><img src="./twitter.png" alt=""
+                            class="social-media__logo footer__content__social-media-icon"></a>
+
+                    <a target="_blank" href="https://www.instagram.com/"><img src="./insta.png" alt=""
+                            class="social-media__logo footer__content__social-media-icon"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer__copyright__shape">
+            <p class="footer__copyright__shape__txt">
+                © 2021 All Right Reserved
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
