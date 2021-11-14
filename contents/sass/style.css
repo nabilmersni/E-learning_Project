@@ -1582,6 +1582,9 @@ body {
 .form__input {
   width: 100%;
   font-family: inherit;
+  font-size: 1.4rem !important;
+  color: #585856 !important;
+  font-weight: 500 !important;
   border: 1px solid rgba(222, 226, 230, 0.8);
   outline: none;
   background-color: #F9FDFF;
@@ -1590,6 +1593,7 @@ body {
   border-radius: .8rem;
   -webkit-transition: border 0.5s;
   transition: border 0.5s;
+  margin-bottom: .3rem;
 }
 
 .form__input-radioBTN {
@@ -1607,7 +1611,7 @@ body {
 }
 
 .form__input[type="password"] {
-  font-weight: 800;
+  font-weight: 800 !important;
 }
 
 .form__input[type="password"]::-webkit-input-placeholder {
@@ -1629,7 +1633,7 @@ body {
 .form__input__group {
   position: relative;
   text-align: left;
-  margin-bottom: 3rem;
+  margin-bottom: 2.7rem;
 }
 
 .form__input__group-radio {
@@ -1790,6 +1794,14 @@ input[type="number"]::-webkit-inner-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.error {
+  color: #ff3838;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  font-size: 1.25rem;
+  font-weight: 700;
 }
 
 .header {

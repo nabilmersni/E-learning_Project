@@ -31,14 +31,18 @@ $text-color: mix(#000, $primary-color, 64%);
     &__input{
         width: 100%;
         font-family: inherit;
+        font-size: 1.4rem !important;
+        color: $dark-font-color !important;
+        font-weight: 500 !important;
         border: 1px solid rgba(222, 226, 230, 0.8);
         outline: none;
         background-color: $body-bg-color;
         height: 4rem;
         padding: 1rem 2rem 1rem 4.5rem;
-        border-radius: .8rem; 
+        border-radius: .8rem;
         transition: border 0.5s;
-        
+        margin-bottom: .3rem;
+
         //custom design fpr the radio input
         &-radioBTN{
             position: absolute;
@@ -52,7 +56,7 @@ $text-color: mix(#000, $primary-color, 64%);
         }
 
         &[type="password"]{
-            font-weight: 800;
+            font-weight: 800 !important;
 
             &::placeholder{
                 font-weight: 400;
@@ -62,7 +66,7 @@ $text-color: mix(#000, $primary-color, 64%);
         &__group{
             position: relative;
             text-align: left;
-            margin-bottom: 3rem;
+            margin-bottom: 2.7rem;
 
             &-radio{
                 display: flex;
@@ -70,6 +74,7 @@ $text-color: mix(#000, $primary-color, 64%);
 
             &-password{
                 display: flex;
+                
             }
         }
 
@@ -195,4 +200,11 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 input[type="number"] {
     -moz-appearance: textfield;
+}
+
+.error{
+    color: rgb(255, 56, 56);
+    transition: all .2s;
+    font-size: 1.25rem;
+    font-weight: 700;
 }
