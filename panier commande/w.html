@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="imgg/logo-icon-nobg.png">
+    <title>I Learn-Shopping Cart</title>
+</head>
+<body>
+    <div class="container">
+        <div class="heading">
+          <h1>
+            <span class="shopper">YOUR</span>  Shopping Cart
+          </h1>
+          
+          <a  href="*" class="visibility-cart transition is-open">X</a>  
+        </div>
+        
+        <div class="cart transition is-open">
+         
+          <a href="#" class="btn btn-update">Update cart</a>
+
+          
+          
+          <div class="table">
+            
+            <div class="layout-inline row th" >
+              <div class="col col-pro" id="cour">Course</div>
+              <div class="col col-price align-center " id="pri">Price</div>
+              
+              
+            
+            </div>
+            
+            <div class="layout-inline row" id="course3remove">
+              
+              <div class="col col-pro layout-inline">
+                <img src="imgg/course-cover.jpg" alt="course" />
+                <p>course number 3</p> 
+
+              </div>
+              
+              <div class="col col-price col-numeric align-center "  >
+                 <input type="number" id="course3" value="59.99" hidden>
+                <p>$59.99</p> <input type="button" id="button" value="Remove" onclick="removecourse3();total(); emptycart();">
+
+
+              </div>
+      
+              
+              
+              
+            </div>
+            
+            <div class="layout-inline row row-bg2" id="course1remove">
+      
+              <div class="col col-pro layout-inline">
+                <img src="imgg/course-cover.jpg" alt="course" />
+                <p>course number1</p>
+              </div>
+              
+              <div class="col col-price col-numeric align-center ">
+                <input type="number" id="course1" value="23.99" hidden>
+                <p>$23.99</p> <input type="button" id="button" value="Remove" onclick="removecourse1();total(); emptycart();">
+              </div>
+      
+                 
+              
+                  
+            
+            </div>
+            
+             <div class="layout-inline row" id="course2remove">
+              
+              <div class="col col-pro layout-inline">
+                <img src="imgg/course-cover.jpg" alt="" />
+                <p>Course number2</p>
+              </div>
+              
+              <div class="col col-price col-numeric align-center ">
+                <input type="number" id="course2" value="59.99" hidden>
+                <p>$59.99</p> <input type="button" id="button" value="Remove" onclick="removecourse2();total(); emptycart();"> 
+              </div>
+      
+              
+              
+                     
+            </div>
+        
+             <div class="tf">
+               <div class="row layout-inline">
+                 
+                 <div class="col"></div>
+               </div>
+               <div class="row layout-inline">
+                 <div class="colm" id="pay">
+                   <p>Payment method</p>
+                 </div>
+                 <div class="col"></div>
+               </div>
+               <p class="lol" id="emptycart" hidden >your shopping cart is empty!</p>
+               <br>
+               <a href="C:\Users\User\Desktop\pweb\E-learning_Project\index.html" class="mom"id="learnnow" hidden>Learn Now</a>
+                <div class="row layout-inline">
+                 <div class="col" >
+                   <p id="total">Total </p> 
+                   
+                 </div>
+                 
+                 <div class="col"></div>
+               </div>
+             </div>         
+        </div>
+        
+          
+        
+      </div>
+      <script src="index.js"></script>
+</body>
+</html>
