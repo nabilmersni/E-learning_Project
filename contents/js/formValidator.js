@@ -11,6 +11,14 @@ jQuery.validator.addMethod(
 );
 
 jQuery.validator.addMethod(
+  "lettersonly",
+  function (value, element) {
+    return this.optional(element) || /^[a-z," "]+$/i.test(value);
+  },
+  "fullname must contain only letters and spaces"
+);
+
+jQuery.validator.addMethod(
   "validUsername",
   function (value, element) {
     return value.indexOf(" ") < 0;
@@ -34,6 +42,14 @@ jQuery.validator.addMethod(
   "Please enter a valid email address."
 );
 
+jQuery.validator.addMethod(
+  "validRole",
+  function (value, element) {
+    return value == "student" || value == "instructor";
+  },
+  "hey little hacker 🤣"
+);
+
 $signupForm = $(".signupForm");
 $signupForm.validate({
   rules: {
@@ -41,6 +57,7 @@ $signupForm.validate({
       required: true,
       minlength: 5,
       validFullname: true,
+      lettersonly: true,
     },
     username: {
       required: true,
@@ -53,6 +70,7 @@ $signupForm.validate({
     },
     role: {
       required: true,
+      validRole: true,
     },
     phone: {
       required: true,
@@ -177,5 +195,22 @@ $updateForm.validate({
     } else {
       error.insertAfter(element);
     }
+  },
+});
+
+$uploadCVForm = $(".uploadCVForm");
+$uploadCVForm.validate({
+  rules: {
+    uploadCV: {
+      required: true,
+      extension: "png|jpeg|jpg",
+    },
+  },
+
+  messages: {
+    uploadCV: {
+      required: "Please upload your cv",
+      extension: "file type not accepted",
+    },
   },
 });
