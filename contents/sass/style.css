@@ -496,7 +496,7 @@ body {
 }
 
 .course__card-v3 {
-  width: 34rem;
+  width: 31rem;
   padding: 1rem 1rem 3.5rem 1rem;
   background-color: #fff;
   border-radius: 5rem;
@@ -1753,10 +1753,17 @@ body {
 }
 
 .form__member__link {
+  display: inline-block;
   text-decoration: none;
   margin-left: .8rem;
   font-size: 1.5rem;
   color: black;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+.form__member__link:hover {
+  color: #FF7244;
 }
 
 .primary-btn-form {
@@ -1802,6 +1809,94 @@ input[type="number"] {
   transition: all .2s;
   font-size: 1.25rem;
   font-weight: 700;
+}
+
+.form_alert {
+  padding: 2rem 2rem;
+  border-radius: 3rem;
+  margin-bottom: 2rem;
+}
+
+.form_alert_success {
+  color: green;
+  background-color: rgba(35, 163, 35, 0.45);
+}
+
+.form_alert_error {
+  color: #ff4040;
+  background-color: rgba(255, 124, 124, 0.4);
+}
+
+.form__uploadCV {
+  padding: 2rem;
+  width: 75rem;
+  height: 25rem;
+  background-color: #6567f3;
+  border-radius: 2rem;
+}
+
+.file-upload-wrapper {
+  margin-bottom: 2rem;
+  position: relative;
+  width: 100%;
+  height: 60px;
+}
+
+.file-upload-wrapper:after {
+  content: attr(data-text);
+  font-size: 1.5rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  padding: 1rem 1.5rem;
+  display: block;
+  width: calc(100% - 40px);
+  pointer-events: none;
+  z-index: 20;
+  height: 60px;
+  line-height: 40px;
+  color: #999;
+  border-radius: 1.5rem 10px 10px 1.5rem;
+  font-weight: 400;
+}
+
+.file-upload-wrapper:before {
+  content: 'Upload';
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  height: 60px;
+  background: #FF7244;
+  color: #fff;
+  font-weight: 700;
+  z-index: 25;
+  font-size: 1.5rem;
+  line-height: 60px;
+  padding: 0 15px;
+  text-transform: uppercase;
+  pointer-events: none;
+  border-radius: 0 1.5rem 1.5rem 0;
+}
+
+.file-upload-wrapper:hover:before {
+  background: #ff4c11;
+}
+
+.file-upload-wrapper input {
+  opacity: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  height: 60px;
+  margin: 0;
+  padding: 0;
+  display: block;
+  cursor: pointer;
+  width: 100%;
 }
 
 .header {
@@ -2462,7 +2557,7 @@ input[type="number"] {
 }
 
 .users {
-  margin: 8rem 4rem 0 4rem;
+  margin: 1rem 4rem 0 4rem;
   position: relative;
   height: 53rem;
   overflow: hidden;
@@ -2617,6 +2712,15 @@ input[type="number"] {
 .one-user {
   -webkit-box-shadow: 0 0.2rem 2rem rgba(0, 0, 0, 0.07);
           box-shadow: 0 0.2rem 2rem rgba(0, 0, 0, 0.07);
+}
+
+.empty_alert {
+  padding: 2rem 3rem;
+  border-radius: 2rem;
+  color: #ff8800;
+  background-color: rgba(255, 136, 0, 0.356);
+  max-width: 45rem;
+  text-align: center;
 }
 
 .dash {
