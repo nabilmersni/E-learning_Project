@@ -214,3 +214,18 @@ $uploadCVForm.validate({
     },
   },
 });
+
+$blockForm = $(".blockForm");
+$blockForm.validate({
+  rules: {
+    reasons: {
+      required: true,
+    },
+  },
+
+  messages: {
+    reasons: {
+      required: "Please set the reasons",
+    },
+  },
+});

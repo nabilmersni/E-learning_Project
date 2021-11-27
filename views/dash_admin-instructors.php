@@ -12,6 +12,7 @@
     include "../models/user.php";
     $data = User::getAllInstructors();
     $empty = true;
+    $toglerCount = 0;
 
 ?>
 
@@ -412,6 +413,7 @@
                                         <?php 
                                         while($instructor = $data->fetchObject()) {
                                             $empty = false;
+                                            $toglerCount++;
                                         ?>
                                         <tr class="one-user">
                                             <td class="fullname-td">
@@ -437,7 +439,7 @@
                                                 <span class="state-td__unactive">unactive</span>
                                                 <?php }?>
                                             </td>
-                                            <td>
+                                            <td class="uploadCV">
 
                                                 <?php if($instructor->cv_url == null){ ?>
                                                 <p>
@@ -449,18 +451,32 @@
                                                     href="../uploads/<?php echo $instructor->cv_url ?>">View</a>
 
                                                 <!-- <a style="text-decoration:none;" class="btn-td__btn" href="">Accept</a> -->
-                                                <?php if($instructor->cv_status == 0){ ?>
-                                                <form style="display:inline-block;"
+
+                                                <form class="CVform" id="<?php echo 'tglForm' . $toglerCount ?>"
+                                                    style="display:inline-block;"
                                                     action="../controllers/userController.php?event=acceptCV"
                                                     method="POST">
                                                     <input type="hidden" value="<?php echo $instructor->user_id ?>"
                                                         name="user_id">
-                                                    <button
+                                                    <!-- <button
                                                         style="font-family:inherit;font-size:inherit;font-weight:inherit;"
                                                         class="btn-td__btn">
                                                         Accept
-                                                    </button>
+                                                    </button> -->
+                                                    <input class="tgl tgl-light" onChange="setTimeout(function () {
+                                                            document.getElementById('<?php echo 'tglForm' . $toglerCount ?>').submit();
+                                                        }, 500)
+                                                        
+                                                        " name="cvStatus" value="1"
+                                                        id="<?php echo 'toggler' . $toglerCount ?>" type="checkbox"
+                                                        <?php if($instructor->cv_status == 1){echo 'checked';} ?> />
+
+
+                                                    <label class="tgl-btn"
+                                                        for="<?php echo 'toggler' . $toglerCount ?>"></label>
                                                 </form>
+                                                <?php if($instructor->cv_status == 0){ ?>
+
                                                 <?php } ?>
 
                                                 <?php }?>
@@ -468,7 +484,7 @@
 
                                             <td class="btn-td">
                                                 <?php if($instructor->status == 1){ ?>
-                                                <form style="display:inline-block;"
+                                                <!-- <form style="display:inline-block;"
                                                     action="../controllers/userController.php?event=block"
                                                     method="POST">
                                                     <input type="hidden" value="<?php echo $instructor->user_id ?>"
@@ -476,7 +492,50 @@
                                                     <button class="btn-td__btn"><img src="../contents/img/lock-icon.png"
                                                             alt="" class="btn-td__btn__icon">
                                                     </button>
-                                                </form>
+                                                </form> -->
+                                                <div style="display:inline-block;">
+                                                    <a style="display:flex; justify-content:center;"
+                                                        href="<?php echo '#open-modal' . $toglerCount ?>"
+                                                        class="btn-td__btn"><img src="../contents/img/lock-icon.png"
+                                                            alt="" class="btn-td__btn__icon"></a>
+                                                </div>
+
+                                                <div id="<?php echo 'open-modal' . $toglerCount ?>"
+                                                    class="modal-window">
+                                                    <div>
+                                                        <a href="#" title="Close" class="modal-close">Close</a>
+                                                        <script
+                                                            src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js">
+                                                        </script>
+                                                        <lottie-player
+                                                            src="https://assets3.lottiefiles.com/packages/lf20_jllppvk7.json"
+                                                            background="transparent" speed="1"
+                                                            style="width: 50px; height:50px;" loop autoplay>
+                                                        </lottie-player>
+                                                        <form style="display:inline-block;"
+                                                            action="../controllers/userController.php?event=block"
+                                                            method="POST">
+                                                            <input type="hidden"
+                                                                value="<?php echo $instructor->user_id ?>"
+                                                                name="user_id">
+                                                            <div style="margin-top: 5rem;" class="form__input__group">
+                                                                <label for="reasons"
+                                                                    class="form__input__label">Reasons</label>
+                                                                <textarea style="padding: 1rem 2rem; height: auto;"
+                                                                    class="form__input" name="reasons" id="reasons"
+                                                                    cols="70" rows="5"
+                                                                    placeholder="Write here..."></textarea>
+                                                            </div>
+
+                                                            <input style="max-width: 20rem; margin-bottom: 4rem;"
+                                                                class="primary-btn primary-btn-form" type="submit"
+                                                                value="Block">
+                                                        </form>
+
+
+                                                    </div>
+                                                </div>
+
                                                 <?php }else{ ?>
                                                 <form style="display:inline-block;"
                                                     action="../controllers/userController.php?event=unblock"
@@ -549,7 +608,10 @@
     </div>
 
 
-    <script src="../contents/js/revenue-chart.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+    <script src="../contents/js/formValidator.js"></script>
+
 </body>
 
 </html>

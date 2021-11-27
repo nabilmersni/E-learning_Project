@@ -523,6 +523,7 @@
                         </div>
 
                         <div class="dash__instructor-home__content__right-side">
+                            .
                             <div class="dash__instructor-home__content__right-side__chart">
                                 <h1 class="chart-heading">Earnings this year</h1>
                                 <canvas class="line-graph"></canvas>

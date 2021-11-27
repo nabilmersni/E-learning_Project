@@ -290,4 +290,30 @@
         transform: perspective(1px) scale(1.02);
         box-shadow: 0 .5rem 3rem rgba(58, 41, 41, 0.1);
     }
+
+    &__addCart{
+        position: absolute;
+        top: 2.5%;
+        left: 50%;
+        z-index: 10;
+        transform: translateX(-50%);
+        background-color: rgba(101, 103, 243, 0.4);
+        width: 94%;
+        height: 16rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5rem;
+        transition: all 0.2s;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    &:hover > &__addCart{
+        opacity: 1;
+        visibility:visible;
+    }
+
+
+    
 }

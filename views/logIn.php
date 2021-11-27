@@ -134,6 +134,17 @@
                         }
                     }
 
+                    if (isset($_GET['changePass']) && !empty($_GET['changePass'])) {
+                
+                        $changePass = $_GET['changePass'];
+                        if($changePass == 'true'){
+                            echo '<div class="form_alert form_alert_success">
+                                    Your password changed successfully
+                                   </div>';
+                        }
+                    }
+                    
+
                  ?>
 
                 <div class="form__input__group">

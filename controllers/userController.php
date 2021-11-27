@@ -165,10 +165,11 @@ if (isset($_GET['event']) && !empty($_GET['event'])) {
             header('location:../views/login.php?changePass=true');        
     }
     else if ($event == "block") {
-        if(isset($_POST['user_id'])){
+        if(isset($_POST['user_id'])  ){
             $user_id = $_POST['user_id'];
-
-            $user = User::block($user_id);
+            $reasons = $_POST['reasons'];
+            
+            $user = User::block($user_id, $reasons);
 
             if($user->role == 'student'){
                 header('location:../views/dash_admin-users.php');        
@@ -181,6 +182,8 @@ if (isset($_GET['event']) && !empty($_GET['event'])) {
     else if ($event == "unblock") {
         if(isset($_POST['user_id'])){
             $user_id = $_POST['user_id'];
+
+            
 
             $user = User::unblock($user_id);
 
@@ -217,9 +220,14 @@ if (isset($_GET['event']) && !empty($_GET['event'])) {
             
     }
     else if ($event == "acceptCV") {
-        if(isset($_POST['user_id'])){
+        if(isset($_POST['user_id']) ){
             $user_id = $_POST['user_id'];
-            $user = User::acceptCV($user_id);
+            
+            if($_POST['cvStatus'] == "1"){
+                $user = User::acceptCV($user_id,1);
+            }else{
+                $user = User::acceptCV($user_id,0);
+            }
             header('location:../views/dash_admin-instructors.php');        
         }
     }

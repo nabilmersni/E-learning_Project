@@ -307,7 +307,7 @@
 			}
         }
 
-        static function block($user_id){
+        static function block($user_id, $reasons){
             $base = connect_to_db();
     
             $requette = "UPDATE users SET status= 0 where user_id = '$user_id'";            
@@ -315,8 +315,19 @@
             
             try {
                 $base->exec($requette);
-                $updatedUser = $base->query($requette2);
-                return $updatedUser->fetchObject();
+                $updatedUser = $base->query($requette2)->fetchObject();
+
+                $email_content = array(
+                    'Subject' => 'Account Suspended',
+                    'body' => "<h4>Hi $updatedUser->username,</h4><br/><br/>
+                    <h5>Your account is now disabled, it looks like it was being used in a way that violeted I Learn Policies.<h5/>
+                    <br/>
+                    Reasons: $reasons .
+                    "
+                );
+                User::sendemail($updatedUser->email,$email_content);
+
+                return $updatedUser;
             } catch (Exception $e){
 				echo 'Erreur: '.$e->getMessage();
 			}
@@ -352,16 +363,42 @@
 			}
         }
 
-        static function acceptCV($user_id){
+        static function acceptCV($user_id, $cvStatus){
             $base = connect_to_db();
     
-            $requette = "UPDATE users SET cv_status	= 1 where user_id = '$user_id'";            
+            $requette = "UPDATE users SET cv_status	= '$cvStatus' where user_id = '$user_id'";            
             $requette2 = "SELECT * from users where user_id = '$user_id'";
             
             try {
                 $base->exec($requette);
                 $updatedUser = $base->query($requette2);
                 return $updatedUser->fetchObject();
+            } catch (Exception $e){
+				echo 'Erreur: '.$e->getMessage();
+			}
+        }
+
+        static function getStudentsNumber(){
+            $base = connect_to_db();
+
+            $requette = "SELECT count(*) as total from users WHERE role ='student'";
+
+            try {
+                $data = $base->query($requette);
+                return $data->fetchObject();
+            } catch (Exception $e){
+				echo 'Erreur: '.$e->getMessage();
+			}
+        }
+
+        static function getInstructorsNumber(){
+            $base = connect_to_db();
+
+            $requette = "SELECT count(*) as total from users WHERE role ='instructor'";
+
+            try {
+                $data = $base->query($requette);
+                return $data->fetchObject();
             } catch (Exception $e){
 				echo 'Erreur: '.$e->getMessage();
 			}

@@ -1,4 +1,6 @@
 <?php 
+    require_once "../models/user.php";
+
     session_start();
     if (isset($_SESSION['user'])){
         $user = $_SESSION['user'];
@@ -8,6 +10,10 @@
     }else {
         header('location:../views/login.php?auth=false');
     }
+
+    $studentStat = User::getStudentsNumber();
+    $instructorStat = User::getInstructorsNumber();
+
 
 ?>
 
@@ -371,7 +377,8 @@
                         <h1 class="dash__top-bar__fullname"><?php echo $user->fullname ?></h1>
                         <div class="dash__top-bar__img-container">
                             <a href="./dash_admin-profile.php">
-                                <img class="dash__top-bar__img" src="<?php echo '../uploads/' . $user->img_url ?>" alt="">
+                                <img class="dash__top-bar__img" src="<?php echo '../uploads/' . $user->img_url ?>"
+                                    alt="">
                             </a>
                         </div>
                     </div>
@@ -413,6 +420,20 @@
 
                     <div class="dash__instructor-home__content">
                         <div class="dash__instructor-home__content__left-side">
+                            <div class="stat-box__container">
+                                <lottie-player class="stat-box__content__ill"
+                                    src="https://assets6.lottiefiles.com/packages/lf20_8zypnzws.json"
+                                    background="transparent" speed="1" loop autoplay>
+                                </lottie-player>
+                                <div class="stat-box__content">
+                                    <h1 class="stat-box__title">
+                                        Students Number
+                                    </h1>
+
+                                    <h2 class="stat-box__content__data"><?php echo $studentStat->total ?></h2>
+                                </div>
+
+                            </div>
                             <div class="dash__instructor-home__content__right-side__chart">
                                 <h1 class="chart-heading">Total Orders this year</h1>
                                 <canvas class="line-graph_orders"></canvas>
@@ -421,6 +442,21 @@
                         </div>
 
                         <div class="dash__instructor-home__content__right-side">
+                            <div class="stat-box__container">
+                                <lottie-player class="stat-box__content__ill stat-box__content__ill-1"
+                                    src="https://assets7.lottiefiles.com/packages/lf20_hzfmxrr7.json"
+                                    background="transparent" speed="1" loop autoplay>
+                                </lottie-player>
+                                <div class="stat-box__content">
+                                    <h1 class="stat-box__title">
+                                        Instructors Number
+                                    </h1>
+
+                                    <h2 class="stat-box__content__data"><?php echo $instructorStat->total ?></h2>
+                                </div>
+
+                            </div>
+
                             <div class="dash__instructor-home__content__right-side__chart">
                                 <h1 class="chart-heading">Total Earnings this year</h1>
                                 <canvas class="line-graph"></canvas>

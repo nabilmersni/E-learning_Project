@@ -160,6 +160,25 @@
     </nav>
 
     <main class="all-courses">
+        <div id="open-modal" class="modal-window cart_modal-window">
+            <div class="cart_modal">
+                <!-- <a href="#" title="Close" class="modal-close">Close</a> -->
+                <h2 class="cart_modal__title">
+                    Course Added To Cart Successfully
+                </h2>
+                <div class="cart_modal__btn-group">
+                    <a style="text-align: center; width: 25rem; margin-bottom:1rem;" href="#"
+                        class="primary-btn primary-btn-form">Continue
+                        Shopping
+                    </a>
+                    <a style="text-align: center; width: 15rem;" href="#" class="primary-btn primary-btn-form">
+                        Order
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
         <h1 class="all-courses__title">Browse All Courses</h1>
 
         <section class="all-courses__container">
@@ -180,8 +199,14 @@
             <div class="courses__container" style="border: none; padding: 0rem 3rem;">
                 <div class="courses__card-v3__container">
 
-                    <a style="text-decoration: none;" href="./user-side-course-detail.php">
-                        <div class="course__card-v3">
+                    <div class="course__card-v3">
+                        <div class="course__card-v3__addCart">
+                            <a style="border-radius: 50rem; text-align: center; width: 17rem;" href="#open-modal"
+                                class="primary-btn primary-btn-form">add to cart
+                            </a>
+                        </div>
+                        <a style="text-decoration: none; color:inherit;" href="./user-side-course-detail.php">
+
                             <div class="course__card-v3__thumbnail-container">
                                 <img src="../contents/img/course-cover.jpg" alt="course img"
                                     class="course__card-v3__thumbnail">
@@ -225,11 +250,17 @@
                                 </div>
 
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
 
-                    <a style="text-decoration: none;" href="./user-side-course-detail.php">
-                        <div class="course__card-v3">
+                    <div class="course__card-v3">
+                        <div class="course__card-v3__addCart">
+                            <a style="border-radius: 50rem; text-align: center; width: 17rem;" href="#open-modal"
+                                class="primary-btn primary-btn-form">add to cart
+                            </a>
+                        </div>
+                        <a style="text-decoration: none; color:inherit;" href="./user-side-course-detail.php">
+
                             <div class="course__card-v3__thumbnail-container">
                                 <img src="../contents/img/course-cover.jpg" alt="course img"
                                     class="course__card-v3__thumbnail">
@@ -273,11 +304,17 @@
                                 </div>
 
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
 
-                    <a style="text-decoration: none;" href="./user-side-course-detail.php">
-                        <div class="course__card-v3">
+                    <div class="course__card-v3">
+                        <div class="course__card-v3__addCart">
+                            <a style="border-radius: 50rem; text-align: center; width: 17rem;" href="#open-modal"
+                                class="primary-btn primary-btn-form">add to cart
+                            </a>
+                        </div>
+                        <a style="text-decoration: none; color:inherit;" href="./user-side-course-detail.php">
+
                             <div class="course__card-v3__thumbnail-container">
                                 <img src="../contents/img/course-cover.jpg" alt="course img"
                                     class="course__card-v3__thumbnail">
@@ -321,11 +358,17 @@
                                 </div>
 
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
 
-                    <a style="text-decoration: none;" href="./user-side-course-detail.php">
-                        <div class="course__card-v3">
+                    <div class="course__card-v3">
+                        <div class="course__card-v3__addCart">
+                            <a style="border-radius: 50rem; text-align: center; width: 17rem;" href="#open-modal"
+                                class="primary-btn primary-btn-form">add to cart
+                            </a>
+                        </div>
+                        <a style="text-decoration: none; color:inherit;" href="./user-side-course-detail.php">
+
                             <div class="course__card-v3__thumbnail-container">
                                 <img src="../contents/img/course-cover.jpg" alt="course img"
                                     class="course__card-v3__thumbnail">
@@ -369,200 +412,9 @@
                                 </div>
 
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
 
-                    <a style="text-decoration: none;" href="./user-side-course-detail.php">
-                        <div class="course__card-v3">
-                            <div class="course__card-v3__thumbnail-container">
-                                <img src="../contents/img/course-cover.jpg" alt="course img"
-                                    class="course__card-v3__thumbnail">
-                            </div>
-
-                            <div class="course__card-v3__category-price">
-                                <p class="course__card-v3__category">Development</p>
-                                <p class="course__card-v3__price">$235</p>
-                            </div>
-
-                            <h1 class="course__card-v3__title">The Complete JavaScript Course 2021:
-                                From Zero to Expert!
-                            </h1>
-
-                            <p class="course__card-v3__instructor-name">Jonas Schmedtmann</p>
-
-                            <div class="course__card-v3__stat">
-
-                                <div class="course__card-v3__stat__rating-container">
-                                    <p class="course__card-v3__stat__rating">5.0</p>
-                                    <div class="course__card-v3__stat__stars">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                    </div>
-                                    <p class="course__card-v3__stat__rating-count">(256321)</p>
-
-                                </div>
-
-                                <div class="course__card-v3__stat__student">
-                                    <img class="course__card-v3__stat__student-icon"
-                                        src="../contents/img/users-icon.png" alt="">
-                                    <p class="course__card-v3__stat__student-count">256321</p>
-                                </div>
-
-                            </div>
-                        </div>
-                    </a>
-
-                    <a style="text-decoration: none;" href="./user-side-course-detail.php">
-                        <div class="course__card-v3">
-                            <div class="course__card-v3__thumbnail-container">
-                                <img src="../contents/img/course-cover.jpg" alt="course img"
-                                    class="course__card-v3__thumbnail">
-                            </div>
-
-                            <div class="course__card-v3__category-price">
-                                <p class="course__card-v3__category">Development</p>
-                                <p class="course__card-v3__price">$235</p>
-                            </div>
-
-                            <h1 class="course__card-v3__title">The Complete JavaScript Course 2021:
-                                From Zero to Expert!
-                            </h1>
-
-                            <p class="course__card-v3__instructor-name">Jonas Schmedtmann</p>
-
-                            <div class="course__card-v3__stat">
-
-                                <div class="course__card-v3__stat__rating-container">
-                                    <p class="course__card-v3__stat__rating">5.0</p>
-                                    <div class="course__card-v3__stat__stars">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                    </div>
-                                    <p class="course__card-v3__stat__rating-count">(256321)</p>
-
-                                </div>
-
-                                <div class="course__card-v3__stat__student">
-                                    <img class="course__card-v3__stat__student-icon"
-                                        src="../contents/img/users-icon.png" alt="">
-                                    <p class="course__card-v3__stat__student-count">256321</p>
-                                </div>
-
-                            </div>
-                        </div>
-                    </a>
-
-                    <a style="text-decoration: none;" href="./user-side-course-detail.php">
-                        <div class="course__card-v3">
-                            <div class="course__card-v3__thumbnail-container">
-                                <img src="../contents/img/course-cover.jpg" alt="course img"
-                                    class="course__card-v3__thumbnail">
-                            </div>
-
-                            <div class="course__card-v3__category-price">
-                                <p class="course__card-v3__category">Development</p>
-                                <p class="course__card-v3__price">$235</p>
-                            </div>
-
-                            <h1 class="course__card-v3__title">The Complete JavaScript Course 2021:
-                                From Zero to Expert!
-                            </h1>
-
-                            <p class="course__card-v3__instructor-name">Jonas Schmedtmann</p>
-
-                            <div class="course__card-v3__stat">
-
-                                <div class="course__card-v3__stat__rating-container">
-                                    <p class="course__card-v3__stat__rating">5.0</p>
-                                    <div class="course__card-v3__stat__stars">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                    </div>
-                                    <p class="course__card-v3__stat__rating-count">(256321)</p>
-
-                                </div>
-
-                                <div class="course__card-v3__stat__student">
-                                    <img class="course__card-v3__stat__student-icon"
-                                        src="../contents/img/users-icon.png" alt="">
-                                    <p class="course__card-v3__stat__student-count">256321</p>
-                                </div>
-
-                            </div>
-                        </div>
-                    </a>
-
-                    <a style="text-decoration: none;" href="./user-side-course-detail.php">
-                        <div class="course__card-v3">
-                            <div class="course__card-v3__thumbnail-container">
-                                <img src="../contents/img/course-cover.jpg" alt="course img"
-                                    class="course__card-v3__thumbnail">
-                            </div>
-
-                            <div class="course__card-v3__category-price">
-                                <p class="course__card-v3__category">Development</p>
-                                <p class="course__card-v3__price">$235</p>
-                            </div>
-
-                            <h1 class="course__card-v3__title">The Complete JavaScript Course 2021:
-                                From Zero to Expert!
-                            </h1>
-
-                            <p class="course__card-v3__instructor-name">Jonas Schmedtmann</p>
-
-                            <div class="course__card-v3__stat">
-
-                                <div class="course__card-v3__stat__rating-container">
-                                    <p class="course__card-v3__stat__rating">5.0</p>
-                                    <div class="course__card-v3__stat__stars">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                        <img src="../contents/img/star-icon.png" alt=""
-                                            class="course__card-v3__stat__star-icon">
-                                    </div>
-                                    <p class="course__card-v3__stat__rating-count">(256321)</p>
-
-                                </div>
-
-                                <div class="course__card-v3__stat__student">
-                                    <img class="course__card-v3__stat__student-icon"
-                                        src="../contents/img/users-icon.png" alt="">
-                                    <p class="course__card-v3__stat__student-count">256321</p>
-                                </div>
-
-                            </div>
-                        </div>
-                    </a>
 
 
                 </div>
