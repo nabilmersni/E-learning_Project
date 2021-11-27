@@ -217,7 +217,7 @@
                     </div>
                 </div>
 
-                <a href="#" class="secondary-btn secondary-btn-topbar">
+                <a href="dash_instructor-courses-add.php" class="secondary-btn secondary-btn-topbar">
                     Add New Course
 
                     <div class="secondary-btn__svg-container">

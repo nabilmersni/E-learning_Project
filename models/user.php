@@ -26,7 +26,7 @@
 
 
         static function used_email($email){
-            $base = connect_to_db();
+            $base = config::getConnexion();
             $requette = "SELECT * from users WHERE email ='$email'";
             $data = $base->query($requette);
             if($data->rowCount() == 1){
@@ -36,7 +36,7 @@
         }
 
         static function used_username($username){
-            $base = connect_to_db();
+            $base = config::getConnexion();
             $requette = "SELECT * from users WHERE username ='$username'";
             $data = $base->query($requette);
             
@@ -72,7 +72,7 @@
         }
         
         function signup(){
-            $base = connect_to_db();
+            $base = config::getConnexion();
     
             if($this->used_email($this->email)){
                 header('location:../views/signUp.php?used_email=true');
@@ -103,7 +103,7 @@
         }
 
         static function getAllStudents(){
-            $base = connect_to_db();
+            $base = config::getConnexion();
 
             $requette = "SELECT * from users WHERE role ='student'";
 
@@ -116,7 +116,7 @@
         }
 
         static function getAllInstructors(){
-            $base = connect_to_db();
+            $base = config::getConnexion();
 
             $requette = "SELECT * from users WHERE role ='instructor'";
 
@@ -129,7 +129,7 @@
         }
 
         static function getOneUser($user_id){
-            $base = connect_to_db();
+            $base = config::getConnexion();
 
             $requette = "SELECT * from users WHERE user_id ='$user_id'";
 
@@ -142,7 +142,7 @@
         }
 
         static function getOneUserByEmail($email){
-            $base = connect_to_db();
+            $base = config::getConnexion();
 
             $requette = "SELECT * from users WHERE email ='$email'";
 
@@ -155,7 +155,7 @@
         }
 
         static function delete($user_id){
-            $base = connect_to_db();
+            $base = config::getConnexion();
     
             $requette = "DELETE from users where user_id = '$user_id'";
 
@@ -168,7 +168,7 @@
         }
 
         function update($user_id){
-            $base = connect_to_db();
+            $base = config::getConnexion();
     
             $requette = "UPDATE users SET 
                             fullname='$this->fullname' , 
@@ -197,7 +197,7 @@
         }
 
         function login(){
-            $base = connect_to_db();
+            $base = config::getConnexion();
 
             $requette = "SELECT * from users where email='$this->email' and password='$this->password'";
 
@@ -244,7 +244,7 @@
         }
 
         static function verify_email($email, $token){
-            $base = connect_to_db();
+            $base = config::getConnexion();
 
             $requette = "SELECT * from users where email='$email'";
 
@@ -265,7 +265,7 @@
         }
 
         static function send_reset_pass_link($email){
-            $base = connect_to_db();
+            $base = config::getConnexion();
 
             $token = substr(str_shuffle("0123456789abcdefghijklmnopqrstvwxyz"), 0, 49);
             $requette = "UPDATE users SET token='$token' where email = '$email'";
@@ -290,7 +290,7 @@
         }
 
         function changePassword($email){
-            $base = connect_to_db();
+            $base = config::getConnexion();
     
             $requette = "UPDATE users SET password = '$this->password' where email = '$email'";
 
@@ -308,7 +308,7 @@
         }
 
         static function block($user_id, $reasons){
-            $base = connect_to_db();
+            $base = config::getConnexion();
     
             $requette = "UPDATE users SET status= 0 where user_id = '$user_id'";            
             $requette2 = "SELECT * from users where user_id = '$user_id'";
@@ -334,7 +334,7 @@
         }
 
         static function unblock($user_id){
-            $base = connect_to_db();
+            $base = config::getConnexion();
     
             $requette = "UPDATE users SET status= 1 where user_id = '$user_id'";            
             $requette2 = "SELECT * from users where user_id = '$user_id'";
@@ -349,7 +349,7 @@
         }
 
         function uploadCV($user_id){
-            $base = connect_to_db();
+            $base = config::getConnexion();
     
             $requette = "UPDATE users SET cv_url= '$this->cv_url' where user_id = '$user_id'";            
             $requette2 = "SELECT * from users where user_id = '$user_id'";
@@ -364,7 +364,7 @@
         }
 
         static function acceptCV($user_id, $cvStatus){
-            $base = connect_to_db();
+            $base = config::getConnexion();
     
             $requette = "UPDATE users SET cv_status	= '$cvStatus' where user_id = '$user_id'";            
             $requette2 = "SELECT * from users where user_id = '$user_id'";
@@ -379,7 +379,7 @@
         }
 
         static function getStudentsNumber(){
-            $base = connect_to_db();
+            $base = config::getConnexion();
 
             $requette = "SELECT count(*) as total from users WHERE role ='student'";
 
@@ -392,7 +392,7 @@
         }
 
         static function getInstructorsNumber(){
-            $base = connect_to_db();
+            $base = config::getConnexion();
 
             $requette = "SELECT count(*) as total from users WHERE role ='instructor'";
 

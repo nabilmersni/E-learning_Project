@@ -9,6 +9,11 @@
         header('location:../views/login.php?auth=false');
     }
 
+    include_once('../controllers/formationC.php');
+     
+    $formationC = new FormationC();
+    $listeFormations = $formationC->afficher_formations();
+
 ?>
 
 <html lang="en">
@@ -33,7 +38,7 @@
             <img class="dash__side-bar__logo" src="../contents/img/logo-icon-nobg.png" alt="logo">
 
             <div class="dash__side-bar__list">
-                <a href="./dash_admin-home.php" class="dash__side-bar__item ">
+                <a href="./dash_admin-home.html" class="dash__side-bar__item ">
                     <div class="dash__side-bar__item__icon">
                         <svg class="dash__side-bar__item__icon-svg" id="dashboard-icon"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44.432 44.432">
@@ -56,7 +61,7 @@
                     <h1 class="dash__side-bar__item__txt">Dashboard</h1>
                 </a>
 
-                <a href="./dash_admin-users.php" class="dash__side-bar__item">
+                <a href="./dash_admin-users.html" class="dash__side-bar__item">
                     <div class="dash__side-bar__item__icon">
 
                         <svg class="dash__side-bar__item__icon-svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -139,7 +144,7 @@
                     <h1 class="dash__side-bar__item__txt">Users</h1>
                 </a>
 
-                <a href="./dash_admin-instructors.php" class="dash__side-bar__item ">
+                <a href="./dash_admin-instructors.html" class="dash__side-bar__item ">
                     <div class="dash__side-bar__item__icon">
                         <svg class="dash__side-bar__item__icon-svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
                             xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" x="0" y="0"
@@ -248,7 +253,7 @@
                     <h1 class="dash__side-bar__item__txt">Courses</h1>
                 </a>
 
-                <a href="./dash_admin-profile.php" class="dash__side-bar__item">
+                <a href="./dash_admin-profile.html" class="dash__side-bar__item">
                     <div class="dash__side-bar__item__icon">
 
                         <svg class="dash__side-bar__item__icon-svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -326,53 +331,45 @@
         <div class="dash__container">
             <nav class="dash__top-bar">
                 <div class="dash__top-bar__container">
-                    <ul class="navigation__list">
-                        <li class="navigation__item"><a href="./user-side-courses.php"
-                                class="navigation__link user-side__top-bar__link">Go to Student view</a></li>
-                    </ul>
                     <div class="dash__top-bar__container__left">
 
-                        <a href="../controllers/userController.php?event=logout">
-                            <div class="dash__top-bar__svg-container">
-                                <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 46.917 46.917">
-                                    <g id="logout-icon" transform="translate(0 -0.004)">
-                                        <path id="Path_1043" data-name="Path 1043"
-                                            d="M29.323,25.417a1.954,1.954,0,0,0-1.955,1.955v7.82a1.957,1.957,0,0,1-1.955,1.955H19.548V7.823a3.94,3.94,0,0,0-2.662-3.716l-.579-.194h9.106a1.957,1.957,0,0,1,1.955,1.955v5.865a1.955,1.955,0,0,0,3.909,0V5.868A5.872,5.872,0,0,0,25.413,0H4.4a1.535,1.535,0,0,0-.209.043C4.1.039,4.005,0,3.91,0A3.913,3.913,0,0,0,0,3.913V39.1a3.94,3.94,0,0,0,2.662,3.716l11.765,3.922a4.047,4.047,0,0,0,1.212.182,3.913,3.913,0,0,0,3.909-3.91V41.056h5.865a5.872,5.872,0,0,0,5.865-5.865v-7.82a1.954,1.954,0,0,0-1.955-1.955Zm0,0"
-                                            fill="currentColor" />
-                                        <path id="Path_1044" data-name="Path 1044"
-                                            d="M298.263,115.058l-7.82-7.819a1.954,1.954,0,0,0-3.337,1.382v5.865h-7.819a1.955,1.955,0,1,0,0,3.909h7.819v5.865a1.954,1.954,0,0,0,3.337,1.382l7.82-7.82a1.953,1.953,0,0,0,0-2.764Zm0,0"
-                                            transform="translate(-251.919 -96.888)" fill="currentColor" />
-                                    </g>
-                                </svg>
-                            </div>
-                        </a>
+                        <div class="dash__top-bar__svg-container">
+                            <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 46.917 46.917">
+                                <g id="logout-icon" transform="translate(0 -0.004)">
+                                    <path id="Path_1043" data-name="Path 1043"
+                                        d="M29.323,25.417a1.954,1.954,0,0,0-1.955,1.955v7.82a1.957,1.957,0,0,1-1.955,1.955H19.548V7.823a3.94,3.94,0,0,0-2.662-3.716l-.579-.194h9.106a1.957,1.957,0,0,1,1.955,1.955v5.865a1.955,1.955,0,0,0,3.909,0V5.868A5.872,5.872,0,0,0,25.413,0H4.4a1.535,1.535,0,0,0-.209.043C4.1.039,4.005,0,3.91,0A3.913,3.913,0,0,0,0,3.913V39.1a3.94,3.94,0,0,0,2.662,3.716l11.765,3.922a4.047,4.047,0,0,0,1.212.182,3.913,3.913,0,0,0,3.909-3.91V41.056h5.865a5.872,5.872,0,0,0,5.865-5.865v-7.82a1.954,1.954,0,0,0-1.955-1.955Zm0,0"
+                                        fill="currentColor" />
+                                    <path id="Path_1044" data-name="Path 1044"
+                                        d="M298.263,115.058l-7.82-7.819a1.954,1.954,0,0,0-3.337,1.382v5.865h-7.819a1.955,1.955,0,1,0,0,3.909h7.819v5.865a1.954,1.954,0,0,0,3.337,1.382l7.82-7.82a1.953,1.953,0,0,0,0-2.764Zm0,0"
+                                        transform="translate(-251.919 -96.888)" fill="currentColor" />
+                                </g>
+                            </svg>
+                        </div>
 
                         <div class="divider"></div>
 
-                        <a href="#">
-                            <div class="dash__top-bar__svg-container">
-                                <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 43.026 34.421">
-                                    <g id="message-icon" transform="translate(0)">
-                                        <path id="Path_1045" data-name="Path 1045"
-                                            d="M43.921,8.5A5.284,5.284,0,0,0,38.711,4H6.266a5.284,5.284,0,0,0-5.21,4.5L22.489,22.371Z"
-                                            transform="translate(-0.976 -4)" fill="currentColor" />
-                                        <path id="Path_1046" data-name="Path 1046"
-                                            d="M23.292,22.9a1.434,1.434,0,0,1-1.558,0L1,9.486V30.748a5.3,5.3,0,0,0,5.291,5.291H38.735a5.3,5.3,0,0,0,5.291-5.291V9.485Z"
-                                            transform="translate(-1 -1.618)" fill="currentColor" />
-                                    </g>
-                                </svg>
-                            </div>
-                        </a>
+                        <div class="dash__top-bar__svg-container">
+                            <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 43.026 34.421">
+                                <g id="message-icon" transform="translate(0)">
+                                    <path id="Path_1045" data-name="Path 1045"
+                                        d="M43.921,8.5A5.284,5.284,0,0,0,38.711,4H6.266a5.284,5.284,0,0,0-5.21,4.5L22.489,22.371Z"
+                                        transform="translate(-0.976 -4)" fill="currentColor" />
+                                    <path id="Path_1046" data-name="Path 1046"
+                                        d="M23.292,22.9a1.434,1.434,0,0,1-1.558,0L1,9.486V30.748a5.3,5.3,0,0,0,5.291,5.291H38.735a5.3,5.3,0,0,0,5.291-5.291V9.485Z"
+                                        transform="translate(-1 -1.618)" fill="currentColor" />
+                                </g>
+                            </svg>
+                        </div>
 
                     </div>
 
                     <div class="dash__top-bar__container__right">
-                        <h1 class="dash__top-bar__fullname"><?php echo $user->fullname ?></h1>
+                        <h1 class="dash__top-bar__fullname">Nabil Mersni</h1>
                         <div class="dash__top-bar__img-container">
-                            <a href="./dash_admin-profile.php">
-                                <img class="dash__top-bar__img" src="<?php echo '../uploads/' . $user->img_url ?>" alt="">
+                            <a href="./dash_admin-profile.html">
+                                <img class="dash__top-bar__img" src="../contents/img/me.jpg" alt="">
                             </a>
                         </div>
                     </div>
@@ -383,25 +380,28 @@
 
             <div class="dash__content">
                 <div class="dash__instructor-my-courses">
-                    <h1 style="margin-bottom: 7rem; color: #6568F3; font-size: 3rem;"
-                        class="dash__instructor-my-courses__title">Courses List</h1>
+                    <h1 style="margin-bottom: 7rem; color: #6568F3; font-size: 3rem;" class="dash__instructor-my-courses__title">Courses List</h1>
+                    <?php
+
+                        foreach($listeFormations as $formation){ 
+                    ?>
                     <div class="course__card-v2">
                         <div class="course__card-v2__img-container">
-                            <img src="../contents/img/course-cover.jpg" alt="" class="course__card-v2__img">
+                            <img src="formation_code/uploads/<?php echo $formation['image']; ?>" alt="" class="course__card-v2__img">
                         </div>
 
                         <div class="course__card-v2__content">
                             <h1 class="course__card-v2__title">
-                                The Complete JavaScript Course 2021:From Zero to Expert!
+                                <?php echo $formation['name']; ?>
                             </h1>
 
                             <div class="course__card-v2__cate-action">
                                 <div class="course__card-v2__category">
-                                    Development
+                                    <?php echo $formation['categorie']; ?>
                                 </div>
 
                                 <div class="course__card-v2__action-btns">
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-view">
+                                    <a href="course-details.php?id=<?php echo $formation['formation_id']; ?>" class="course__card-v2__btn course__card-v2__btn-view">
                                         <svg class="course__card-v2__btn-icon" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 31.995 21">
                                             <g id="see-icon" transform="translate(-0.002 -5.5)">
@@ -432,7 +432,7 @@
 
                                     </a>
 
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-delete">
+                                    <a href="./formation_code/delete_formation.php?id=<?php echo $formation['formation_id']; ?>" class="course__card-v2__btn course__card-v2__btn-delete">
 
                                         <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-delete"
                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.884 34.856">
@@ -458,370 +458,10 @@
 
                     </div>
 
-                    <div class="course__card-v2">
-                        <div class="course__card-v2__img-container">
-                            <img src="../contents/img/course-cover.jpg" alt="" class="course__card-v2__img">
-                        </div>
+                    <?php       
+                        }  
+                    ?>
 
-                        <div class="course__card-v2__content">
-                            <h1 class="course__card-v2__title">
-                                The Complete JavaScript Course 2021:From Zero to Expert!
-                            </h1>
-
-                            <div class="course__card-v2__cate-action">
-                                <div class="course__card-v2__category">
-                                    Development
-                                </div>
-
-                                <div class="course__card-v2__action-btns">
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-view">
-                                        <svg class="course__card-v2__btn-icon" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 31.995 21">
-                                            <g id="see-icon" transform="translate(-0.002 -5.5)">
-                                                <path id="Path_1047" data-name="Path 1047"
-                                                    d="M16,5.5A17.674,17.674,0,0,0,.1,15.55a1.11,1.11,0,0,0,0,.91,17.61,17.61,0,0,0,31.8,0,1.11,1.11,0,0,0,0-.91A17.674,17.674,0,0,0,16,5.5Zm0,16.84A6.34,6.34,0,1,1,22.34,16,6.355,6.355,0,0,1,16,22.34Z"
-                                                    fill="#fff" />
-                                                <circle id="Ellipse_34" data-name="Ellipse 34" cx="4.2" cy="4.2" r="4.2"
-                                                    transform="translate(11.8 11.8)" fill="#fff" />
-                                            </g>
-                                        </svg>
-                                    </a>
-
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-update">
-
-                                        <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-update"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.816 35.972">
-                                            <g id="update-icon" transform="translate(-0.757)">
-                                                <g id="Group_34" data-name="Group 34" transform="translate(0.757)">
-                                                    <path id="Path_1056" data-name="Path 1056"
-                                                        d="M119.026,1.212l-.043-.039a4.482,4.482,0,0,0-6.332.286L96.633,19a1.546,1.546,0,0,0-.325.554L94.424,25.2a2.147,2.147,0,0,0,2.033,2.827h0a2.139,2.139,0,0,0,.862-.181l5.453-2.386a1.545,1.545,0,0,0,.522-.374L119.313,7.545A4.487,4.487,0,0,0,119.026,1.212ZM98.033,24.152l1.105-3.313.093-.1,2.095,1.913-.093.1Zm19-18.694L103.412,20.366l-2.095-1.913L114.934,3.545a1.389,1.389,0,0,1,1.963-.088l.043.039A1.39,1.39,0,0,1,117.029,5.459Z"
-                                                        transform="translate(-84.668)" fill="#fff" />
-                                                    <path id="Path_1057" data-name="Path 1057"
-                                                        d="M32.008,43.208a1.547,1.547,0,0,0-1.547,1.547v13.13a3.938,3.938,0,0,1-3.933,3.933H7.783A3.938,3.938,0,0,1,3.85,57.885V39.292a3.938,3.938,0,0,1,3.933-3.933H21.351a1.547,1.547,0,1,0,0-3.093H7.783A7.034,7.034,0,0,0,.757,39.292V57.885a7.034,7.034,0,0,0,7.026,7.026H26.528a7.034,7.034,0,0,0,7.026-7.026V44.754A1.546,1.546,0,0,0,32.008,43.208Z"
-                                                        transform="translate(-0.757 -28.939)" fill="#fff" />
-                                                </g>
-                                            </g>
-                                        </svg>
-
-                                    </a>
-
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-delete">
-
-                                        <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-delete"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.884 34.856">
-                                            <g id="delete-icon" transform="translate(-9 -4.998)">
-                                                <g id="Icons" transform="translate(9 4.998)">
-                                                    <path id="Path_1060" data-name="Path 1060"
-                                                        d="M36.884,10.228h-6.1V8.267A3.381,3.381,0,0,0,27.3,5H18.585A3.381,3.381,0,0,0,15.1,8.267v1.961H9v1.743h1.743V33.755a6.1,6.1,0,0,0,6.1,6.1h12.2a6.1,6.1,0,0,0,6.1-6.1V11.971h1.743ZM16.842,8.267a1.647,1.647,0,0,1,1.743-1.525H27.3a1.647,1.647,0,0,1,1.743,1.525v1.961h-12.2ZM33.4,33.755a4.357,4.357,0,0,1-4.357,4.357h-12.2a4.357,4.357,0,0,1-4.357-4.357V11.971H33.4Z"
-                                                        transform="translate(-9 -4.998)" fill="#fff" />
-                                                    <path id="Path_1061" data-name="Path 1061"
-                                                        d="M19,19h1.743V34.685H19Z"
-                                                        transform="translate(-10.286 -6.799)" fill="#fff" />
-                                                    <path id="Path_1062" data-name="Path 1062"
-                                                        d="M29,19h1.743V34.685H29Z"
-                                                        transform="translate(-11.573 -6.799)" fill="#fff" />
-                                                </g>
-                                            </g>
-                                        </svg>
-
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="course__card-v2">
-                        <div class="course__card-v2__img-container">
-                            <img src="../contents/img/course-cover.jpg" alt="" class="course__card-v2__img">
-                        </div>
-
-                        <div class="course__card-v2__content">
-                            <h1 class="course__card-v2__title">
-                                The Complete JavaScript Course 2021:From Zero to Expert!
-                            </h1>
-
-                            <div class="course__card-v2__cate-action">
-                                <div class="course__card-v2__category">
-                                    Development
-                                </div>
-
-                                <div class="course__card-v2__action-btns">
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-view">
-                                        <svg class="course__card-v2__btn-icon" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 31.995 21">
-                                            <g id="see-icon" transform="translate(-0.002 -5.5)">
-                                                <path id="Path_1047" data-name="Path 1047"
-                                                    d="M16,5.5A17.674,17.674,0,0,0,.1,15.55a1.11,1.11,0,0,0,0,.91,17.61,17.61,0,0,0,31.8,0,1.11,1.11,0,0,0,0-.91A17.674,17.674,0,0,0,16,5.5Zm0,16.84A6.34,6.34,0,1,1,22.34,16,6.355,6.355,0,0,1,16,22.34Z"
-                                                    fill="#fff" />
-                                                <circle id="Ellipse_34" data-name="Ellipse 34" cx="4.2" cy="4.2" r="4.2"
-                                                    transform="translate(11.8 11.8)" fill="#fff" />
-                                            </g>
-                                        </svg>
-                                    </a>
-
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-update">
-
-                                        <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-update"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.816 35.972">
-                                            <g id="update-icon" transform="translate(-0.757)">
-                                                <g id="Group_34" data-name="Group 34" transform="translate(0.757)">
-                                                    <path id="Path_1056" data-name="Path 1056"
-                                                        d="M119.026,1.212l-.043-.039a4.482,4.482,0,0,0-6.332.286L96.633,19a1.546,1.546,0,0,0-.325.554L94.424,25.2a2.147,2.147,0,0,0,2.033,2.827h0a2.139,2.139,0,0,0,.862-.181l5.453-2.386a1.545,1.545,0,0,0,.522-.374L119.313,7.545A4.487,4.487,0,0,0,119.026,1.212ZM98.033,24.152l1.105-3.313.093-.1,2.095,1.913-.093.1Zm19-18.694L103.412,20.366l-2.095-1.913L114.934,3.545a1.389,1.389,0,0,1,1.963-.088l.043.039A1.39,1.39,0,0,1,117.029,5.459Z"
-                                                        transform="translate(-84.668)" fill="#fff" />
-                                                    <path id="Path_1057" data-name="Path 1057"
-                                                        d="M32.008,43.208a1.547,1.547,0,0,0-1.547,1.547v13.13a3.938,3.938,0,0,1-3.933,3.933H7.783A3.938,3.938,0,0,1,3.85,57.885V39.292a3.938,3.938,0,0,1,3.933-3.933H21.351a1.547,1.547,0,1,0,0-3.093H7.783A7.034,7.034,0,0,0,.757,39.292V57.885a7.034,7.034,0,0,0,7.026,7.026H26.528a7.034,7.034,0,0,0,7.026-7.026V44.754A1.546,1.546,0,0,0,32.008,43.208Z"
-                                                        transform="translate(-0.757 -28.939)" fill="#fff" />
-                                                </g>
-                                            </g>
-                                        </svg>
-
-                                    </a>
-
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-delete">
-
-                                        <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-delete"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.884 34.856">
-                                            <g id="delete-icon" transform="translate(-9 -4.998)">
-                                                <g id="Icons" transform="translate(9 4.998)">
-                                                    <path id="Path_1060" data-name="Path 1060"
-                                                        d="M36.884,10.228h-6.1V8.267A3.381,3.381,0,0,0,27.3,5H18.585A3.381,3.381,0,0,0,15.1,8.267v1.961H9v1.743h1.743V33.755a6.1,6.1,0,0,0,6.1,6.1h12.2a6.1,6.1,0,0,0,6.1-6.1V11.971h1.743ZM16.842,8.267a1.647,1.647,0,0,1,1.743-1.525H27.3a1.647,1.647,0,0,1,1.743,1.525v1.961h-12.2ZM33.4,33.755a4.357,4.357,0,0,1-4.357,4.357h-12.2a4.357,4.357,0,0,1-4.357-4.357V11.971H33.4Z"
-                                                        transform="translate(-9 -4.998)" fill="#fff" />
-                                                    <path id="Path_1061" data-name="Path 1061"
-                                                        d="M19,19h1.743V34.685H19Z"
-                                                        transform="translate(-10.286 -6.799)" fill="#fff" />
-                                                    <path id="Path_1062" data-name="Path 1062"
-                                                        d="M29,19h1.743V34.685H29Z"
-                                                        transform="translate(-11.573 -6.799)" fill="#fff" />
-                                                </g>
-                                            </g>
-                                        </svg>
-
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="course__card-v2">
-                        <div class="course__card-v2__img-container">
-                            <img src="../contents/img/course-cover.jpg" alt="" class="course__card-v2__img">
-                        </div>
-
-                        <div class="course__card-v2__content">
-                            <h1 class="course__card-v2__title">
-                                The Complete JavaScript Course 2021:From Zero to Expert!
-                            </h1>
-
-                            <div class="course__card-v2__cate-action">
-                                <div class="course__card-v2__category">
-                                    Development
-                                </div>
-
-                                <div class="course__card-v2__action-btns">
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-view">
-                                        <svg class="course__card-v2__btn-icon" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 31.995 21">
-                                            <g id="see-icon" transform="translate(-0.002 -5.5)">
-                                                <path id="Path_1047" data-name="Path 1047"
-                                                    d="M16,5.5A17.674,17.674,0,0,0,.1,15.55a1.11,1.11,0,0,0,0,.91,17.61,17.61,0,0,0,31.8,0,1.11,1.11,0,0,0,0-.91A17.674,17.674,0,0,0,16,5.5Zm0,16.84A6.34,6.34,0,1,1,22.34,16,6.355,6.355,0,0,1,16,22.34Z"
-                                                    fill="#fff" />
-                                                <circle id="Ellipse_34" data-name="Ellipse 34" cx="4.2" cy="4.2" r="4.2"
-                                                    transform="translate(11.8 11.8)" fill="#fff" />
-                                            </g>
-                                        </svg>
-                                    </a>
-
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-update">
-
-                                        <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-update"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.816 35.972">
-                                            <g id="update-icon" transform="translate(-0.757)">
-                                                <g id="Group_34" data-name="Group 34" transform="translate(0.757)">
-                                                    <path id="Path_1056" data-name="Path 1056"
-                                                        d="M119.026,1.212l-.043-.039a4.482,4.482,0,0,0-6.332.286L96.633,19a1.546,1.546,0,0,0-.325.554L94.424,25.2a2.147,2.147,0,0,0,2.033,2.827h0a2.139,2.139,0,0,0,.862-.181l5.453-2.386a1.545,1.545,0,0,0,.522-.374L119.313,7.545A4.487,4.487,0,0,0,119.026,1.212ZM98.033,24.152l1.105-3.313.093-.1,2.095,1.913-.093.1Zm19-18.694L103.412,20.366l-2.095-1.913L114.934,3.545a1.389,1.389,0,0,1,1.963-.088l.043.039A1.39,1.39,0,0,1,117.029,5.459Z"
-                                                        transform="translate(-84.668)" fill="#fff" />
-                                                    <path id="Path_1057" data-name="Path 1057"
-                                                        d="M32.008,43.208a1.547,1.547,0,0,0-1.547,1.547v13.13a3.938,3.938,0,0,1-3.933,3.933H7.783A3.938,3.938,0,0,1,3.85,57.885V39.292a3.938,3.938,0,0,1,3.933-3.933H21.351a1.547,1.547,0,1,0,0-3.093H7.783A7.034,7.034,0,0,0,.757,39.292V57.885a7.034,7.034,0,0,0,7.026,7.026H26.528a7.034,7.034,0,0,0,7.026-7.026V44.754A1.546,1.546,0,0,0,32.008,43.208Z"
-                                                        transform="translate(-0.757 -28.939)" fill="#fff" />
-                                                </g>
-                                            </g>
-                                        </svg>
-
-                                    </a>
-
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-delete">
-
-                                        <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-delete"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.884 34.856">
-                                            <g id="delete-icon" transform="translate(-9 -4.998)">
-                                                <g id="Icons" transform="translate(9 4.998)">
-                                                    <path id="Path_1060" data-name="Path 1060"
-                                                        d="M36.884,10.228h-6.1V8.267A3.381,3.381,0,0,0,27.3,5H18.585A3.381,3.381,0,0,0,15.1,8.267v1.961H9v1.743h1.743V33.755a6.1,6.1,0,0,0,6.1,6.1h12.2a6.1,6.1,0,0,0,6.1-6.1V11.971h1.743ZM16.842,8.267a1.647,1.647,0,0,1,1.743-1.525H27.3a1.647,1.647,0,0,1,1.743,1.525v1.961h-12.2ZM33.4,33.755a4.357,4.357,0,0,1-4.357,4.357h-12.2a4.357,4.357,0,0,1-4.357-4.357V11.971H33.4Z"
-                                                        transform="translate(-9 -4.998)" fill="#fff" />
-                                                    <path id="Path_1061" data-name="Path 1061"
-                                                        d="M19,19h1.743V34.685H19Z"
-                                                        transform="translate(-10.286 -6.799)" fill="#fff" />
-                                                    <path id="Path_1062" data-name="Path 1062"
-                                                        d="M29,19h1.743V34.685H29Z"
-                                                        transform="translate(-11.573 -6.799)" fill="#fff" />
-                                                </g>
-                                            </g>
-                                        </svg>
-
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="course__card-v2">
-                        <div class="course__card-v2__img-container">
-                            <img src="../contents/img/course-cover.jpg" alt="" class="course__card-v2__img">
-                        </div>
-
-                        <div class="course__card-v2__content">
-                            <h1 class="course__card-v2__title">
-                                The Complete JavaScript Course 2021:From Zero to Expert!
-                            </h1>
-
-                            <div class="course__card-v2__cate-action">
-                                <div class="course__card-v2__category">
-                                    Development
-                                </div>
-
-                                <div class="course__card-v2__action-btns">
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-view">
-                                        <svg class="course__card-v2__btn-icon" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 31.995 21">
-                                            <g id="see-icon" transform="translate(-0.002 -5.5)">
-                                                <path id="Path_1047" data-name="Path 1047"
-                                                    d="M16,5.5A17.674,17.674,0,0,0,.1,15.55a1.11,1.11,0,0,0,0,.91,17.61,17.61,0,0,0,31.8,0,1.11,1.11,0,0,0,0-.91A17.674,17.674,0,0,0,16,5.5Zm0,16.84A6.34,6.34,0,1,1,22.34,16,6.355,6.355,0,0,1,16,22.34Z"
-                                                    fill="#fff" />
-                                                <circle id="Ellipse_34" data-name="Ellipse 34" cx="4.2" cy="4.2" r="4.2"
-                                                    transform="translate(11.8 11.8)" fill="#fff" />
-                                            </g>
-                                        </svg>
-                                    </a>
-
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-update">
-
-                                        <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-update"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.816 35.972">
-                                            <g id="update-icon" transform="translate(-0.757)">
-                                                <g id="Group_34" data-name="Group 34" transform="translate(0.757)">
-                                                    <path id="Path_1056" data-name="Path 1056"
-                                                        d="M119.026,1.212l-.043-.039a4.482,4.482,0,0,0-6.332.286L96.633,19a1.546,1.546,0,0,0-.325.554L94.424,25.2a2.147,2.147,0,0,0,2.033,2.827h0a2.139,2.139,0,0,0,.862-.181l5.453-2.386a1.545,1.545,0,0,0,.522-.374L119.313,7.545A4.487,4.487,0,0,0,119.026,1.212ZM98.033,24.152l1.105-3.313.093-.1,2.095,1.913-.093.1Zm19-18.694L103.412,20.366l-2.095-1.913L114.934,3.545a1.389,1.389,0,0,1,1.963-.088l.043.039A1.39,1.39,0,0,1,117.029,5.459Z"
-                                                        transform="translate(-84.668)" fill="#fff" />
-                                                    <path id="Path_1057" data-name="Path 1057"
-                                                        d="M32.008,43.208a1.547,1.547,0,0,0-1.547,1.547v13.13a3.938,3.938,0,0,1-3.933,3.933H7.783A3.938,3.938,0,0,1,3.85,57.885V39.292a3.938,3.938,0,0,1,3.933-3.933H21.351a1.547,1.547,0,1,0,0-3.093H7.783A7.034,7.034,0,0,0,.757,39.292V57.885a7.034,7.034,0,0,0,7.026,7.026H26.528a7.034,7.034,0,0,0,7.026-7.026V44.754A1.546,1.546,0,0,0,32.008,43.208Z"
-                                                        transform="translate(-0.757 -28.939)" fill="#fff" />
-                                                </g>
-                                            </g>
-                                        </svg>
-
-                                    </a>
-
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-delete">
-
-                                        <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-delete"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.884 34.856">
-                                            <g id="delete-icon" transform="translate(-9 -4.998)">
-                                                <g id="Icons" transform="translate(9 4.998)">
-                                                    <path id="Path_1060" data-name="Path 1060"
-                                                        d="M36.884,10.228h-6.1V8.267A3.381,3.381,0,0,0,27.3,5H18.585A3.381,3.381,0,0,0,15.1,8.267v1.961H9v1.743h1.743V33.755a6.1,6.1,0,0,0,6.1,6.1h12.2a6.1,6.1,0,0,0,6.1-6.1V11.971h1.743ZM16.842,8.267a1.647,1.647,0,0,1,1.743-1.525H27.3a1.647,1.647,0,0,1,1.743,1.525v1.961h-12.2ZM33.4,33.755a4.357,4.357,0,0,1-4.357,4.357h-12.2a4.357,4.357,0,0,1-4.357-4.357V11.971H33.4Z"
-                                                        transform="translate(-9 -4.998)" fill="#fff" />
-                                                    <path id="Path_1061" data-name="Path 1061"
-                                                        d="M19,19h1.743V34.685H19Z"
-                                                        transform="translate(-10.286 -6.799)" fill="#fff" />
-                                                    <path id="Path_1062" data-name="Path 1062"
-                                                        d="M29,19h1.743V34.685H29Z"
-                                                        transform="translate(-11.573 -6.799)" fill="#fff" />
-                                                </g>
-                                            </g>
-                                        </svg>
-
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="course__card-v2">
-                        <div class="course__card-v2__img-container">
-                            <img src="../contents/img/course-cover.jpg" alt="" class="course__card-v2__img">
-                        </div>
-
-                        <div class="course__card-v2__content">
-                            <h1 class="course__card-v2__title">
-                                The Complete JavaScript Course 2021:From Zero to Expert!
-                            </h1>
-
-                            <div class="course__card-v2__cate-action">
-                                <div class="course__card-v2__category">
-                                    Development
-                                </div>
-
-                                <div class="course__card-v2__action-btns">
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-view">
-                                        <svg class="course__card-v2__btn-icon" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 31.995 21">
-                                            <g id="see-icon" transform="translate(-0.002 -5.5)">
-                                                <path id="Path_1047" data-name="Path 1047"
-                                                    d="M16,5.5A17.674,17.674,0,0,0,.1,15.55a1.11,1.11,0,0,0,0,.91,17.61,17.61,0,0,0,31.8,0,1.11,1.11,0,0,0,0-.91A17.674,17.674,0,0,0,16,5.5Zm0,16.84A6.34,6.34,0,1,1,22.34,16,6.355,6.355,0,0,1,16,22.34Z"
-                                                    fill="#fff" />
-                                                <circle id="Ellipse_34" data-name="Ellipse 34" cx="4.2" cy="4.2" r="4.2"
-                                                    transform="translate(11.8 11.8)" fill="#fff" />
-                                            </g>
-                                        </svg>
-                                    </a>
-
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-update">
-
-                                        <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-update"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.816 35.972">
-                                            <g id="update-icon" transform="translate(-0.757)">
-                                                <g id="Group_34" data-name="Group 34" transform="translate(0.757)">
-                                                    <path id="Path_1056" data-name="Path 1056"
-                                                        d="M119.026,1.212l-.043-.039a4.482,4.482,0,0,0-6.332.286L96.633,19a1.546,1.546,0,0,0-.325.554L94.424,25.2a2.147,2.147,0,0,0,2.033,2.827h0a2.139,2.139,0,0,0,.862-.181l5.453-2.386a1.545,1.545,0,0,0,.522-.374L119.313,7.545A4.487,4.487,0,0,0,119.026,1.212ZM98.033,24.152l1.105-3.313.093-.1,2.095,1.913-.093.1Zm19-18.694L103.412,20.366l-2.095-1.913L114.934,3.545a1.389,1.389,0,0,1,1.963-.088l.043.039A1.39,1.39,0,0,1,117.029,5.459Z"
-                                                        transform="translate(-84.668)" fill="#fff" />
-                                                    <path id="Path_1057" data-name="Path 1057"
-                                                        d="M32.008,43.208a1.547,1.547,0,0,0-1.547,1.547v13.13a3.938,3.938,0,0,1-3.933,3.933H7.783A3.938,3.938,0,0,1,3.85,57.885V39.292a3.938,3.938,0,0,1,3.933-3.933H21.351a1.547,1.547,0,1,0,0-3.093H7.783A7.034,7.034,0,0,0,.757,39.292V57.885a7.034,7.034,0,0,0,7.026,7.026H26.528a7.034,7.034,0,0,0,7.026-7.026V44.754A1.546,1.546,0,0,0,32.008,43.208Z"
-                                                        transform="translate(-0.757 -28.939)" fill="#fff" />
-                                                </g>
-                                            </g>
-                                        </svg>
-
-                                    </a>
-
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-delete">
-
-                                        <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-delete"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.884 34.856">
-                                            <g id="delete-icon" transform="translate(-9 -4.998)">
-                                                <g id="Icons" transform="translate(9 4.998)">
-                                                    <path id="Path_1060" data-name="Path 1060"
-                                                        d="M36.884,10.228h-6.1V8.267A3.381,3.381,0,0,0,27.3,5H18.585A3.381,3.381,0,0,0,15.1,8.267v1.961H9v1.743h1.743V33.755a6.1,6.1,0,0,0,6.1,6.1h12.2a6.1,6.1,0,0,0,6.1-6.1V11.971h1.743ZM16.842,8.267a1.647,1.647,0,0,1,1.743-1.525H27.3a1.647,1.647,0,0,1,1.743,1.525v1.961h-12.2ZM33.4,33.755a4.357,4.357,0,0,1-4.357,4.357h-12.2a4.357,4.357,0,0,1-4.357-4.357V11.971H33.4Z"
-                                                        transform="translate(-9 -4.998)" fill="#fff" />
-                                                    <path id="Path_1061" data-name="Path 1061"
-                                                        d="M19,19h1.743V34.685H19Z"
-                                                        transform="translate(-10.286 -6.799)" fill="#fff" />
-                                                    <path id="Path_1062" data-name="Path 1062"
-                                                        d="M29,19h1.743V34.685H29Z"
-                                                        transform="translate(-11.573 -6.799)" fill="#fff" />
-                                                </g>
-                                            </g>
-                                        </svg>
-
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
             </div>
         </div>

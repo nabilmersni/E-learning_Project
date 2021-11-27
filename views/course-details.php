@@ -11,6 +11,11 @@
         }
     }
 
+    include_once('../controllers/formationC.php');
+     
+    $formationC = new FormationC();
+    $listeFormations = $formationC->recuperer_formation($_GET['id']);
+
 ?>
 
 
@@ -32,38 +37,42 @@
             <a href="#"><img class="navigation__logo" src="../contents/img/logo-txt-nobg.png" alt="platform-logo"></a>
 
             <ul class="navigation__list">
-                <li class="navigation__item"><a href="../index.php#home" class="navigation__link">Home</a></li>
-                <li class="navigation__item"><a href="../index.php#course" class="navigation__link">Course</a></li>
-                <li class="navigation__item"><a href="../index.php#about" class="navigation__link">About</a></li>
-                <li class="navigation__item"><a href="../index.php#instructor" class="navigation__link">Instructor</a>
+                <li class="navigation__item"><a href="../index.html#home" class="navigation__link">Home</a></li>
+                <li class="navigation__item"><a href="../index.html#course" class="navigation__link">Course</a></li>
+                <li class="navigation__item"><a href="../index.html#about" class="navigation__link">About</a></li>
+                <li class="navigation__item"><a href="../index.html#instructor" class="navigation__link">Instructor</a>
                 </li>
-                <li class="navigation__item"><a href="../views/login.php" class="navigation__link">Login</a></li>
+                <li class="navigation__item"><a href="../views/logIn.html" class="navigation__link">Login</a></li>
                 <div class="navigation__btn">
-                    <a href="../views/signUp.php" class="primary-btn primary-btn-nav">Sign up</a>
+                    <a href="../views/signUp.html" class="primary-btn primary-btn-nav">Sign up</a>
                 </div>
             </ul>
         </nav>
     </div>
+     
+    <?php
+
+        foreach($listeFormations as $formation){ 
+    ?>
 
     <main class="course-detail__container">
         <div class="course-detail__content">
             <h1 class="course-detail__content__title">
-                The Complete JavaScript Course 2021:
-                From Zero to Expert!
+                <?php echo $formation['name']; ?>
             </h1>
 
             <div class="course-detail__content__owner">
                 <h2 class="course-detail__content__owner__name">
-                    <span>By </span>Jonas Schmedtmann
+                    <span>By </span>Braiek Ali
                 </h2>
 
                 <h2 class="course-detail__content__owner__category">
-                    Development
+                    <?php echo $formation['categorie']; ?>
                 </h2>
             </div>
 
             <div class="course-detail__content__cover__container">
-                <img src="../contents/img/course-cover.jpg" alt="" class="course-detail__content__cover">
+                <img src="formation_code/uploads/<?php echo $formation['image']; ?>" alt="" class="course-detail__content__cover">
             </div>
 
             <h2 class="course-detail__content__description__title">
@@ -71,12 +80,8 @@
             </h2>
 
             <p class="course-detail__content__description__parag">
-                JavaScript is the most popular programming language in the world. It powers the entire modern web. It
-                provides millions of high-paying jobs all over the world.
-                <br><br>
-                You will learn modern JavaScript from the very beginning, step-by-step. I will guide you through
-                practical and fun code examples, important theory about how JavaScript works behind the scenes, and
-                beautiful and complete projects.
+                <?php
+                $json_a = json_decode($formation['description'], true); ?>
             </p>
             <div class="course-detail__content__chapters">
                 <h2 class="course-detail__content__chapters__title">Course chapters</h2>
@@ -232,10 +237,15 @@
 
         <div class="course-detail__buy">
             <h2 class="course-detail__buy__price">
-                1200<span>.000</span><span> TND</span>
+            <?php echo (int)$formation['price']; ?><span>.
+                <?php $num=$formation['price']-(int)$formation['price'];
+                $num=$num * 1000;
+                $num=(int)($num);
+             echo $num; ?>
+             </span><span> TND</span>
             </h2>
 
-            <a href="./login.php" class="course-detail__buy__btn">
+            <a href="./logIn.html" class="course-detail__buy__btn">
                 Buy this course
                 <img src="../contents/img/cart-icon.png" alt="" class="course-detail__buy__btn-icon">
             </a>
@@ -258,12 +268,16 @@
 
                 <div class="course-detail__buy__option__item">
                     <img src="../contents/img/level-icon.png" alt="" class="course-detail__buy__option__item__icon">
-                    <p class="course-detail__buy__option__item__title">Level: <span>All</span></p>
+                    <p class="course-detail__buy__option__item__title">Level: <span><?php echo $formation['level']; ?></span></p>
                 </div>
             </div>
 
         </div>
     </main>
+
+    <?php       
+        }  
+    ?> 
 
 
 </body>

@@ -1,20 +1,24 @@
 <?php
-function connect_to_db(){
 
-    $server = "localhost";
-    $database = "ilearn";
-    $username = "root";
-    $password = "";
-    $dns = "mysql:host=$server;dbname=$database";
+class config {
+    private static $pdo = NULL;
 
-    try {
-        
-        $connect = new PDO($dns,$username,$password);
-        return $connect;
-
-    } catch (PDOException $e) {
-        die('Erreur : '.$e->getMessage());
+    public static function getConnexion(){
+        if (!isset(self::$pdo)){
+            try{
+                self::$pdo = new PDO('mysql:host=localhost;dbname=e-learning_project-main','root','',
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            ]);
+            }catch(Exception $e){
+                die('Erreue: '.$e->getMessage());
+            }
+        }
+        return self::$pdo;
     }
 
 }
+
+
 ?>
