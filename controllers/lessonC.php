@@ -52,24 +52,22 @@ function supprimer_lesson($id){
 }
 
 /********************************************Function ajouter lesson*****************************************/
-function ajouter_formation($formation){
-    $sql = "INSERT INTO formations(name ,description, categorie, level, price, image, date_added, user_id) VALUES ( :name, :description, :categorie, :level, :price, :image, :date_added, :user_id )";
+function ajouter_lesson($lesson){
+    $sql = "INSERT INTO lessons(lesson_title ,lesson_description, lesson_type, lesson_video, date_added, chapter_id) VALUES ( :lesson_title, :lesson_description, :lesson_type, :lesson_video, :date_added, :chapter_id )";
     $db = config::getConnexion();
     try{
     $req = $db->prepare($sql);
         $req->execute([
-            'name' => $formation->getname(),
-            'description' => $formation->getdescription(),
-            'categorie' => $formation->getcategorie(),
-			'level' => $formation->getlevel(),
-			'price' => $formation->getprice(),
-			'image' => $formation->getimage(),
-			'date_added' => $formation->getdate_added(),
-			'user_id' => $formation->getuser_id()
+            'lesson_title' => $lesson->getlesson_title(),
+            'lesson_description' => $lesson->getlesson_description(),
+            'lesson_type' => $lesson->getlesson_type(),
+			'lesson_video' => $lesson->getlesson_video(),
+			'date_added' => $lesson->getdate_added(),
+			'chapter_id' => $lesson->getchapter_id()
         ]);
      
-        $_SESSION['flash_success'] = "Congratulation Data added successfully!";
-        header("Location: ../views/dash_instructor-courses-add.php");
+        //$_SESSION['flash_success'] = "Congratulation Data added successfully!";
+        //header("Location: ../views/dash_instructor-chapter-add.php?id=$formation_id");
     }
     catch(Exception $e){
         die('Erreuer: '.$e->getMessage());
@@ -83,7 +81,7 @@ function ajouter_formation($formation){
 
 
 
-}//end class FormationC
+}//end class LessonC
 
 
 

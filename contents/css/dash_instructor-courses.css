@@ -1,7 +1,7 @@
 .course__add {
     min-width: 70rem;
     max-width: 70rem;
-    min-height: 5rem;
+    min-height: 0rem;
     max-height: 5000rem;
     background-color: white;
     -webkit-box-shadow: 0 0.2rem 2rem rgba(0, 0, 0, 0.09);
@@ -264,8 +264,6 @@
 .img_secondary-btn-topbar {
     position: relative;
     
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
     left: 0rem;
 }
 
@@ -292,7 +290,7 @@
     color: #fff;
     font-size: 1.7rem;
     background-color: rgba(255, 115, 68, 0.85);
-    padding: 1.2rem 3rem;
+    padding: 0.75rem 3rem;
     border-radius: 1.6rem;
     -webkit-transition: .3s all;
     transition: .3s all;
@@ -307,6 +305,7 @@
     position: relative;
     display: inline-block;
     cursor: pointer;
+    
   }
   
   /* The actual popup (appears on top) */
@@ -367,15 +366,16 @@
     min-height: 5rem;
     max-height: 47.5rem;
     --tw-bg-opacity: 1;
-    background-color: #fefbfa;
-    border: solid 1px #ff855b;
-    border-radius: 2.5rem;
+    background-color: white;
+    border: solid 1px #4a5bcf;
+    border-radius: 1.5rem;
 }
 
 .x_botton{
     position: relative;
-    bottom: 50.5rem;
-    left: 99.5%;
+    bottom: 0rem;
+    top: 2.3rem;
+    left: 93.7%;
     cursor: pointer;
     width: 4rem;
 }
@@ -393,7 +393,12 @@
     border-radius: 1.5rem;
     width: 96%;
     height: 50px;
-    padding: 2rem;; 
+    padding: 2rem;
+    padding-left: 2rem;
+    font-family: inherit;
+    font-size: 2rem;
+    background-color: red;
+    border: solid 1px red;
     
 }
 
@@ -416,16 +421,15 @@
 }
 
 .chapter{
-    color: #000000;
-    font-size: 3rem;
-    padding: 1rem 1.4rem 1.8rem 1.4rem ;
+    color: white;
+    font-size: 1.5rem;
     font-family: inherit;
     --tw-bg-opacity: 1;
-    background-color: rgb(255 115 68 / 15%);
-    border: solid 1px rgb(255 115 68 / 85%);
-    border-radius: 2.5rem 2.5rem 0rem 0rem;
+    background-color: rgb(101 104 243);
+    border: solid 1px rgb(101 104 243);
+    border-radius: 1rem 1rem 0rem 0rem;
     margin: 0rem 1.7rem;
-    padding: 1.5rem 0rem 1.5rem 3.9rem;
+    padding: 0.5rem 0rem 0.5rem 1rem;
     align-items: center;
     display: flex;
     justify-content: space-between;
@@ -436,11 +440,12 @@
 
 .chapter-lesson{
     color:#453e4e;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-family: inherit;
     --tw-bg-opacity: 1;
     background-color: #ffeae321;
-    border: solid 1px #ff855b;
+    border: solid 1px #6568f3;
+    border-top: none;
     border-radius: 0rem ;
     margin: 0rem 1.7rem;
     padding: 0.7rem 0rem 0.7rem 7rem;
@@ -480,24 +485,22 @@
 }
 .delete-button{
     cursor: pointer;
-    width: 2.5rem;
+    width: 2rem;
     margin-left: 1rem;
 
 }
 .delete-button:hover{
-    width: 2.7rem;
     margin-left: 1rem;
     fill:#FF7244;
 
 }
 .up-button{
     cursor: pointer;
-    width: 2.5rem;
+    width: 2rem;
     margin-left: 1rem;
 
 }
 .up-button:hover{
-    width: 2.7rem;
     margin-left: 1rem;
     stroke:#FF7244
 
@@ -524,15 +527,16 @@
 
 .chapter-add-lesson{
     color: #551a8b;
-    font-size: 3.5rem;
-    padding: 1rem 1.4rem 1.8rem 1.4rem ;
+    font-size: 2rem;
+    text-decoration:3px;
     font-family: inherit;
     --tw-bg-opacity: 1;
-    background-color: #fffcfb;
-    border: solid 1px #ff855b;
-    border-radius: 0rem 0rem 2.5rem 2.5rem;
+    background-color: #d6dbfd;
+    border: solid 1px #6568f3;
+    border-radius: 0rem 0rem 1rem 1rem;
     margin: 0rem 1.7rem;
-    padding: 1.9rem 0rem 1.9rem 3.9rem;
+    padding: 0.5rem 0rem 0.5rem 3rem;
+    border-top: none;
     align-items: center;
     display: flex;
     justify-content:flex-start;
@@ -926,10 +930,10 @@
     justify-content:flex-start;
   }
 .req_added{
-      border: 3px solid #444;
+      border: 3px solid rgb(62, 12, 180);
       color:#585856;
       font-size: 1.5rem;
-      padding:0.75rem 1.5rem;
+      padding:0.5rem 1.5rem;
       margin: 1rem 3.5rem;
       margin-right: 0.75rem;
       width: 75%;
@@ -938,9 +942,9 @@
 
 .delete_req_btn{
     background-color: #ff0000a1; 
-    border: 3px solid #ff0000a1;
+    border: 1px solid #ff0000a1;
     color: white;
-    padding: 1.1rem 0.4rem 1.1rem 0.9rem;
+    padding: 1rem 0.4rem 1.1rem 0.9rem;
     margin: 1rem 0rem;
     margin-right: 0.75rem;
     cursor: pointer;
@@ -948,10 +952,10 @@
   }
 .update_req_btn{
     background-color: #008000a1; 
-    border: 3px solid #008000a1;
+    border: 1px solid #008000a1;
     color: white;
     padding: 1.1rem 0.1rem 1.1rem 0.8rem;
-    margin: 1rem 0rem;
+    margin: 0.9rem 0rem;
     margin-right: 0.75rem;
     cursor: pointer;
     border-radius: 1rem;
@@ -1080,4 +1084,34 @@
 
 
 
+.course_file_upload_image{
+    position: relative;
+    left: 1rem;
+    bottom: 2.7rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #fff;
+    font-size: 2rem;
+    background-color: rgba(255, 115, 68, 0.85);
+    padding: 1.3rem 3rem;
+    border-radius: 1.6rem;
+    -webkit-transition: .3s all;
+    transition: .3s all;
+    max-width: 22.8rem;
+    cursor: pointer;
 
+
+}
+.course_file_upload_image:hover {
+    background-color: #FF7244;
+    -webkit-box-shadow: 0 0.5rem 2rem rgb(0 0 0 / 10%);
+    box-shadow: 0 0.5rem 2rem rgb(0 0 0 / 10%);
+}
