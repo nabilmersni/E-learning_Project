@@ -414,7 +414,7 @@
                                         </svg>
                                     </a>
 
-                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-update">
+                                    <a href="dash_instructor-course-update.php?id=<?php echo $formation['formation_id']; ?>" class="course__card-v2__btn course__card-v2__btn-update">
 
                                         <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-update"
                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.816 35.972">

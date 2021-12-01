@@ -22,9 +22,9 @@ Function afficher_lessons($id){
 }
 
 //*****************************************Function récupérer lesson***********************************************
-Function recuperer_formation($id){
+Function recuperer_lesson($id){
 
-    $sql="SELECT * FROM formations WHERE formation_id='$id' LIMIT 1" ;
+    $sql="SELECT * FROM lessons WHERE lesson_id='$id' LIMIT 1" ;
     $db = config::getConnexion();
     try{
         $liste = $db->query($sql);
@@ -75,6 +75,31 @@ function ajouter_lesson($lesson){
 
 }
 
+//******************************************Fonction modifier lesson*********************************************
+function modifier_lesson($lesson, $id){
+    $lesson_title = $lesson->getlesson_title();
+    $lesson_description = $lesson->getlesson_description();
+    $lesson_video = $lesson->getlesson_video();
+    $update_lesson = "UPDATE lessons SET lesson_title = :lesson_title ,lesson_description = :lesson_description ,lesson_video = :lesson_video WHERE lesson_id='$id' ";
+    $db = config::getConnexion();
+
+    try{
+        $query = $db->prepare($update_lesson);
+        $query->execute([
+             'lesson_title' => $lesson_title,
+             'lesson_description' => $lesson_description,
+             'lesson_video' => $lesson_video 
+        ]);
+       // $_SESSION['flash_success'] = "Congratulation Data updated successfully!";
+       // header("Location: ../views/dash_instructor-chapter-add.php");
+
+    }
+    catch(Exception $e)
+    {
+        die('Erreuer: '.$e->getMessage() );
+    }
+
+}
 
 
 

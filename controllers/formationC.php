@@ -21,6 +21,33 @@ Function afficher_formations(){
 	}   
 }
 
+/********************************************Function afficher formations d'un instructeur*****************************************/
+Function afficher_formations_instructor($id){
+
+	$sql="SELECT * FROM formations WHERE formation_id = '$id' ";
+	$db = config::getConnexion();
+	try{
+		$liste = $db->query($sql);
+		return $liste;
+	}
+	catch(Exception $e){
+		die('Erreur: '.$e->getMessage());
+	}   
+}
+
+/********************************************Function afficher formations d'un instructeur*****************************************/
+Function filtrer_formations($categorie){
+
+	$sql="SELECT * FROM formations WHERE categorie = '$categorie' ";
+	$db = config::getConnexion();
+	try{
+		$liste = $db->query($sql);
+		return $liste;
+	}
+	catch(Exception $e){
+		die('Erreur: '.$e->getMessage());
+	}   
+}
 //*****************************************Function récupérer formation***********************************************
 Function recuperer_formation($id){
 
@@ -102,8 +129,55 @@ function ajouter_formation($formation){
 
 }
 
+//******************************************Fonction modifier formation*********************************************
+function modifier_formation($formation, $id){
+    $name = $formation->getname();
+    $short_description = $formation->getshort_description();
+    $description = $formation->getdescription();
+    $categorie = $formation->getcategorie();
+    $level = $formation->getlevel();
+    $price = $formation->getprice();
+    $image = $formation->getimage();
+    
+    $update_formation = "UPDATE formations SET name = :name ,short_description = :short_description, description = :description ,categorie = :categorie, level = :level ,price = :price ,image = :image WHERE formation_id='$id' ";
+    $db = config::getConnexion();
 
+    try{
+        $query = $db->prepare($update_formation);
+        $query->execute([
+             'name' => $name,
+             'short_description' => $short_description,
+             'description' => $description,
+             'categorie' => $categorie,
+             'level' => $level,
+             'price' => $price,
+             'image' => $image 
+        ]);
+       // $_SESSION['flash_success'] = "Congratulation Data updated successfully!";
+       // header("Location: ../views/dash_instructor-chapter-add.php");
+       header("Location: ../dash_instructor-course-update.php?id=$id");
 
+    }
+    catch(Exception $e)
+    {
+        die('Erreuer: '.$e->getMessage() );
+    }
+
+}
+
+/********************************************Function rechercher formations*****************************************/
+Function rechercher_formations($search){
+
+	$sql="SELECT * FROM formations WHERE (name LIKE '%".$search."%' ) OR (short_description LIKE '%".$search."%') ORDER BY formation_id DESC ";
+	$db = config::getConnexion();
+	try{
+		$liste = $db->query($sql);
+		return $liste;
+	}
+	catch(Exception $e){
+		die('Erreur: '.$e->getMessage());
+	}   
+}
 
 
 

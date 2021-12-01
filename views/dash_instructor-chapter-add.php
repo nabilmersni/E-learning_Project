@@ -222,7 +222,7 @@ $i = 0;
                                         <div style="padding-right: 1.9rem;">
                                             <!--bouton modifier-->
 
-                                            <span id="modifier_chapter_btn">
+                                            <span id="modifier_chapter_btn<?php echo $i; ?>" onclick="show_update_chapter_button( x='<?php echo $i; ?>')">
                                                 <svg class="delete-button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
                                                     </path>
@@ -938,6 +938,48 @@ $i = 0;
         }
 
 
+
+        
+//controle de saisie du lesson
+var $add_lesson = $('#add_new_lesson_form');
+if ($add_lesson.length) {
+    $add_lesson.validate({
+        rules: {
+            lesson_title: {
+                required: true
+            },
+            lesson_description: {
+                required: true,
+            },
+            lesson_type: {
+                required: true,
+            },
+            lesson_video: {
+                required: true,
+            }
+        },
+        messages: {
+            lesson_title: {
+                //error message for the required field
+                required: '*Please enter the lesson title!'
+            },
+            lesson_description: {
+                //error message for the required field
+                required: '*Please enter the lesson description!'
+            },
+            lesson_type: {
+                //error message for the required field
+                required: '*Please select the lesson type!'
+            },
+            lesson_video: {
+                //error message for the required field
+                required: '*Please enter lesson video!'
+            }
+        }
+    });
+}
+
+//fin du controle de saisie du lesson
 
         //lessons toggle
 

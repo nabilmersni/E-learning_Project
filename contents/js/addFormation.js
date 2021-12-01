@@ -225,9 +225,47 @@ function lesson_add_x_button(x){
 
 }
 
+//hide update lesson
+function lesson_update_x_button(x){
+    $("#x_button_lesson" + x).click(function(){
+        $("#show_update_lesson"+x).hide(300)
+
+    });
+
+}
+
+//show update lesson
+function lesson_show_update_x_button(x){
+    $("#update_lesson_button_show" + x).click(function(){
+        $("#show_update_lesson"+x).show(300)
+
+    });
+
+}
+
+//show update chapter
+function show_update_chapter_button(x){
+    $("#modifier_chapter_btn" + x).click(function(){
+        $("#show_update_chapter"+x).show(300)
+
+    });
+
+}
+
+//hide update chapter
+function chapter_hide_update_button(x){
+    $("#x_update_chapter" + x).click(function(){
+        $("#show_update_chapter"+x).hide(300)
+
+    });
+
+}
 
 
-//preview image befor upload
+
+
+
+//preview video befor upload
 function loadVideo(event, i) {
     //$("#show_add_new_lesson"+i).hide(300)
         var x = URL.createObjectURL(event.target.files[0]);
@@ -237,18 +275,95 @@ function loadVideo(event, i) {
         console.log(event);
 }
 //show video option lesson
-/*
-function loadVideo(x, event) {
-    
+
+
+//preview update video befor upload
+function updateVideo(event, i) {
+    //$("#show_add_new_lesson"+i).hide(300)
         var x = URL.createObjectURL(event.target.files[0]);
-        $("#lesson_video").attr("src", x);
-        $("#lesson_video").show(0);
+        $("#lesson_video"+i).attr("src", x);
+        $("#lesson_video"+i).show(0);
 
         console.log(event);
 }
+//show update video option lesson
 
-var loadFile = function(event) {
-    var image = document.querySelector('.upload-file__img');
-    image.src = URL.createObjectURL(event.target.files[0]);
-};*/
 
+//////////////circuit buttons///////////////////////////////////////////////
+        $(document).ready(function() {
+            $("#button_b2_req").click(function() {
+                $("#requirement_id").show(300)
+                $("#outcomes_id").hide(0)
+                $("#finish_id").hide(0)
+                $("#button_b2_req").css({
+                    "background-color": "#ff8860",
+                    "border-color": "#ff8860",
+                    "color": "white"
+                })
+                $("#button_b3_req").css({
+                    "background-color": "#6568f3",
+                    "border-color": "#6568f3",
+                    "color": "white"
+                })
+                $("#button_b5_req").css({
+                    "background-color": "#6568f3",
+                    "border-color": "#6568f3",
+                    "color": "white"
+                })
+
+            });
+
+        });
+
+        $(document).ready(function() {
+            $("#button_b3_req").click(function() {
+                $("#requirement_id").hide(0)
+                $("#finish_id").hide(0)
+                $("#outcomes_id").show(300)
+                $("#button_b3_req").css({
+                    "background-color": "#ff8860",
+                    "border-color": "#ff8860",
+                    "color": "white"
+                })
+                $("#button_b2_req").css({
+                    "background-color": "#6568f3",
+                    "border-color": "#6568f3",
+                    "color": "white"
+                })
+                $("#button_b5_req").css({
+                    "background-color": "#6568f3",
+                    "border-color": "#6568f3",
+                    "color": "white"
+                })
+
+            });
+
+        });
+
+        $(document).ready(function() {
+            $("#button_b5_req").click(function() {
+                $("#finish_id").show(300)
+                $("#outcomes_id").hide(0)
+                $("#requirement_id").hide(0)
+                $("#button_b3_req").css({
+                    "background-color": "#6568f3",
+                    "border-color": "#6568f3",
+                    "color": "white"
+                })
+                $("#button_b2_req").css({
+                    "background-color": "#6568f3",
+                    "border-color": "#6568f3",
+                    "color": "white"
+                })
+                $("#button_b5_req").css({
+                    "background-color": "#ff8860",
+                    "border-color": "#ff8860",
+                    "color": "white"
+                })
+
+            });
+
+        });
+
+
+//////////////////////////////////////////////////////////////

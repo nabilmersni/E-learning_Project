@@ -23,7 +23,7 @@
             <hr class="hr-border" style="position: relative; bottom: 10px; ">
             <div class="dash__content" style="position: relative;bottom: 100px;">
 
-                <form action="formation_code/add_lesson.php?formation_id=<?php echo $_GET['id']; ?>&chapter_id=<?php echo $chapter['chapter_id'] ?>" method="POST" enctype="multipart/form-data">
+                <form id="add_new_lesson_form" action="formation_code/add_lesson.php?formation_id=<?php echo $_GET['id']; ?>&chapter_id=<?php echo $chapter['chapter_id'] ?>" method="POST" enctype="multipart/form-data">
                     <div class="dash__instructor-my-courses">
                         <div class="add_new_lesson-v1__item">
                             <h4>Lesson title</h4>
@@ -33,8 +33,8 @@
                             <input class="add_new_lesson-v1__input-border" name="lesson_title" placeholder="My lesson title">
                         </div>
 
-                        <div class="add_new_lesson-v1__item" style="padding-top:2rem">
-                            <h4>Description du cours</h4>
+                        <div class="add_new_lesson-v1__item" style="padding-top:1.5rem">
+                            <h4 style="padding-top:1rem">Description du cours</h4>
                         </div>
 
                         <div>
@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="add_new_lesson-v1__item">
-                            <h4>Type of lesson</h4>
+                            <h4 style="padding-top:2rem">Type of lesson</h4>
                         </div>
 
                         <select id="select_option<?php echo $i; ?>" name="lesson_type" class="add_new_lesson-v1__select-border" onclick="lesson_select_option( x='<?php echo $i; ?>'  )">

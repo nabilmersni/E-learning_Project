@@ -17,6 +17,12 @@
         header('location:../views/login.php?auth=false');
     }
 
+    include_once ('../controllers/formationC.php');
+    $formationC = new FormationC();
+    $user_id = $_SESSION['user']->user_id;
+    $listeFormations = $formationC->afficher_formations();
+
+
 ?>
 
 <html lang="en">

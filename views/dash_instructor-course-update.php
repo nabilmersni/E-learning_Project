@@ -1,17 +1,13 @@
 <?php
 
-include_once('../controllers/requirementC.php');
-include_once('../controllers/outcomeC.php');
+include_once('../controllers/formationC.php');
 
-$requirementC = new RequirementC();
-$listeRequirements = $requirementC->afficher_requirements($_GET['id']);
-
-$outcomeC = new OutcomeC();
-$listeOutcomes = $outcomeC->afficher_outcomes($_GET['id']);
+$formationC = new FormationC();
+$id= $_GET['id'];
+$listeFormations = $formationC->recuperer_formation($id);
 
 
 ?>
-
 
 
 <html lang="en">
@@ -39,6 +35,9 @@ $listeOutcomes = $outcomeC->afficher_outcomes($_GET['id']);
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
 
+    <!--image drag and drop -->
+    <link rel="stylesheet" href="../contents/css/image_drag_and_drop.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
     <style>
         .error {
@@ -63,8 +62,13 @@ $listeOutcomes = $outcomeC->afficher_outcomes($_GET['id']);
             border-radius: 0rem
         }
 
+        .button_b1 {
+            background-color: #ff8860;
+            border-color: #ff8860;
+            color: white;
+        }
 
-        .button_b2 {
+        .cbutton_b2 {
             background-color: #ff8860;
             border-color: #ff8860;
             color: white;
@@ -243,11 +247,7 @@ $listeOutcomes = $outcomeC->afficher_outcomes($_GET['id']);
                     <div class="button_group">
                         <div>
 
-                            <a class="button_b1 " href="dash_instructor-course-update.php?id=<?php echo $_GET['id']; ?>" id="button_b1_req">
-                                <i class="fas fa-pen-nib" style="padding-right:0.5rem">
-                                </i>
-                                Basics
-                            </a>
+                            <a class="button_b1 " href="#"><i class="fas fa-pen-nib" style="padding-right:0.5rem"></i>Basics</a>
                         </div>
 
                         <button class="button_b2 " id="button_b2_req">
@@ -268,14 +268,13 @@ $listeOutcomes = $outcomeC->afficher_outcomes($_GET['id']);
 
 
 
-                    <!------------------------------------requirement------------------------->
-                    <div class="public_information" id="requirement_id">
+                    <div class="public_information">
                         <!-- part1------------- -->
                         <div class="course__add">
 
                             <div class="course__add-v1">
                                 <h1 class="course__add-v1__info">
-                                    Course requirements
+                                    course information
                                 </h1>
                                 <button id="popup_id" class="popup" onmouseenter="myFunction()" onmouseleave="myFunction()" style="background-color: transparent; border-color: transparent;">
                                     <svg id="more_info_button" viewBox="0 0 24 24" fill="grey" xmlns="http://www.w3.org/2000/svg">
@@ -320,90 +319,155 @@ $listeOutcomes = $outcomeC->afficher_outcomes($_GET['id']);
                                 </button>
                             </div>
 
-
-                            <!--*********************************************Add new Requirement******************************************************-->
-
-                            <?php
-                            foreach ($listeRequirements as $req) {
-                            ?>
-                                <div class="req_align">
-                                    <div class="req_added">
-                                        <?php echo $req['req_content']; ?>
-                                    </div>
-                                    <!--delete btn-->
-                                    <a class="delete_req_btn " href="formation_code/delete_requirement.php?id=<?php echo $_GET['id']; ?>&req_id=<?php echo $req['req_id']; ?>">
-                                        <i class="fas fa-minus fa-lg" style="padding-right:0.5rem"></i>
-                                        <!--delete btn-->
-
-                                        <!--update btn-->
-                                        <a class="update_req_btn " href="update_requirement.php?id=<?php echo $_GET['id']; ?>&req_id=<?php echo $req['req_id']; ?>">
-                                            <i class="fas fa-edit fa-lg" style="padding-right:0.5rem; "></i>
-                                            <!--update btn-->
-                                        </a>
-
-                                </div>
-                            <?php
-                            }
-                            ?>
-
-
-                            <button class="add_new_requirement_btn" id="add_new_req_btn">
-                                Add New Requirement
-                            </button>
-
-
-
-                            <!--show add new requirement-->
-                            <div id="show_add_new_req" style="display:none">
-                                <div class="add_new_req">
-
-
-
-                                    <div class="add_new_req_v1">
-                                        <div class="add_lesson_header">
-                                            <div class="add_new_lesson_v1_title">Add a requirement</div>
-                                            <div id="x_button_req" class="x_botton_lesson">
-                                                <svg id="x_button_x_lesson" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#4a5bcf">
-                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                                                </svg>
-
-                                            </div>
-
-                                        </div>
-
-
-
-                                        <hr class="hr-border" style="position: relative; bottom: 10px; ">
-                                        <div class="dash__content" style="position: relative;bottom: 100px;">
-
-                                            <form action="formation_code/add_requirement.php?id=<?php echo $_GET['id']; ?>" method="POST">
-                                                <div class="dash__instructor-my-courses">
-                                                    <div class="add_new_lesson-v1__item">
-                                                        <h4>Requirement</h4>
-                                                    </div>
-
-                                                    <div>
-                                                        <input class="add_new_lesson-v1__input-border" name="req_content" placeholder="My course requirement">
-                                                    </div>
-
-
-                                                </div>
-
-                                                <input class="save-btn save-btn-topbar" type="submit" style="position:relative;bottom:10rem;" value="Save">
-
-                                        </div>
-                                        </form>
-                                    </div>
-
-                                </div>
+                            <div>
+                                <p class="course__add-v1__desc">
+                                    Add details of your course to help students find out
+                                </p>
                             </div>
-                            <!--show add new requirement-->
+
+                            <hr class="hr-border">
 
 
+                            <!--*********************************************Add new course******************************************************-->
+                            <?php foreach($listeFormations as $formation) { ?>
+                            <form method="POST" action="./formation_code/update_formation.php?id=<?php echo $_GET['id']; ?>" id="add_formation" enctype="multipart/form-data">
+                                <div class="course__add-v1__title">
+                                    <h4>Course Title</h4>
+                                </div>
+
+                                <div>
+                                    <input value="<?php echo $formation['name']; ?>" class="title-input-border" name="course_title">
+                                </div>
+
+                                <div class="course__add-v1__title">
+                                    <h4>Short Description</h4>
+                                </div>
+
+                                <div>
+                                    <textarea id="short_description" class="description-texterea-border" name="short_description"><?php echo $formation['short_description']; ?></textarea>
+                                </div>
+
+                                <div class="course__add-v1__title">
+                                    <h4>Course Description</h4>
+                                    <p><?php echo $formation['description']; ?></p>
+                                </div>
+
+                                <!-- End Quill Editor Full -->
+                                <div id="editor" class="quill_editor">
+
+                                </div>
+                                <textarea name="course_description" style="display:none" id="hiddenArea"></textarea>
+
+
+                                <div class="course__add-v1__CN">
+                                    <div>
+                                        <h4 class="course__add-v1__title">Category</h4>
+                                        <select name="course_categorie" id="" class="select-categorie-border">
+                                            <option value="<?php echo $formation['categorie']; ?>" selected ><?php echo $formation['categorie']; ?></option>
+                                            <option value="Programing & Development">Programing & Development</option>
+                                            <option value="Languages & Literature">Languages & Literature</option>
+                                            <option value="Art & Music">Art & Music</option>
+                                            <option value="Business">Business</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <h4 class="course__add-v1__title">Level</h4>
+                                        <select name="course_level" id="" class="select-niveau-border">
+                                            <option value="<?php echo $formation['level']; ?>" selected ><?php echo $formation['level']; ?></option>
+                                            <option value="all">All</option>
+                                            <option value="beginner">Beginner</option>
+                                            <option value="intermediate">Intermediate</option>
+                                            <option value="advanced">Advanced</option>
+
+                                        </select>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="course__add-prix">
+                                    <div class="course__add-v1__title">
+                                        <h4>Course price</h4>
+                                    </div>
+
+                                    <label class="switch">
+                                        <input  class="" id="hide_prix" type="checkbox">
+                                        <span class="slider round"></span>
+
+                                    </label>
+
+                                    <div class="course__add-v1__title">
+                                        <p class="course__add-v1__title-position" style="font-size: 1.5rem;">Free</p>
+                                    </div>
+
+
+                                </div>
+
+                                <div id="table_prix">
+                                    <!-- <div class="course__add-table-prix">
+                                    <h1 class="course__add-table-prix-currence">USD</h1>
+                                    <input name="usd_prix" class="input-table-prix-currence" type="number">
+                                </div>
+                                <div class="course__add-table-prix">
+                                    <h1 class="course__add-table-prix-currence">EUR</h1>
+                                    <input name="eur_prix" class="input-table-prix-currence" type="number">
+                                </div>  -->
+                                    <div class="course__add-table-prix">
+                                        <h1 class="course__add-table-prix-currence">TND</h1>
+                                        <input value="<?php echo $formation['price']; ?>" name="course_price" class="input-table-prix-currence" type="number">
+                                    </div>
+                                </div>
+
+                                <hr class="hr-border" style="margin-top: 30px;">
+                                <div class="course__add-v1__title">
+                                    <h4>Image</h4>
+                                </div>
+
+                                <div class="course__add-v1__image">
+
+
+                                    <div class="course__add-v1__image_insert">
+                                        <img src="formation_code/uploads/<?php echo $formation['image']; ?>" alt="" class="course__add-v1__image_insert" id="course_file_img" accept="image/*" >
+
+
+
+                                        <!--new image upload -->
+
+                                        <!--new image upload -->
+
+                                        <svg class="w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p style="padding-bottom: 40px;" class="course__add-v1__image_description">
+                                            Resolution : 1920x1080 px <br>
+                                            Supported file types :<br> jpg, .jpeg ,. gif ou .png
+                                            <br> No text on the image.
+                                        </p>
+
+                                        <label for="course_file_upload" class="course_file_upload_image">Choose a photo</label>
+                                        <input name="course_image" type="file" id="course_file_upload" value="Choose a photo" class="img_secondary-btn img_secondary-btn-topbar" style="display:none">
+                                        <div>
+
+                                            <svg class="w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                            </svg>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                <button type="submit" name="123" id="123">add chapter</button>
+                                </forum>
 
 
 
                         </div>
+                        <?php } ?>
                         <!--course add end-->
                         <div class="course_information" hidden>
                             <p>
@@ -431,200 +495,6 @@ $listeOutcomes = $outcomeC->afficher_outcomes($_GET['id']);
 
 
                     </div>
-                    <!------------------------------------requirement end------------------------->
-
-                    <!------------------------------------Outcomes------------------------->
-                    <div class="public_information" id="outcomes_id" style="display:none;">
-                        <!-- part1------------- -->
-                        <div class="course__add">
-
-                            <div class="course__add-v1">
-                                <h1 class="course__add-v1__info">
-                                    Course Outcomes
-                                </h1>
-                                <button id="popup_id" class="popup" onmouseenter="myFunction()" onmouseleave="myFunction()" style="background-color: transparent; border-color: transparent;">
-                                    <svg id="more_info_button" viewBox="0 0 24 24" fill="grey" xmlns="http://www.w3.org/2000/svg">
-                                        <style>
-                                            @keyframes n-info-ques {
-
-                                                0%,
-                                                to {
-                                                    transform: rotate(0deg);
-                                                    transform-origin: center
-                                                }
-
-                                                10%,
-                                                90% {
-                                                    transform: rotate(2deg)
-                                                }
-
-                                                20%,
-                                                40%,
-                                                60% {
-                                                    transform: rotate(-6deg)
-                                                }
-
-                                                30%,
-                                                50%,
-                                                70% {
-                                                    transform: rotate(6deg)
-                                                }
-
-                                                80% {
-                                                    transform: rotate(-2deg)
-                                                }
-                                            }
-                                        </style>
-                                        <circle cx="12" cy="12" r="8" stroke="none" stroke-width="1.5" />
-                                        <path fill="white" d="M14.325 9.956c0 .298-.103.605-.308.924a3.726 3.726 0 01-.68.786c-.657.566-.987.983-.987 1.252 0 .595-.233.892-.7.892a.688.688 0 01-.531-.233c-.135-.156-.202-.365-.202-.627s.064-.506.191-.732c.135-.234.294-.44.478-.616.184-.184.368-.361.552-.531.453-.41.68-.782.68-1.115a.627.627 0 00-.277-.53.957.957 0 00-.615-.213.943.943 0 00-.606.212c-.17.135-.332.273-.488.414a.738.738 0 01-.51.202.614.614 0 01-.467-.19.68.68 0 01-.18-.468c0-.333.23-.669.69-1.009a2.47 2.47 0 011.518-.52c.722 0 1.31.202 1.763.605.452.404.679.903.679 1.497zm-2.697 4.449c.248 0 .443.081.584.244.142.156.213.35.213.584a.959.959 0 01-.245.637.787.787 0 01-.615.276.721.721 0 01-.574-.244.903.903 0 01-.201-.595c0-.234.078-.442.233-.626a.776.776 0 01.605-.276z" style="animation:n-info-ques .8s cubic-bezier(.455,.03,.515,.955) both infinite" />
-                                    </svg>
-
-                                    <span class="popuptext" id="myPopup" style="font-size: 1rem;">click here for more
-                                        information.</span>
-
-                                </button>
-                            </div>
-
-
-                            <!--*********************************************Add new outcomes******************************************************-->
-
-                            <?php
-                            foreach ($listeOutcomes as $out) {
-                            ?>
-                                <div class="req_align">
-                                    <div class="req_added">
-                                        <?php echo $out['out_content']; ?>
-                                    </div>
-                                    <!--delete btn-->
-                                    <a class="delete_req_btn " href="formation_code/delete_outcome.php?id=<?php echo $_GET['id']; ?>&out_id=<?php echo $out['out_id']; ?>">
-                                        <i class="fas fa-minus fa-lg" style="padding-right:0.5rem"></i>
-                                        <!--delete btn-->
-
-                                        <!--update btn-->
-                                        <a class="update_req_btn " href="update_outcome.php?id=<?php echo $_GET['id']; ?>&out_id=<?php echo $out['out_id']; ?>">
-                                            <i class="fas fa-edit fa-lg" style="padding-right:0.5rem; "></i>
-                                            <!--update btn-->
-                                        </a>
-
-                                </div>
-                            <?php
-                            }
-                            ?>
-
-
-                            <button class="add_new_requirement_btn" id="add_new_out_btn">
-                                Add New Outcome
-                            </button>
-                            <form method="POST" action="formation_code/add_requirement.php" id="add_requirement">
-
-
-                            </form>
-
-
-
-                            <!--show add new requirement-->
-                            <div id="show_add_new_out" style="display:none">
-                                <div class="add_new_req">
-
-
-
-                                    <div class="add_new_req_v1">
-                                        <div class="add_lesson_header">
-                                            <div class="add_new_lesson_v1_title">Add a requirement</div>
-                                            <div id="x_button_out" class="x_botton_lesson">
-                                                <svg id="x_button_x_lesson" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#4a5bcf">
-                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                                                </svg>
-
-                                            </div>
-
-                                        </div>
-
-
-
-                                        <hr class="hr-border" style="position: relative; bottom: 10px; ">
-                                        <div class="dash__content" style="position: relative;bottom: 100px;">
-
-                                            <form action="formation_code/add_outcome.php?id=<?php echo $_GET['id']; ?>" method="POST">
-                                                <div class="dash__instructor-my-courses">
-                                                    <div class="add_new_lesson-v1__item">
-                                                        <h4>Outcome</h4>
-                                                    </div>
-
-                                                    <div>
-                                                        <input class="add_new_lesson-v1__input-border" name="out_content" placeholder="Outcomes">
-                                                    </div>
-
-
-                                                </div>
-
-                                                <input class="save-btn save-btn-topbar" type="submit" style="position:relative;bottom:10rem;" value="Save">
-
-                                        </div>
-                                        </form>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!--show add new requirement-->
-
-
-
-                        </div>
-                        <!--course add end-->
-                        <div class="course_information" hidden>
-                            <p>
-                            <div class="info_title_v1">
-                                <div style="padding-right: 0.5rem; position: relative; right: 0.5rem; bottom: 0.6rem;">
-                                    <svg class="w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="rgba(255, 115, 68, 0.85)">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <h2 class="info_title">Public course information</h2>
-                            </div>
-
-                            <ul>
-                                <li class="info_description">Here you can set the title and description of your course.</li>
-                                <li class="info_description">Select a category for your course (Choose the closest category).</li>
-                                <li class="info_description">Set the price of your course (in USD, EUR and TND).
-                                </li>
-                                <li class="info_description">The course photo must be 1920x1080 and not use any text.</li>
-                            </ul>
-
-                            </p>
-
-                        </div>
-
-
-                    </div>
-                    <!------------------------------------Outcomes end------------------------->
-
-
-                    <!------------------------------------Finish------------------------->
-                    <div class="public_information" id="finish_id" style="display:none;">
-                        <!-- part1------------- -->
-                        <div class="course__add">
-                            <div style="padding:2rem">
-                                <div class="finish_icon">
-                                    <i class="fal fa-check-double fa-3x"></i>
-                                </div>
-
-                                <div class="finish_l1">Thank you !</div>
-                                <div class="finish_l2">You are just one click away</div>
-                                <div class="finish_btn">
-                                    <a class="finish_btn-v1" href="./dash_instructor-chapter-add.php?id=<?php echo $_GET['id']; ?>">Submit</a>
-                                </div>
-
-
-
-                            </div>
-                        </div>
-                        <!--course add end-->
-
-
-                    </div>
-                    <!------------------------------------finish end------------------------->
                     <!--end part 1 add formation -->
                     <!--end part 1 add formation -->
                     <!--end part 1 add formation -->
@@ -643,51 +513,20 @@ $listeOutcomes = $outcomeC->afficher_outcomes($_GET['id']);
 
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
 
+
     <script>
         $(function() {
             $("#course_file_upload").change(function(event) {
                 var x = URL.createObjectURL(event.target.files[0]);
                 $("#course_file_img").attr("src", x);
+                $("#course_file_img").show(0);
+
                 console.log(event);
             });
         })
     </script>
 
-    <script>
-        $(document).ready(function() {
-            $("#add_new_req_btn").click(function() {
-                $("#show_add_new_req").show(300)
 
-            });
-
-        });
-
-        $(document).ready(function() {
-            $("#x_button_req").click(function() {
-                $("#show_add_new_req").hide(300)
-
-            });
-
-        });
-
-
-
-        $(document).ready(function() {
-            $("#add_new_out_btn").click(function() {
-                $("#show_add_new_out").show(300)
-
-            });
-
-        });
-
-        $(document).ready(function() {
-            $("#x_button_out").click(function() {
-                $("#show_add_new_out").hide(300)
-
-            });
-
-        });
-    </script>
     <script>
         var $add_formation = $('#add_formation');
         if ($add_formation.length) {
@@ -743,13 +582,10 @@ $listeOutcomes = $outcomeC->afficher_outcomes($_GET['id']);
         }
     </script>
 
-    <!--hide/show req/outc---->
-    .button_b2 {
-    background-color: #ff8860;
-    border-color: #ff8860;
-    color: white;
-    }
-    
+
+
+
+
     <!-- include_oncethe Quill library -->
     <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
@@ -804,20 +640,14 @@ $listeOutcomes = $outcomeC->afficher_outcomes($_GET['id']);
             theme: 'snow'
         });
 
+        $("#hiddenArea").val(stringify(quill.setContents()));
+
         $("#add_formation").submit(function() {
             $("#hiddenArea").val(JSON.stringify(quill.getContents()));
             consolole.log("#hiddenArea");
         });
     </script>
 
-
-
-
-
-
-
-    <!-- Template Main JS File -->
-    <script src="../contents/assets/js/main.js"></script>
 </body>
 
 </html>

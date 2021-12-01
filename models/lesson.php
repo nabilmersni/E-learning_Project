@@ -28,7 +28,7 @@ class Lesson{
 	{
 		return $this->lesson_title;
 	}
-    public function setlesson_title()
+    public function setlesson_title(string $lesson_title)
 	{
 		$this->lesson_title = $lesson_title;
 	}
@@ -38,7 +38,7 @@ class Lesson{
 	{
 		return $this->lesson_description;
 	}
-    public function setlesson_description()
+    public function setlesson_description(string $lesson_description)
 	{
 		$this->lesson_description = $lesson_description;
 	}
@@ -48,7 +48,7 @@ class Lesson{
 	{
 		return $this->lesson_type;
 	}
-    public function setlesson_type()
+    public function setlesson_type(string $lesson_type)
 	{
 		 $this->lesson_type = $lesson_type;
 	}
@@ -57,7 +57,7 @@ class Lesson{
 	{
 		return $this->lesson_video;
 	}
-    public function setlesson_video()
+    public function setlesson_video(string $lesson_video)
 	{
 		 $this->lesson_video = $lesson_video;
 	}
@@ -67,7 +67,7 @@ class Lesson{
 	{
 		return $this->date_added;
 	}
-    public function setdate_added()
+    public function setdate_added(string $date_added)
 	{
 		$this->date_added = $date_added;
 	}
@@ -77,7 +77,7 @@ class Lesson{
 	{
 		return $this->chapter_id;
 	}
-    public function setchapter_id()
+    public function setchapter_id(string $chapter_id)
 	{
 		$this->chapter_id = $chapter_id;
 	}

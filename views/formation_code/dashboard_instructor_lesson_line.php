@@ -32,6 +32,7 @@
 
                 </div>
             </div>
+            
         <?php } ?>
         <!--end quiz lesson-->
 
@@ -50,12 +51,12 @@
 
                 <div style="padding-right: 1.9rem;">
 
-                    <a style="text-decoration:none; color:currentColor" href="">
+                    <span id="update_lesson_button_show<?php echo $lesson['lesson_id']; ?>" style="text-decoration:none; color:currentColor" onclick="lesson_show_update_x_button( x='<?php echo $lesson['lesson_id']; ?>')" >
                         <svg id="update_lesson_button" class="chapter-lesson-l1-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
                             </path>
                         </svg>
-                    </a>
+        </span>
 
                     <a style="text-decoration:none;color:currentColor" href="formation_code/delete_lesson.php?id_f=<?php echo $_GET['id']; ?>&id_l=<?php echo $lesson['lesson_id']; ?> ">
                         <svg id="update_lesson_button" class="chapter-lesson-l1-icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -71,9 +72,10 @@
 
 
 
-
+<?php include("formation_code/dashboard_instructor_update_lesson.php"); ?>  
     <?php
     }
     ?>
+          
 </div>
 <!--lesson line-->

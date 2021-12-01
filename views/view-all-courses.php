@@ -13,21 +13,17 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
 
 include_once('../controllers/formationC.php');
 
-
-$formationC = new FormationC();
-
-$test = 0;
-if($test == 0){
+//$formationC = new FormationC();
 $listeFormations = $formationC->afficher_formations();
-}
-   $test = $_GET['test'];
+
+    $test = $_GET['test'];
 
 
 if ($test == 1) {
-    $search = $_POST['search'];
+    $search = $_GET['search'];
     $listeFormations = $formationC->rechercher_formations($search);
 } else if ($test == 2) {
-    $search = $_GET['search'];
+    $search = $_POST['search'];
     $listeFormations = $formationC->filtrer_formations($search);
 }
 
@@ -86,9 +82,9 @@ if ($test == 1) {
                 <h1 class="all-courses__categorie__title">Category</h1>
                 <div class="all-courses__categorie__list">
                     <a href="view-all-course.php?test=0" class="all-courses__categorie__item all-courses__categorie__item-active">All courses</a>
-                    <a href="view-all-course.php?test=2&search=Programing_Development" class="all-courses__categorie__item">Programing & Development</a>
+                    <a href="#" class="all-courses__categorie__item">Programing & Development</a>
                     <a href="#" class="all-courses__categorie__item">Art & Music</a>
-                    <a href="view-all-course.php?test=2&search=business" class="all-courses__categorie__item">Business</a>
+                    <a href="#" class="all-courses__categorie__item">Business</a>
                     <a href="#" class="all-courses__categorie__item">Design</a>
                     <a href="#" class="all-courses__categorie__item">Languages & Literature</a>
                     <a href="#" class="all-courses__categorie__item">Photography</a>
