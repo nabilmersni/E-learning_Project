@@ -13,9 +13,10 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
 
 include_once('../controllers/formationC.php');
 
-//$formationC = new FormationC();
+$formationC = new FormationC();
 $listeFormations = $formationC->afficher_formations();
 
+if(isset($_GET['test'])){
     $test = $_GET['test'];
 
 
@@ -26,7 +27,7 @@ if ($test == 1) {
     $search = $_POST['search'];
     $listeFormations = $formationC->filtrer_formations($search);
 }
-
+}
 
 ?>
 
@@ -69,7 +70,8 @@ if ($test == 1) {
             <form action="view-all-course.php?test=1" method="POST">
                 <div class="container_search">
                     <input type="text" maxlength="12" name="search" placeholder="Rechercher" class="searchbar">
-                    <button type="submit"><img src="https://images-na.ssl-images-amazon.com/images/I/41gYkruZM2L.png" alt="search icon" class="button_search">
+                    <button type="submit"><img src="https://images-na.ssl-images-amazon.com/images/I/41gYkruZM2L.png"
+                            alt="search icon" class="button_search">
                     </button>
             </form>
         </div>
@@ -81,7 +83,8 @@ if ($test == 1) {
             <div class="all-courses__categorie__container">
                 <h1 class="all-courses__categorie__title">Category</h1>
                 <div class="all-courses__categorie__list">
-                    <a href="view-all-course.php?test=0" class="all-courses__categorie__item all-courses__categorie__item-active">All courses</a>
+                    <a href="view-all-course.php?test=0"
+                        class="all-courses__categorie__item all-courses__categorie__item-active">All courses</a>
                     <a href="#" class="all-courses__categorie__item">Programing & Development</a>
                     <a href="#" class="all-courses__categorie__item">Art & Music</a>
                     <a href="#" class="all-courses__categorie__item">Business</a>
@@ -98,45 +101,52 @@ if ($test == 1) {
 
                     foreach ($listeFormations as $formation) {
                     ?>
-                        <a style="text-decoration: none;" href="./course-details.php">
-                            <div class="course__card-v3">
-                                <div class="course__card-v3__thumbnail-container">
-                                    <img src="./formation_code/uploads/<?php echo $formation['image']; ?>" alt="course img" class="course__card-v3__thumbnail">
-                                </div>
-
-                                <div class="course__card-v3__category-price">
-                                    <p class="course__card-v3__category"><?php echo $formation['categorie']; ?></p>
-                                    <p class="course__card-v3__price"><?php echo $formation['price']; ?></p>
-                                </div>
-
-                                <h1 class="course__card-v3__title"><?php echo $formation['name']; ?>
-                                </h1>
-
-                                <p class="course__card-v3__instructor-name">Braiek Ali</p>
-
-                                <div class="course__card-v3__stat">
-
-                                    <div class="course__card-v3__stat__rating-container">
-                                        <p class="course__card-v3__stat__rating">5.0</p>
-                                        <div class="course__card-v3__stat__stars">
-                                            <img src="../contents/img/star-icon.png" alt="" class="course__card-v3__stat__star-icon">
-                                            <img src="../contents/img/star-icon.png" alt="" class="course__card-v3__stat__star-icon">
-                                            <img src="../contents/img/star-icon.png" alt="" class="course__card-v3__stat__star-icon">
-                                            <img src="../contents/img/star-icon.png" alt="" class="course__card-v3__stat__star-icon">
-                                            <img src="../contents/img/star-icon.png" alt="" class="course__card-v3__stat__star-icon">
-                                        </div>
-                                        <p class="course__card-v3__stat__rating-count">(256321)</p>
-
-                                    </div>
-
-                                    <div class="course__card-v3__stat__student">
-                                        <img class="course__card-v3__stat__student-icon" src="../contents/img/users-icon.png" alt="">
-                                        <p class="course__card-v3__stat__student-count">256321</p>
-                                    </div>
-
-                                </div>
+                    <a style="text-decoration: none;" href="./course-details.php">
+                        <div class="course__card-v3">
+                            <div class="course__card-v3__thumbnail-container">
+                                <img src="./formation_code/uploads/<?php echo $formation['image']; ?>" alt="course img"
+                                    class="course__card-v3__thumbnail">
                             </div>
-                        </a>
+
+                            <div class="course__card-v3__category-price">
+                                <p class="course__card-v3__category"><?php echo $formation['categorie']; ?></p>
+                                <p class="course__card-v3__price"><?php echo $formation['price']; ?></p>
+                            </div>
+
+                            <h1 class="course__card-v3__title"><?php echo $formation['name']; ?>
+                            </h1>
+
+                            <p class="course__card-v3__instructor-name">Braiek Ali</p>
+
+                            <div class="course__card-v3__stat">
+
+                                <div class="course__card-v3__stat__rating-container">
+                                    <p class="course__card-v3__stat__rating">5.0</p>
+                                    <div class="course__card-v3__stat__stars">
+                                        <img src="../contents/img/star-icon.png" alt=""
+                                            class="course__card-v3__stat__star-icon">
+                                        <img src="../contents/img/star-icon.png" alt=""
+                                            class="course__card-v3__stat__star-icon">
+                                        <img src="../contents/img/star-icon.png" alt=""
+                                            class="course__card-v3__stat__star-icon">
+                                        <img src="../contents/img/star-icon.png" alt=""
+                                            class="course__card-v3__stat__star-icon">
+                                        <img src="../contents/img/star-icon.png" alt=""
+                                            class="course__card-v3__stat__star-icon">
+                                    </div>
+                                    <p class="course__card-v3__stat__rating-count">(256321)</p>
+
+                                </div>
+
+                                <div class="course__card-v3__stat__student">
+                                    <img class="course__card-v3__stat__student-icon"
+                                        src="../contents/img/users-icon.png" alt="">
+                                    <p class="course__card-v3__stat__student-count">256321</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </a>
                     <?php
                     }
                     ?>

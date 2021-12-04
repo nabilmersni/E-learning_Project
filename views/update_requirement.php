@@ -100,7 +100,7 @@
             <img class="dash__side-bar__logo" src="../contents/img/logo-icon-nobg.png" alt="logo">
 
             <div class="dash__side-bar__list">
-                <a href="./dash_instructor.html" class="dash__side-bar__item">
+                <a href="./dash_instructor.php" class="dash__side-bar__item">
                     <div class="dash__side-bar__item__icon">
                         <svg class="dash__side-bar__item__icon-svg" id="dashboard-icon"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44.432 44.432">
@@ -166,15 +166,52 @@
 
                 <a href="#" class="dash__side-bar__item">
                     <div class="dash__side-bar__item__icon">
-                        <svg class="dash__side-bar__item__icon-svg" id="profile-icon" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 35.092 42.062">
-                            <g id="user-icon">
-                                <path id="Path_1029" data-name="Path 1029"
-                                    d="M97.163,20.261a9.8,9.8,0,0,0,7.163-2.968,9.8,9.8,0,0,0,2.968-7.163,9.8,9.8,0,0,0-2.968-7.163A10.128,10.128,0,0,0,90,2.968a9.8,9.8,0,0,0-2.968,7.163A9.8,9.8,0,0,0,90,17.294,9.8,9.8,0,0,0,97.163,20.261Zm0,0"
-                                    transform="translate(-79.882 0)" fill="currentColor" />
-                                <path id="Path_1030" data-name="Path 1030"
-                                    d="M35.007,259.342a25.018,25.018,0,0,0-.341-2.658,20.937,20.937,0,0,0-.654-2.672,13.2,13.2,0,0,0-1.1-2.492,9.4,9.4,0,0,0-1.657-2.159,7.3,7.3,0,0,0-2.379-1.5,8.224,8.224,0,0,0-3.038-.55,3.083,3.083,0,0,0-1.647.7c-.494.322-1.071.694-1.715,1.106a9.829,9.829,0,0,1-2.219.978,8.618,8.618,0,0,1-5.429,0,9.806,9.806,0,0,1-2.218-.977c-.638-.408-1.216-.78-1.717-1.106a3.079,3.079,0,0,0-1.646-.7,8.213,8.213,0,0,0-3.037.55,7.3,7.3,0,0,0-2.38,1.5,9.406,9.406,0,0,0-1.656,2.158,13.225,13.225,0,0,0-1.1,2.492,20.989,20.989,0,0,0-.653,2.672,24.933,24.933,0,0,0-.341,2.659c-.056.8-.084,1.64-.084,2.484a6.984,6.984,0,0,0,2.074,5.284,7.467,7.467,0,0,0,5.345,1.95H27.672a7.466,7.466,0,0,0,5.345-1.95,6.981,6.981,0,0,0,2.075-5.284c0-.848-.029-1.683-.085-2.484Zm0,0"
-                                    transform="translate(0 -226.999)" fill="currentColor" />
+                        <svg class="dash__side-bar__item__icon-svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" x="0" y="0"
+                            viewBox="0 0 460.8 460.8" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                            <g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <g>
+                                        <g>
+                                            <path
+                                                d="M230.432,239.282c65.829,0,119.641-53.812,119.641-119.641C350.073,53.812,296.261,0,230.432,0     S110.792,53.812,110.792,119.641S164.604,239.282,230.432,239.282z"
+                                                fill="currentColor" data-original="currentColor"></path>
+                                            <path
+                                                d="M435.755,334.89c-3.135-7.837-7.314-15.151-12.016-21.943c-24.033-35.527-61.126-59.037-102.922-64.784     c-5.224-0.522-10.971,0.522-15.151,3.657c-21.943,16.196-48.065,24.555-75.233,24.555s-53.29-8.359-75.233-24.555     c-4.18-3.135-9.927-4.702-15.151-3.657c-41.796,5.747-79.412,29.257-102.922,64.784c-4.702,6.792-8.882,14.629-12.016,21.943     c-1.567,3.135-1.045,6.792,0.522,9.927c4.18,7.314,9.404,14.629,14.106,20.898c7.314,9.927,15.151,18.808,24.033,27.167     c7.314,7.314,15.673,14.106,24.033,20.898c41.273,30.825,90.906,47.02,142.106,47.02s100.833-16.196,142.106-47.02     c8.359-6.269,16.718-13.584,24.033-20.898c8.359-8.359,16.718-17.241,24.033-27.167c5.224-6.792,9.927-13.584,14.106-20.898     C436.8,341.682,437.322,338.024,435.755,334.89z"
+                                                fill="currentColor" data-original="currentColor"></path>
+                                        </g>
+                                    </g>
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                </g>
                             </g>
                         </svg>
                     </div>

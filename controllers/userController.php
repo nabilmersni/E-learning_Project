@@ -1,5 +1,6 @@
 <?php 
 require_once "../models/user.php";
+require_once "../models/notification.php";
 
 if (isset($_GET['event']) && !empty($_GET['event'])) {
     
@@ -211,6 +212,13 @@ if (isset($_GET['event']) && !empty($_GET['event'])) {
                 move_uploaded_file($_FILES['uploadCV']['tmp_name'], $target);
                 $user->setcv_url($cvName);
             }
+
+            $notif = new Notification();
+            $notif->setuser_id($user_id);
+            $notif->setfor_who('admin');
+            $notif->setcontent('CV need to be reviewed');
+            
+            $notif->addNotif();
             
             $updatedUser = $user->uploadCV($user_id);
             
@@ -224,6 +232,14 @@ if (isset($_GET['event']) && !empty($_GET['event'])) {
             $user_id = $_POST['user_id'];
             
             if($_POST['cvStatus'] == "1"){
+                
+                $notif = new Notification();
+                $notif->setuser_id($user_id);
+                $notif->setfor_who('user');
+                $notif->setcontent('Your cv is accepted');
+            
+                
+                $notif->addNotif();
                 $user = User::acceptCV($user_id,1);
             }else{
                 $user = User::acceptCV($user_id,0);

@@ -410,10 +410,13 @@ body {
 }
 
 .course__card-v2__img-container {
-  min-width: 17rem;
-  background-color: red;
+  width: 21rem;
   border-radius: 3rem;
   margin-right: 1rem;
+}
+
+.course__card-v2__img-container-v2 {
+  min-width: unset !important;
 }
 
 .course__card-v2__content {
@@ -433,6 +436,20 @@ body {
 .course__card-v2__title {
   color: #585856;
   font-size: 1.9rem;
+}
+
+.course__card-v2__title2 {
+  color: #585856;
+  font-size: 1.9rem;
+  min-width: 60rem;
+}
+
+.course__card-v2__title2__instructor {
+  color: #3D3D3D;
+}
+
+.course__card-v2__title2__instructor span {
+  color: #FF7244;
 }
 
 .course__card-v2__cate-action {
@@ -791,7 +808,7 @@ body {
 
 .modal-window {
   position: fixed;
-  background-color: rgba(255, 255, 255, 0.35);
+  background-color: rgba(255, 255, 255, 0.6);
   top: 0;
   right: 0;
   bottom: 0;
@@ -862,6 +879,10 @@ body {
 }
 
 .cart_modal-window {
+  background-color: rgba(214, 219, 253, 0.3);
+}
+
+.cart_modal-window-v2 {
   background-color: rgba(214, 219, 253, 0.3);
 }
 

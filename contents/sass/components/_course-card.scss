@@ -113,9 +113,13 @@
         height: 100%;
 
         &-container{
-            min-width: 17rem;
+            &-v2{
+                min-width: unset !important;
+            }
+            width: 21rem;
+
             // height: 13rem;
-            background-color: red;
+            // background-color: red;
             border-radius: 3rem;   
             margin-right: 1rem; 
         }
@@ -127,10 +131,22 @@
         flex-direction: column;
         justify-content: space-between;
     }
-
     &__title{
         color: $dark-font-color;
         font-size: 1.9rem;
+    }
+
+    &__title2{
+        color: $dark-font-color;
+        font-size: 1.9rem;
+        min-width: 60rem;
+
+        &__instructor{
+            color: $dark-font-color-2;
+            span{
+                color: $secondary;
+            }
+        }
     }
 
     &__cate-action{

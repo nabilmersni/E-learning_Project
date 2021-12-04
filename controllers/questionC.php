@@ -2,8 +2,11 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-include_once ('C:\xampp\htdocs\E-learning_Project_last_version\configdb\db_connector.php');
-include_once('C:\xampp\htdocs\E-learning_Project_last_version\models\question.php');
+// include_once ('..\configdb\db_connector.php');
+// include_once('..\models\question.php');
+
+require_once (__DIR__.'\..\configdb\db_connector.php');
+include_once (__DIR__.'\..\models\question.php');
 
 class QuestionC{
 

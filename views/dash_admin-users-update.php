@@ -380,6 +380,30 @@
                     </div>
                 </div>
 
+                <a href="#" class="secondary-btn secondary-btn-topbar">
+                    Generate Coupons
+
+                    <div class="secondary-btn__svg-container">
+
+                        <svg class="secondary-btn__svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" x="0" y="0"
+                            viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                            <g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="196" cy="211" r="15" fill="currentColor" data-original="currentColor">
+                                    </circle>
+                                    <circle cx="316" cy="301" r="15" fill="currentColor" data-original="currentColor">
+                                    </circle>
+                                    <path
+                                        d="m467 106h-422c-24.814 0-45 20.186-45 45v60c0 8.291 6.709 15 15 15h15c16.538 0 30 13.462 30 30s-13.462 30-30 30h-15c-8.291 0-15 6.709-15 15v60c0 24.814 20.186 45 45 45h422c24.814 0 45-20.186 45-45v-60c0-8.291-6.709-15-15-15h-15c-16.538 0-30-13.462-30-30s13.462-30 30-30h15c8.291 0 15-6.709 15-15v-60c0-24.814-20.186-45-45-45zm-316 105c0-24.814 20.186-45 45-45s45 20.186 45 45-20.186 45-45 45-45-20.186-45-45zm35.624 131.719c-6.459-5.186-7.514-14.619-2.343-21.094l120-150c5.2-6.431 14.619-7.515 21.093-2.344 6.461 5.186 7.515 14.619 2.344 21.094l-120 150c-5.221 6.482-14.646 7.495-21.094 2.344zm129.376 3.281c-24.814 0-45-20.186-45-45s20.186-45 45-45 45 20.186 45 45-20.186 45-45 45z"
+                                        fill="currentColor" data-original="currentColor"></path>
+                                </g>
+                            </g>
+                        </svg>
+
+                    </div>
+                </a>
+
 
             </nav>
 

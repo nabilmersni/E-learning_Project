@@ -1,5 +1,6 @@
 <?php 
     require_once "../models/user.php";
+    require_once "../models/panier.php";
 
     session_start();
     if (isset($_SESSION['user'])){
@@ -19,6 +20,19 @@
         header('location:../views/login.php?auth=false');
     }
 
+    $paniertStat = Panier::getPanierNumber($user->user_id);
+
+
+    require_once "../models/notification.php";
+
+    if($user->role == 'admin'){
+        $notifCount = Notification::getNotifAdminNumber()->total;
+        $notifications = Notification::getAllNotifAdmin();
+    }else{
+        $notifCount = Notification::getNotifUserNumber($user->user_id)->total;
+        $notifications = Notification::getAllNotifUser($user->user_id);
+    }
+
 ?>
 
 <html lang="en">
@@ -27,8 +41,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../contents/css/notif.css" />
     <link rel="stylesheet" href="../contents/sass/style.css" />
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="icon" href="../contents/img/logo-icon-nobg.png">
     <title>I learn</title>
 </head>
@@ -79,29 +95,89 @@
 
                 <div class="divider"></div>
 
-                <a href="#">
-                    <div class="dash__top-bar__svg-container">
-                        <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 43.026 34.421">
-                            <g id="message-icon" transform="translate(0)">
-                                <path id="Path_1045" data-name="Path 1045"
-                                    d="M43.921,8.5A5.284,5.284,0,0,0,38.711,4H6.266a5.284,5.284,0,0,0-5.21,4.5L22.489,22.371Z"
-                                    transform="translate(-0.976 -4)" fill="currentColor" />
-                                <path id="Path_1046" data-name="Path 1046"
-                                    d="M23.292,22.9a1.434,1.434,0,0,1-1.558,0L1,9.486V30.748a5.3,5.3,0,0,0,5.291,5.291H38.735a5.3,5.3,0,0,0,5.291-5.291V9.485Z"
-                                    transform="translate(-1 -1.618)" fill="currentColor" />
-                            </g>
-                        </svg>
+                <script>
+                $(document).ready(function() {
+                    $(".notification_icon").click(function() {
+                        $(".dropdown").toggleClass("active");
+                    })
+                });
+                </script>
+                <div class="notification_wrap">
+                    <div class="dash__top-bar__svg-container ">
+                        <div style="position:relative" class="notification_icon">
+                            <span class="cart-icon__span"><?php echo $notifCount; ?> </span>
+                            <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" x="0"
+                                y="0" viewBox="0 0 48 48" style="enable-background:new 0 0 512 512"
+                                xml:space="preserve">
+                                <g>
+                                    <g xmlns="http://www.w3.org/2000/svg" id="Line">
+                                        <path
+                                            d="m24 2a15 15 0 0 0 -15 15v11.7l-3.32 5a4.08 4.08 0 0 0 3.39 6.3h29.86a4.08 4.08 0 0 0 3.39-6.33l-3.32-4.97v-11.7a15 15 0 0 0 -15-15z"
+                                            fill="currentColor" data-original="currentColor"></path>
+                                        <path d="m24 46a6 6 0 0 0 5.65-4h-11.3a6 6 0 0 0 5.65 4z" fill="currentColor"
+                                            data-original="currentColor"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
                     </div>
-                </a>
+
+                    <div class="dropdown">
+
+                        <?php if($notifCount ==0){
+                                    echo '<div class="empty_alert">
+                                    There is no notifications
+                                </div>';
+                                } ?>
+
+                        <?php 
+                            while($notification = $notifications->fetchObject()) {
+                        ?>
+
+                        <div class="notify_item">
+                            <div class="notify_img">
+                                <img src="../uploads/defaultUserImage.png" alt="" style="width: 50px">
+                            </div>
+                            <div class="notify_info">
+                                <p><span><?php echo $notification->fullname ?></span>
+                                    <?php echo $notification->content ?></p>
+                                <span class="notify_time">10 minutes ago</span>
+                            </div>
+                            <div class="notify_read">
+                                <a style="text-decoration:none; color:inherit"
+                                    href="../controllers/notificationController.php?event=deleteNotif&notif_id=<?php echo $notification->notif_id ?>">
+                                    <svg class="notify_read_icon" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs"
+                                        x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512"
+                                        xml:space="preserve">
+                                        <g>
+                                            <path xmlns="http://www.w3.org/2000/svg"
+                                                d="m16 5.5c-6.76001 0-13 3.94-15.89996 10.04999-.13.28998-.13.63 0 .90997 2.90997 6.10004 9.14996 10.04004 15.89996 10.04004s12.98999-3.94 15.90002-10.04004c.13-.27997.13-.62 0-.90997-2.90002-6.10999-9.14001-10.04999-15.90002-10.04999zm0 16.83997c-3.48999 0-6.33997-2.84998-6.33997-6.33997s2.84998-6.34003 6.33997-6.34003 6.34003 2.85004 6.34003 6.34003-2.85004 6.33997-6.34003 6.33997z"
+                                                fill="currentColor" data-original="currentColor"></path>
+                                            <circle xmlns="http://www.w3.org/2000/svg" cx="16" cy="16" r="4.2"
+                                                fill="currentColor" data-original="currentColor"></circle>
+                                        </g>
+                                    </svg>
+                                    <p class="notify_read_text">
+                                        Mark as read
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+
+                        <?php } ?>
+                    </div>
+                </div>
 
                 <div class="divider"></div>
 
                 <?php 
                     if($user->role == 'student'){
                 ?>
-                <a href="#">
-                    <div style="margin-top: .3rem;" class="dash__top-bar__svg-container">
-
+                <a style="text-decoration: none;" href="./user-side-cart.php">
+                    <div style="margin-top: .3rem;" class="dash__top-bar__svg-container cart-icon">
+                        <span class="cart-icon__span"><?php echo $paniertStat->total; ?> </span>
                         <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
                             xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" x="0" y="0"
                             viewBox="0 0 512.00033 512" style="enable-background:new 0 0 512 512" xml:space="preserve">

@@ -10,7 +10,7 @@ const lineGrapOptions = {
           display: false,
         },
         ticks: {
-          beginAtZero: false,
+          beginAtZero: true,
           padding: 12,
           callback: function (value) {
             return value + " TND";
@@ -22,6 +22,7 @@ const lineGrapOptions = {
       {
         ticks: {
           padding: 12,
+          beginAtZero: true,
         },
         gridLines: {
           display: false,
@@ -53,7 +54,18 @@ const myChart = new Chart(lineGraph, {
     datasets: [
       {
         data: [
-          650, 710, 420, 230, 950, 1250, 2550, 1200, 1300, 850, 1550, 1200,
+          totalEarning[0],
+          totalEarning[1],
+          totalEarning[2],
+          totalEarning[3],
+          totalEarning[4],
+          totalEarning[5],
+          totalEarning[6],
+          totalEarning[7],
+          totalEarning[8],
+          totalEarning[9],
+          totalEarning[10],
+          totalEarning[11],
         ],
         borderColor: "rgba(255,117,92,1)",
         pointBorderColor: "rgba(255,255,255,1)",
@@ -65,6 +77,8 @@ const myChart = new Chart(lineGraph, {
   },
   options: lineGrapOptions,
 });
+
+//----------------------------------------------------------------------------------------------
 
 let lineGraph_orders = document.querySelector(".line-graph_orders");
 
@@ -78,7 +92,7 @@ const lineGrapOptions_orders = {
           display: false,
         },
         ticks: {
-          beginAtZero: false,
+          beginAtZero: true,
           padding: 12,
         },
       },
@@ -118,7 +132,20 @@ const myChart_orders = new Chart(lineGraph_orders, {
     ],
     datasets: [
       {
-        data: [10, 25, 9, 15, 30, 40, 60, 55, 70, 10, 20, 25],
+        data: [
+          orders[0],
+          orders[1],
+          orders[2],
+          orders[3],
+          orders[4],
+          orders[5],
+          orders[6],
+          orders[7],
+          orders[8],
+          orders[9],
+          orders[10],
+          orders[11],
+        ],
         borderColor: "rgba(255,117,92,1)",
         pointBorderColor: "rgba(255,255,255,1)",
         pointBackgroundColor: "rgba(255,255,255,1)",

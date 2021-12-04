@@ -1,7 +1,14 @@
 <?php 
     require_once "../models/user.php";
+    require_once "../models/notification.php";
+    include_once('../models/achat.php');
+    
+    include_once('../controllers/formationC.php');
 
-    session_start();
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
     if (isset($_SESSION['user'])){
         $_SESSION['user'] = User::getOneUser($_SESSION['user']->user_id);
         
@@ -23,6 +30,16 @@
         header('location:../views/login.php?auth=false');
     }
 
+    $notifCount = Notification::getNotifUserNumber($user->user_id)->total;
+    $notifications = Notification::getAllNotifUser($user->user_id);
+
+
+    $formationC = new FormationC();
+    $listeFormations = $formationC->afficher_latest_formations_instructor($user->user_id);
+    $modalCount=0;
+
+    $myStudentNumber = Achat::getMyStudentNumber($user->user_id)->total;
+
 ?>
 
 
@@ -34,11 +51,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../contents/css/notif.css" />
     <link rel="stylesheet" href="../contents/sass/style.css" />
     <link rel="stylesheet" href="../contents/css/chart_style.css" />
 
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <link rel="icon" href="../contents/img/logo-icon-nobg.png">
     <title>I learn-dash</title>
 </head>
@@ -246,7 +266,7 @@
 
                         <div class="divider"></div>
 
-                        <a href="#">
+                        <!-- <a href="#">
                             <div class="dash__top-bar__svg-container">
                                 <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 43.026 34.421">
@@ -260,7 +280,84 @@
                                     </g>
                                 </svg>
                             </div>
-                        </a>
+                        </a> -->
+                        <script>
+                        $(document).ready(function() {
+                            $(".notification_icon").click(function() {
+                                $(".dropdown").toggleClass("active");
+                            })
+                        });
+                        </script>
+                        <div class="notification_wrap">
+                            <div class="dash__top-bar__svg-container ">
+                                <div style="position:relative" class="notification_icon">
+                                    <span class="cart-icon__span"><?php echo $notifCount; ?> </span>
+                                    <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs"
+                                        x="0" y="0" viewBox="0 0 48 48" style="enable-background:new 0 0 512 512"
+                                        xml:space="preserve">
+                                        <g>
+                                            <g xmlns="http://www.w3.org/2000/svg" id="Line">
+                                                <path
+                                                    d="m24 2a15 15 0 0 0 -15 15v11.7l-3.32 5a4.08 4.08 0 0 0 3.39 6.3h29.86a4.08 4.08 0 0 0 3.39-6.33l-3.32-4.97v-11.7a15 15 0 0 0 -15-15z"
+                                                    fill="currentColor" data-original="currentColor"></path>
+                                                <path d="m24 46a6 6 0 0 0 5.65-4h-11.3a6 6 0 0 0 5.65 4z"
+                                                    fill="currentColor" data-original="currentColor"></path>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div class="dropdown">
+
+                                <?php if($notifCount ==0){
+                                    echo '<div class="empty_alert">
+                                    There is no notifications
+                                </div>';
+                                } ?>
+
+                                <?php 
+                                    while($notification = $notifications->fetchObject()) {
+                                ?>
+
+                                <div class="notify_item">
+                                    <div class="notify_img">
+                                        <img src="../uploads/defaultUserImage.png" alt="" style="width: 50px">
+                                    </div>
+                                    <div class="notify_info">
+                                        <p><span><?php echo $notification->fullname ?></span>
+                                            <?php echo $notification->content ?></p>
+                                        <span class="notify_time">10 minutes ago</span>
+                                    </div>
+                                    <div class="notify_read">
+                                        <a style="text-decoration:none; color:inherit"
+                                            href="../controllers/notificationController.php?event=deleteNotif&notif_id=<?php echo $notification->notif_id ?>">
+                                            <svg class="notify_read_icon" xmlns="http://www.w3.org/2000/svg"
+                                                version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                xmlns:svgjs="http://svgjs.com/svgjs" x="0" y="0" viewBox="0 0 32 32"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve">
+                                                <g>
+                                                    <path xmlns="http://www.w3.org/2000/svg"
+                                                        d="m16 5.5c-6.76001 0-13 3.94-15.89996 10.04999-.13.28998-.13.63 0 .90997 2.90997 6.10004 9.14996 10.04004 15.89996 10.04004s12.98999-3.94 15.90002-10.04004c.13-.27997.13-.62 0-.90997-2.90002-6.10999-9.14001-10.04999-15.90002-10.04999zm0 16.83997c-3.48999 0-6.33997-2.84998-6.33997-6.33997s2.84998-6.34003 6.33997-6.34003 6.34003 2.85004 6.34003 6.34003-2.85004 6.33997-6.34003 6.33997z"
+                                                        fill="currentColor" data-original="currentColor"></path>
+                                                    <circle xmlns="http://www.w3.org/2000/svg" cx="16" cy="16" r="4.2"
+                                                        fill="currentColor" data-original="currentColor"></circle>
+                                                </g>
+                                            </svg>
+                                            <p class="notify_read_text">
+                                                Mark as read
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <?php } ?>
+                            </div>
+                        </div>
+
+
+
 
                     </div>
 
@@ -272,7 +369,7 @@
                     </div>
                 </div>
 
-                <a href="#" class="secondary-btn secondary-btn-topbar">
+                <a href="dash_instructor-courses-add.php" class="secondary-btn secondary-btn-topbar">
                     Add New Course
 
                     <div class="secondary-btn__svg-container">
@@ -301,7 +398,8 @@
 
                         <lottie-player class="dash__instructor-home__welcome__ill"
                             src="https://assets3.lottiefiles.com/packages/lf20_sqfka1nk.json" background="transparent"
-                            speed="1" loop autoplay></lottie-player>
+                            speed="1" loop autoplay>
+                        </lottie-player>
                     </div>
 
                     <div class="dash__instructor-home__content">
@@ -317,7 +415,7 @@
                                         My Students Number
                                     </h1>
 
-                                    <h2 class="stat-box__content__data">50</h2>
+                                    <h2 class="stat-box__content__data"><?php echo $myStudentNumber; ?></h2>
                                 </div>
 
                             </div>
@@ -352,25 +450,35 @@
                                 </div>
 
                                 <div class="dash__instructor-home__content__left-side__latest-courses__group">
-                                    <div class="course__card-v2">
-                                        <div class="course__card-v2__img-container">
-                                            <img src="../contents/img/course-cover.jpg" alt=""
+                                    <?php
+                                        foreach($listeFormations as $formation){ 
+                                        $modalCount++;
+                                    ?>
+                                    <div class="course__card-v2" style="">
+                                        <div class="course__card-v2__img-container course__card-v2__img-container-v2"
+                                            style="width: 20rem;">
+                                            <img src="formation_code/uploads/<?php echo $formation['image']; ?>" alt=""
                                                 class="course__card-v2__img">
                                         </div>
 
                                         <div class="course__card-v2__content">
-                                            <h1 class="course__card-v2__title">
-                                                The Complete JavaScript Course 2021:From Zero to Expert!
+                                            <h1 style="width:44rem" class="course__card-v2__title">
+                                                <?php echo $formation['name']; ?>
                                             </h1>
+                                            <p class="course__card-v2__title2__instructor"> <span>Created By</span>
+                                                <?php echo $formation['fullname']; ?>
+                                            </p>
 
                                             <div class="course__card-v2__cate-action">
-                                                <div class="course__card-v2__category">
-                                                    Development
+                                                <div class="course__card-v2__category" style="font-size:1.2rem">
+                                                    <?php echo $formation['categorie']; ?>
                                                 </div>
 
                                                 <div class="course__card-v2__action-btns">
-                                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-view">
-                                                        <svg class="course__card-v2__btn-icon"
+                                                    <a style="padding:1rem 1rem"
+                                                        href="course-details.php?id=<?php echo $formation['formation_id']; ?>"
+                                                        class="course__card-v2__btn course__card-v2__btn-view">
+                                                        <svg style="width:1.4rem" class="course__card-v2__btn-icon"
                                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.995 21">
                                                             <g id="see-icon" transform="translate(-0.002 -5.5)">
                                                                 <path id="Path_1047" data-name="Path 1047"
@@ -383,10 +491,131 @@
                                                         </svg>
                                                     </a>
 
-                                                    <a href="#"
+                                                    <a style="padding:.7rem 0.8rem; "
+                                                        href="<?php echo '#open-modal' . $modalCount ?>"
+                                                        class="course__card-v2__btn course__card-v2__btn-update offer">
+
+                                                        <svg style="width:1.4rem"
+                                                            class="course__card-v2__btn-icon course__card-v2__btn-icon-update"
+                                                            xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                            xmlns:svgjs="http://svgjs.com/svgjs" x="0" y="0"
+                                                            viewBox="0 0 293.373 293.373"
+                                                            style="enable-background:new 0 0 512 512"
+                                                            xml:space="preserve" class="">
+                                                            <g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                    <g>
+                                                                        <g>
+                                                                            <path
+                                                                                d="M130.265,162.904c-24.162,0-95.274,0-95.274,0c-7.549,0-13.726,6.176-13.726,13.725v103.02     c0,7.549,6.177,13.725,13.726,13.725c0,0,72.6,0,96.876,0c3.229,0,3.229-3.469,3.229-3.469V167.568     C135.095,167.568,135.095,162.904,130.265,162.904z"
+                                                                                fill="#fff" data-original="#fff"
+                                                                                class=""></path>
+                                                                            <path
+                                                                                d="M258.383,162.904c0,0-71.384,0-95.177,0c-5.797,0-4.929,6.037-4.929,6.037v121.076c0,0-0.047,3.354,3.44,3.354     c24.166,0,96.664,0,96.664,0c7.549,0,13.726-6.176,13.726-13.725V176.629C272.109,169.08,265.932,162.904,258.383,162.904z"
+                                                                                fill="#fff" data-original="#fff"
+                                                                                class=""></path>
+                                                                        </g>
+                                                                        <g>
+                                                                            <path
+                                                                                d="M135.095,81.846c0,0,0-4.651-4.596-4.651c-27.521,0-111.008,0-111.008,0c-7.549,0-13.726,6.177-13.726,13.725v42.845     c0,7.549,6.177,13.725,13.726,13.725c0,0,83.861,0,111.384,0c4.22,0,4.22-3.66,4.22-3.66V81.846L135.095,81.846z"
+                                                                                fill="#fff" data-original="#fff"
+                                                                                class=""></path>
+                                                                            <path
+                                                                                d="M273.882,77.195c0,0-83.521,0-111.362,0c-4.241,0-4.241,4.041-4.241,4.041v62.679c0,0,0,3.575,5.156,3.575     c27.611,0,110.447,0,110.447,0c7.549,0,13.726-6.176,13.726-13.725V90.92C287.608,83.372,281.431,77.195,273.882,77.195z"
+                                                                                fill="#fff" data-original="#fff"
+                                                                                class=""></path>
+                                                                        </g>
+                                                                        <g>
+                                                                            <path
+                                                                                d="M88.41,67.04c-6.28,0-12.016-0.498-17.046-1.481c-12.776-2.496-21.557-7.354-26.845-14.85     c-4.738-6.718-6.188-15-4.311-24.617C43.496,9.266,54.796,0,72.024,0c3.646,0,7.65,0.421,11.902,1.252     c10.816,2.113,24.65,8.315,37.007,16.59c20.965,14.041,22.002,22.77,20.958,28.115c-1.535,7.854-8.876,13.466-22.443,17.158     C110.282,65.609,98.969,67.04,88.41,67.04z M72.025,21.999c-6.672,0-8.965,1.864-10.224,8.311     c-1.03,5.271,0.269,7.112,0.695,7.717c1.784,2.53,6.431,4.64,13.086,5.939c3.591,0.702,8.028,1.073,12.827,1.073     c10.553,0,19.85-1.599,26.019-3.348c0.449-0.127,1.146-0.658,0.399-1.103c-8.065-6.57-22.82-15.343-35.119-17.746     C76.843,22.284,74.257,21.999,72.025,21.999z"
+                                                                                fill="#fff" data-original="#fff"
+                                                                                class=""></path>
+                                                                        </g>
+                                                                        <g>
+                                                                            <path
+                                                                                d="M205.281,67.04c0,0,0,0-0.002,0c-10.559,0-21.871-1.431-31.037-3.925c-13.568-3.691-20.908-9.304-22.443-17.157     c-1.043-5.345-0.008-14.074,20.959-28.115c12.355-8.275,26.189-14.477,37.007-16.59c4.252-0.831,8.256-1.252,11.899-1.252     c17.232,0,28.531,9.267,31.816,26.093c1.879,9.616,0.43,17.898-4.309,24.616c-5.288,7.497-14.068,12.354-26.847,14.85     C217.296,66.541,211.56,67.04,205.281,67.04z M179.039,40.452c-0.715,0.415-0.369,1.07,0.002,1.177     c6.166,1.773,15.561,3.411,26.238,3.411c4.801,0,9.236-0.371,12.828-1.073c6.654-1.3,11.303-3.409,13.086-5.939     c0.428-0.605,1.728-2.446,0.695-7.717C230.63,23.864,228.336,22,221.663,22c-2.231,0-4.815,0.284-7.682,0.844     C201.681,25.246,187.104,33.881,179.039,40.452z"
+                                                                                fill="#fff" data-original="#fff"
+                                                                                class=""></path>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                </g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                </g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                </g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                </g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                </g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                </g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                </g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                </g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                </g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                </g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                </g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                </g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                </g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                </g>
+                                                                <g xmlns="http://www.w3.org/2000/svg">
+                                                                </g>
+                                                            </g>
+                                                        </svg>
+
+                                                    </a>
+
+                                                    <div id="<?php echo 'open-modal' . $modalCount ?>"
+                                                        class="modal-window">
+                                                        <div>
+                                                            <a href="#" title="Close" class="modal-close">Close</a>
+
+                                                            <lottie-player
+                                                                src="https://assets10.lottiefiles.com/packages/lf20_mUMas4.json"
+                                                                background="transparent" speed="1"
+                                                                style="width: 100px; height:100px;" loop autoplay>
+                                                            </lottie-player>
+                                                            <form style="display:inline-block;"
+                                                                action="../controllers/userController.php?event=block"
+                                                                method="POST">
+                                                                <input type="hidden"
+                                                                    value="<?php echo $formation['formation_id']; ?>"
+                                                                    name="user_id">
+                                                                <div style="margin-top: 2rem;"
+                                                                    class="form__input__group">
+                                                                    <label for="reduction"
+                                                                        class="form__input__label">Reduction(%)</label>
+                                                                    <input type="number"
+                                                                        style="padding: 1rem 2rem; height: auto;"
+                                                                        class="form__input" name="reduction"
+                                                                        id="reduction" placeholder="Reduction %" />
+                                                                </div>
+
+                                                                <input style="max-width: 20rem; margin-bottom: 4rem;"
+                                                                    class="primary-btn primary-btn-form" type="submit"
+                                                                    value="Submit offer">
+                                                            </form>
+
+
+                                                        </div>
+                                                    </div>
+
+                                                    <a style="padding:.8rem 1rem"
+                                                        href="dash_instructor-course-update.php?id=<?php echo $formation['formation_id']; ?>"
                                                         class="course__card-v2__btn course__card-v2__btn-update">
 
-                                                        <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-update"
+                                                        <svg style="width:1.4rem"
+                                                            class="course__card-v2__btn-icon course__card-v2__btn-icon-update"
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             viewBox="0 0 35.816 35.972">
                                                             <g id="update-icon" transform="translate(-0.757)">
@@ -405,10 +634,12 @@
 
                                                     </a>
 
-                                                    <a href="#"
+                                                    <a style="padding:.6rem 1.1rem;"
+                                                        href="./formation_code/delete_formation.php?id=<?php echo $formation['formation_id']; ?>"
                                                         class="course__card-v2__btn course__card-v2__btn-delete">
 
-                                                        <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-delete"
+                                                        <svg style="width:1.3rem"
+                                                            class="course__card-v2__btn-icon course__card-v2__btn-icon-delete"
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             viewBox="0 0 27.884 34.856">
                                                             <g id="delete-icon" transform="translate(-9 -4.998)">
@@ -435,88 +666,8 @@
 
                                     </div>
 
-                                    <div class="course__card-v2">
-                                        <div class="course__card-v2__img-container">
-                                            <img src="../contents/img/course-cover.jpg" alt=""
-                                                class="course__card-v2__img">
-                                        </div>
+                                    <?php } ?>
 
-                                        <div class="course__card-v2__content">
-                                            <h1 class="course__card-v2__title">
-                                                The Complete JavaScript Course 2021:From Zero to Expert!
-                                            </h1>
-
-                                            <div class="course__card-v2__cate-action">
-                                                <div class="course__card-v2__category">
-                                                    Development
-                                                </div>
-
-                                                <div class="course__card-v2__action-btns">
-                                                    <a href="#" class="course__card-v2__btn course__card-v2__btn-view">
-                                                        <svg class="course__card-v2__btn-icon"
-                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.995 21">
-                                                            <g id="see-icon" transform="translate(-0.002 -5.5)">
-                                                                <path id="Path_1047" data-name="Path 1047"
-                                                                    d="M16,5.5A17.674,17.674,0,0,0,.1,15.55a1.11,1.11,0,0,0,0,.91,17.61,17.61,0,0,0,31.8,0,1.11,1.11,0,0,0,0-.91A17.674,17.674,0,0,0,16,5.5Zm0,16.84A6.34,6.34,0,1,1,22.34,16,6.355,6.355,0,0,1,16,22.34Z"
-                                                                    fill="#fff" />
-                                                                <circle id="Ellipse_34" data-name="Ellipse 34" cx="4.2"
-                                                                    cy="4.2" r="4.2" transform="translate(11.8 11.8)"
-                                                                    fill="#fff" />
-                                                            </g>
-                                                        </svg>
-                                                    </a>
-
-                                                    <a href="#"
-                                                        class="course__card-v2__btn course__card-v2__btn-update">
-
-                                                        <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-update"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            viewBox="0 0 35.816 35.972">
-                                                            <g id="update-icon" transform="translate(-0.757)">
-                                                                <g id="Group_34" data-name="Group 34"
-                                                                    transform="translate(0.757)">
-                                                                    <path id="Path_1056" data-name="Path 1056"
-                                                                        d="M119.026,1.212l-.043-.039a4.482,4.482,0,0,0-6.332.286L96.633,19a1.546,1.546,0,0,0-.325.554L94.424,25.2a2.147,2.147,0,0,0,2.033,2.827h0a2.139,2.139,0,0,0,.862-.181l5.453-2.386a1.545,1.545,0,0,0,.522-.374L119.313,7.545A4.487,4.487,0,0,0,119.026,1.212ZM98.033,24.152l1.105-3.313.093-.1,2.095,1.913-.093.1Zm19-18.694L103.412,20.366l-2.095-1.913L114.934,3.545a1.389,1.389,0,0,1,1.963-.088l.043.039A1.39,1.39,0,0,1,117.029,5.459Z"
-                                                                        transform="translate(-84.668)" fill="#fff" />
-                                                                    <path id="Path_1057" data-name="Path 1057"
-                                                                        d="M32.008,43.208a1.547,1.547,0,0,0-1.547,1.547v13.13a3.938,3.938,0,0,1-3.933,3.933H7.783A3.938,3.938,0,0,1,3.85,57.885V39.292a3.938,3.938,0,0,1,3.933-3.933H21.351a1.547,1.547,0,1,0,0-3.093H7.783A7.034,7.034,0,0,0,.757,39.292V57.885a7.034,7.034,0,0,0,7.026,7.026H26.528a7.034,7.034,0,0,0,7.026-7.026V44.754A1.546,1.546,0,0,0,32.008,43.208Z"
-                                                                        transform="translate(-0.757 -28.939)"
-                                                                        fill="#fff" />
-                                                                </g>
-                                                            </g>
-                                                        </svg>
-
-                                                    </a>
-
-                                                    <a href="#"
-                                                        class="course__card-v2__btn course__card-v2__btn-delete">
-
-                                                        <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-delete"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            viewBox="0 0 27.884 34.856">
-                                                            <g id="delete-icon" transform="translate(-9 -4.998)">
-                                                                <g id="Icons" transform="translate(9 4.998)">
-                                                                    <path id="Path_1060" data-name="Path 1060"
-                                                                        d="M36.884,10.228h-6.1V8.267A3.381,3.381,0,0,0,27.3,5H18.585A3.381,3.381,0,0,0,15.1,8.267v1.961H9v1.743h1.743V33.755a6.1,6.1,0,0,0,6.1,6.1h12.2a6.1,6.1,0,0,0,6.1-6.1V11.971h1.743ZM16.842,8.267a1.647,1.647,0,0,1,1.743-1.525H27.3a1.647,1.647,0,0,1,1.743,1.525v1.961h-12.2ZM33.4,33.755a4.357,4.357,0,0,1-4.357,4.357h-12.2a4.357,4.357,0,0,1-4.357-4.357V11.971H33.4Z"
-                                                                        transform="translate(-9 -4.998)" fill="#fff" />
-                                                                    <path id="Path_1061" data-name="Path 1061"
-                                                                        d="M19,19h1.743V34.685H19Z"
-                                                                        transform="translate(-10.286 -6.799)"
-                                                                        fill="#fff" />
-                                                                    <path id="Path_1062" data-name="Path 1062"
-                                                                        d="M29,19h1.743V34.685H29Z"
-                                                                        transform="translate(-11.573 -6.799)"
-                                                                        fill="#fff" />
-                                                                </g>
-                                                            </g>
-                                                        </svg>
-
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
                                 </div>
 
                             </div>
@@ -537,7 +688,22 @@
     </div>
 
 
+
+    <?php
+
+
+
+    $totalEarning = array();
+    for($i = 1 ; $i <= 12; $i++){
+        array_push($totalEarning, Achat::getInstructorEarning($user->user_id,$i)->total);
+    }
+
+    ?>
+    <script type="text/javascript">
+    var totalEarning = <?php echo json_encode($totalEarning); ?>;
+    </script>
     <script src="../contents/js/revenue-chart.js"></script>
+
 </body>
 
 </html>

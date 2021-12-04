@@ -1,8 +1,6 @@
 <?php
 
-include_once('../../controllers/formationC.php');
-
-
+include('../../controllers/formationC.php');
 
 
 $formationC = new FormationC();

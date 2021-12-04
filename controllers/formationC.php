@@ -2,15 +2,16 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-include_once ('C:\xampp\htdocs\E-learning_Project_last_version\configdb\db_connector.php');
-include ('C:\xampp\htdocs\E-learning_Project_last_version\models\formation.php');
+require_once (__DIR__.'\..\configdb\db_connector.php');
+include_once (__DIR__.'\..\models\formation.php');
+
 
 class FormationC{
 
 /********************************************Function afficher formations*****************************************/
 Function afficher_formations(){
 
-	$sql="SELECT * FROM formations ORDER BY formation_id DESC";
+	$sql="SELECT * FROM formations inner join users on users.user_id = formations.user_id ORDER BY formation_id DESC";
 	$db = config::getConnexion();
 	try{
 		$liste = $db->query($sql);
@@ -24,7 +25,21 @@ Function afficher_formations(){
 /********************************************Function afficher formations d'un instructeur*****************************************/
 Function afficher_formations_instructor($id){
 
-	$sql="SELECT * FROM formations WHERE formation_id = '$id' ";
+	$sql="SELECT * FROM formations inner join users on users.user_id = formations.user_id WHERE formations.user_id = '$id' ";
+	$db = config::getConnexion();
+	try{
+		$liste = $db->query($sql);
+		return $liste;
+	}
+	catch(Exception $e){
+		die('Erreur: '.$e->getMessage());
+	}   
+}
+
+/********************************************Function afficher les 2 dernier formations d'un instructeur*****************************************/
+Function afficher_latest_formations_instructor($id){
+
+	$sql="SELECT * FROM formations inner join users on users.user_id = formations.user_id WHERE formations.user_id = '$id' ORDER BY formations.formation_id DESC LIMIT 2";
 	$db = config::getConnexion();
 	try{
 		$liste = $db->query($sql);
@@ -38,7 +53,7 @@ Function afficher_formations_instructor($id){
 /********************************************Function afficher formations d'un instructeur*****************************************/
 Function filtrer_formations($categorie){
 
-	$sql="SELECT * FROM formations WHERE categorie = '$categorie' ";
+	$sql="SELECT * FROM formations join users on users.user_id = formations.user_id WHERE categorie = '$categorie' ";
 	$db = config::getConnexion();
 	try{
 		$liste = $db->query($sql);
@@ -51,7 +66,7 @@ Function filtrer_formations($categorie){
 //*****************************************Function récupérer formation***********************************************
 Function recuperer_formation($id){
 
-    $sql="SELECT * FROM formations WHERE formation_id='$id' LIMIT 1" ;
+    $sql="SELECT * FROM formations join users on users.user_id = formations.user_id WHERE formation_id='$id' LIMIT 1" ;
     $db = config::getConnexion();
     try{
         $liste = $db->query($sql);
@@ -168,7 +183,7 @@ function modifier_formation($formation, $id){
 /********************************************Function rechercher formations*****************************************/
 Function rechercher_formations($search){
 
-	$sql="SELECT * FROM formations WHERE (name LIKE '%".$search."%' ) OR (short_description LIKE '%".$search."%') ORDER BY formation_id DESC ";
+	$sql="SELECT * FROM formations join users on users.user_id = formations.user_id WHERE (formations.name LIKE '%".$search."%' ) OR (formations.short_description LIKE '%".$search."%') ORDER BY formations.formation_id DESC ";
 	$db = config::getConnexion();
 	try{
 		$liste = $db->query($sql);

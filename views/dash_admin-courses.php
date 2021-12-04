@@ -10,9 +10,14 @@
     }
 
     include_once('../controllers/formationC.php');
+    require_once "../models/notification.php";
+
      
     $formationC = new FormationC();
     $listeFormations = $formationC->afficher_formations();
+
+    $notifCount = Notification::getNotifAdminNumber()->total;
+    $notifications = Notification::getAllNotifAdmin();
 
 ?>
 
@@ -22,11 +27,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../contents/css/notif.css" />
     <link rel="stylesheet" href="../contents/sass/style.css" />
     <link rel="stylesheet" href="../contents/css/chart_style.css" />
 
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <link rel="icon" href="../contents/img/logo-icon-nobg.png">
     <title>I learn-dash</title>
 </head>
@@ -38,7 +46,7 @@
             <img class="dash__side-bar__logo" src="../contents/img/logo-icon-nobg.png" alt="logo">
 
             <div class="dash__side-bar__list">
-                <a href="./dash_admin-home.html" class="dash__side-bar__item ">
+                <a href="./dash_admin-home.php" class="dash__side-bar__item ">
                     <div class="dash__side-bar__item__icon">
                         <svg class="dash__side-bar__item__icon-svg" id="dashboard-icon"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44.432 44.432">
@@ -61,7 +69,7 @@
                     <h1 class="dash__side-bar__item__txt">Dashboard</h1>
                 </a>
 
-                <a href="./dash_admin-users.html" class="dash__side-bar__item">
+                <a href="./dash_admin-users.php" class="dash__side-bar__item">
                     <div class="dash__side-bar__item__icon">
 
                         <svg class="dash__side-bar__item__icon-svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -144,7 +152,7 @@
                     <h1 class="dash__side-bar__item__txt">Users</h1>
                 </a>
 
-                <a href="./dash_admin-instructors.html" class="dash__side-bar__item ">
+                <a href="./dash_admin-instructors.php" class="dash__side-bar__item ">
                     <div class="dash__side-bar__item__icon">
                         <svg class="dash__side-bar__item__icon-svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
                             xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" x="0" y="0"
@@ -253,7 +261,7 @@
                     <h1 class="dash__side-bar__item__txt">Courses</h1>
                 </a>
 
-                <a href="./dash_admin-profile.html" class="dash__side-bar__item">
+                <a href="./dash_admin-profile.php" class="dash__side-bar__item">
                     <div class="dash__side-bar__item__icon">
 
                         <svg class="dash__side-bar__item__icon-svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -331,69 +339,196 @@
         <div class="dash__container">
             <nav class="dash__top-bar">
                 <div class="dash__top-bar__container">
+                    <ul class="navigation__list">
+                        <li class="navigation__item"><a href="./user-side-courses.php"
+                                class="navigation__link user-side__top-bar__link">Go to Student view</a></li>
+                    </ul>
                     <div class="dash__top-bar__container__left">
 
-                        <div class="dash__top-bar__svg-container">
-                            <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 46.917 46.917">
-                                <g id="logout-icon" transform="translate(0 -0.004)">
-                                    <path id="Path_1043" data-name="Path 1043"
-                                        d="M29.323,25.417a1.954,1.954,0,0,0-1.955,1.955v7.82a1.957,1.957,0,0,1-1.955,1.955H19.548V7.823a3.94,3.94,0,0,0-2.662-3.716l-.579-.194h9.106a1.957,1.957,0,0,1,1.955,1.955v5.865a1.955,1.955,0,0,0,3.909,0V5.868A5.872,5.872,0,0,0,25.413,0H4.4a1.535,1.535,0,0,0-.209.043C4.1.039,4.005,0,3.91,0A3.913,3.913,0,0,0,0,3.913V39.1a3.94,3.94,0,0,0,2.662,3.716l11.765,3.922a4.047,4.047,0,0,0,1.212.182,3.913,3.913,0,0,0,3.909-3.91V41.056h5.865a5.872,5.872,0,0,0,5.865-5.865v-7.82a1.954,1.954,0,0,0-1.955-1.955Zm0,0"
-                                        fill="currentColor" />
-                                    <path id="Path_1044" data-name="Path 1044"
-                                        d="M298.263,115.058l-7.82-7.819a1.954,1.954,0,0,0-3.337,1.382v5.865h-7.819a1.955,1.955,0,1,0,0,3.909h7.819v5.865a1.954,1.954,0,0,0,3.337,1.382l7.82-7.82a1.953,1.953,0,0,0,0-2.764Zm0,0"
-                                        transform="translate(-251.919 -96.888)" fill="currentColor" />
-                                </g>
-                            </svg>
-                        </div>
+                        <a href="../controllers/userController.php?event=logout">
+                            <div class="dash__top-bar__svg-container">
+                                <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 46.917 46.917">
+                                    <g id="logout-icon" transform="translate(0 -0.004)">
+                                        <path id="Path_1043" data-name="Path 1043"
+                                            d="M29.323,25.417a1.954,1.954,0,0,0-1.955,1.955v7.82a1.957,1.957,0,0,1-1.955,1.955H19.548V7.823a3.94,3.94,0,0,0-2.662-3.716l-.579-.194h9.106a1.957,1.957,0,0,1,1.955,1.955v5.865a1.955,1.955,0,0,0,3.909,0V5.868A5.872,5.872,0,0,0,25.413,0H4.4a1.535,1.535,0,0,0-.209.043C4.1.039,4.005,0,3.91,0A3.913,3.913,0,0,0,0,3.913V39.1a3.94,3.94,0,0,0,2.662,3.716l11.765,3.922a4.047,4.047,0,0,0,1.212.182,3.913,3.913,0,0,0,3.909-3.91V41.056h5.865a5.872,5.872,0,0,0,5.865-5.865v-7.82a1.954,1.954,0,0,0-1.955-1.955Zm0,0"
+                                            fill="currentColor" />
+                                        <path id="Path_1044" data-name="Path 1044"
+                                            d="M298.263,115.058l-7.82-7.819a1.954,1.954,0,0,0-3.337,1.382v5.865h-7.819a1.955,1.955,0,1,0,0,3.909h7.819v5.865a1.954,1.954,0,0,0,3.337,1.382l7.82-7.82a1.953,1.953,0,0,0,0-2.764Zm0,0"
+                                            transform="translate(-251.919 -96.888)" fill="currentColor" />
+                                    </g>
+                                </svg>
+                            </div>
+                        </a>
 
                         <div class="divider"></div>
 
-                        <div class="dash__top-bar__svg-container">
-                            <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 43.026 34.421">
-                                <g id="message-icon" transform="translate(0)">
-                                    <path id="Path_1045" data-name="Path 1045"
-                                        d="M43.921,8.5A5.284,5.284,0,0,0,38.711,4H6.266a5.284,5.284,0,0,0-5.21,4.5L22.489,22.371Z"
-                                        transform="translate(-0.976 -4)" fill="currentColor" />
-                                    <path id="Path_1046" data-name="Path 1046"
-                                        d="M23.292,22.9a1.434,1.434,0,0,1-1.558,0L1,9.486V30.748a5.3,5.3,0,0,0,5.291,5.291H38.735a5.3,5.3,0,0,0,5.291-5.291V9.485Z"
-                                        transform="translate(-1 -1.618)" fill="currentColor" />
-                                </g>
-                            </svg>
+                        <!-- <a href="#">
+                            <div class="dash__top-bar__svg-container">
+                                <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 43.026 34.421">
+                                    <g id="message-icon" transform="translate(0)">
+                                        <path id="Path_1045" data-name="Path 1045"
+                                            d="M43.921,8.5A5.284,5.284,0,0,0,38.711,4H6.266a5.284,5.284,0,0,0-5.21,4.5L22.489,22.371Z"
+                                            transform="translate(-0.976 -4)" fill="currentColor" />
+                                        <path id="Path_1046" data-name="Path 1046"
+                                            d="M23.292,22.9a1.434,1.434,0,0,1-1.558,0L1,9.486V30.748a5.3,5.3,0,0,0,5.291,5.291H38.735a5.3,5.3,0,0,0,5.291-5.291V9.485Z"
+                                            transform="translate(-1 -1.618)" fill="currentColor" />
+                                    </g>
+                                </svg>
+                            </div>
+                        </a> -->
+
+                        <script>
+                        $(document).ready(function() {
+                            $(".notification_icon").click(function() {
+                                $(".dropdown").toggleClass("active");
+                            })
+                        });
+                        </script>
+                        <div class="notification_wrap">
+                            <div class="dash__top-bar__svg-container ">
+                                <div style="position:relative" class="notification_icon">
+                                    <span class="cart-icon__span"><?php echo $notifCount; ?> </span>
+                                    <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs"
+                                        x="0" y="0" viewBox="0 0 48 48" style="enable-background:new 0 0 512 512"
+                                        xml:space="preserve">
+                                        <g>
+                                            <g xmlns="http://www.w3.org/2000/svg" id="Line">
+                                                <path
+                                                    d="m24 2a15 15 0 0 0 -15 15v11.7l-3.32 5a4.08 4.08 0 0 0 3.39 6.3h29.86a4.08 4.08 0 0 0 3.39-6.33l-3.32-4.97v-11.7a15 15 0 0 0 -15-15z"
+                                                    fill="currentColor" data-original="currentColor"></path>
+                                                <path d="m24 46a6 6 0 0 0 5.65-4h-11.3a6 6 0 0 0 5.65 4z"
+                                                    fill="currentColor" data-original="currentColor"></path>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div class="dropdown">
+
+                                <?php if($notifCount ==0){
+                                    echo '<div class="empty_alert">
+                                    There is no notifications
+                                </div>';
+                                } ?>
+
+                                <?php 
+                                    while($notification = $notifications->fetchObject()) {
+                                ?>
+
+                                <div class="notify_item">
+                                    <div class="notify_img">
+                                        <img src="../uploads/defaultUserImage.png" alt="" style="width: 50px">
+                                    </div>
+                                    <div class="notify_info">
+                                        <p><span><?php echo $notification->fullname ?></span>
+                                            <?php echo $notification->content ?></p>
+                                        <span class="notify_time">10 minutes ago</span>
+                                    </div>
+                                    <div class="notify_read">
+                                        <a style="text-decoration:none; color:inherit"
+                                            href="../controllers/notificationController.php?event=deleteNotif&notif_id=<?php echo $notification->notif_id ?>">
+                                            <svg class="notify_read_icon" xmlns="http://www.w3.org/2000/svg"
+                                                version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                xmlns:svgjs="http://svgjs.com/svgjs" x="0" y="0" viewBox="0 0 32 32"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve">
+                                                <g>
+                                                    <path xmlns="http://www.w3.org/2000/svg"
+                                                        d="m16 5.5c-6.76001 0-13 3.94-15.89996 10.04999-.13.28998-.13.63 0 .90997 2.90997 6.10004 9.14996 10.04004 15.89996 10.04004s12.98999-3.94 15.90002-10.04004c.13-.27997.13-.62 0-.90997-2.90002-6.10999-9.14001-10.04999-15.90002-10.04999zm0 16.83997c-3.48999 0-6.33997-2.84998-6.33997-6.33997s2.84998-6.34003 6.33997-6.34003 6.34003 2.85004 6.34003 6.34003-2.85004 6.33997-6.34003 6.33997z"
+                                                        fill="currentColor" data-original="currentColor"></path>
+                                                    <circle xmlns="http://www.w3.org/2000/svg" cx="16" cy="16" r="4.2"
+                                                        fill="currentColor" data-original="currentColor"></circle>
+                                                </g>
+                                            </svg>
+                                            <p class="notify_read_text">
+                                                Mark as read
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <?php } ?>
+                            </div>
                         </div>
 
                     </div>
 
                     <div class="dash__top-bar__container__right">
-                        <h1 class="dash__top-bar__fullname">Nabil Mersni</h1>
+                        <h1 class="dash__top-bar__fullname"><?php echo $user->fullname ?></h1>
                         <div class="dash__top-bar__img-container">
-                            <a href="./dash_admin-profile.html">
-                                <img class="dash__top-bar__img" src="../contents/img/me.jpg" alt="">
+                            <a href="./dash_admin-profile.php">
+                                <img class="dash__top-bar__img" src="<?php echo '../uploads/' . $user->img_url ?>"
+                                    alt="">
                             </a>
                         </div>
                     </div>
+
+                    <a href="#" class="secondary-btn secondary-btn-topbar">
+                        Generate Coupons
+
+                        <div class="secondary-btn__svg-container">
+
+                            <svg class="secondary-btn__svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" x="0"
+                                y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512"
+                                xml:space="preserve">
+                                <g>
+                                    <g xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="196" cy="211" r="15" fill="currentColor"
+                                            data-original="currentColor"></circle>
+                                        <circle cx="316" cy="301" r="15" fill="currentColor"
+                                            data-original="currentColor"></circle>
+                                        <path
+                                            d="m467 106h-422c-24.814 0-45 20.186-45 45v60c0 8.291 6.709 15 15 15h15c16.538 0 30 13.462 30 30s-13.462 30-30 30h-15c-8.291 0-15 6.709-15 15v60c0 24.814 20.186 45 45 45h422c24.814 0 45-20.186 45-45v-60c0-8.291-6.709-15-15-15h-15c-16.538 0-30-13.462-30-30s13.462-30 30-30h15c8.291 0 15-6.709 15-15v-60c0-24.814-20.186-45-45-45zm-316 105c0-24.814 20.186-45 45-45s45 20.186 45 45-20.186 45-45 45-45-20.186-45-45zm35.624 131.719c-6.459-5.186-7.514-14.619-2.343-21.094l120-150c5.2-6.431 14.619-7.515 21.093-2.344 6.461 5.186 7.515 14.619 2.344 21.094l-120 150c-5.221 6.482-14.646 7.495-21.094 2.344zm129.376 3.281c-24.814 0-45-20.186-45-45s20.186-45 45-45 45 20.186 45 45-20.186 45-45 45z"
+                                            fill="currentColor" data-original="currentColor"></path>
+                                    </g>
+                                </g>
+                            </svg>
+
+                        </div>
+                    </a>
+
                 </div>
 
+                <!-- <a href="#" class="secondary-btn secondary-btn-topbar">
+                    Add New Course
+
+                    <div class="secondary-btn__svg-container">
+
+                        <svg class="secondary-btn__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52.779 52.779">
+                            <path id="add-icon"
+                                d="M52.779,26.389A26.389,26.389,0,0,1,0,26.389a2.062,2.062,0,0,1,4.123,0A22.266,22.266,0,1,0,26.389,4.123a2.062,2.062,0,0,1,0-4.123A26.375,26.375,0,0,1,52.779,26.389ZM16.535,6.371l2.667-1.1a2.062,2.062,0,1,0-1.578-3.809l-2.667,1.1a2.062,2.062,0,0,0,1.578,3.809ZM9.625,11.665l2.041-2.041A2.062,2.062,0,0,0,8.75,6.709L6.709,8.75a2.062,2.062,0,0,0,2.916,2.916ZM2.572,20.318A2.062,2.062,0,0,0,5.266,19.2l1.1-2.667a2.062,2.062,0,0,0-3.809-1.578l-1.1,2.667A2.062,2.062,0,0,0,2.572,20.318Zm23.817-4.237a2.062,2.062,0,0,0-2.062,2.062v6.185H18.143a2.062,2.062,0,0,0,0,4.123h6.185v6.185a2.062,2.062,0,0,0,4.123,0V28.451h6.185a2.062,2.062,0,0,0,0-4.123H28.451V18.143A2.062,2.062,0,0,0,26.389,16.081Z"
+                                fill="currentColor" />
+                        </svg>
+
+                    </div>
+                </a> -->
 
             </nav>
 
             <div class="dash__content">
                 <div class="dash__instructor-my-courses">
-                    <h1 style="margin-bottom: 7rem; color: #6568F3; font-size: 3rem;" class="dash__instructor-my-courses__title">Courses List</h1>
+                    <h1 style="margin-bottom: 7rem; color: #6568F3; font-size: 3rem;"
+                        class="dash__instructor-my-courses__title">Courses List</h1>
                     <?php
 
                         foreach($listeFormations as $formation){ 
                     ?>
                     <div class="course__card-v2">
                         <div class="course__card-v2__img-container">
-                            <img src="formation_code/uploads/<?php echo $formation['image']; ?>" alt="" class="course__card-v2__img">
+                            <img src="formation_code/uploads/<?php echo $formation['image']; ?>" alt=""
+                                class="course__card-v2__img">
                         </div>
 
                         <div class="course__card-v2__content">
-                            <h1 class="course__card-v2__title">
+                            <h1 class="course__card-v2__title2">
                                 <?php echo $formation['name']; ?>
                             </h1>
+                            <p class="course__card-v2__title2__instructor"> <span>Created By</span>
+                                <?php echo $formation['fullname']; ?></p>
 
                             <div class="course__card-v2__cate-action">
                                 <div class="course__card-v2__category">
@@ -401,7 +536,8 @@
                                 </div>
 
                                 <div class="course__card-v2__action-btns">
-                                    <a href="course-details.php?id=<?php echo $formation['formation_id']; ?>" class="course__card-v2__btn course__card-v2__btn-view">
+                                    <a href="course-details.php?id=<?php echo $formation['formation_id']; ?>"
+                                        class="course__card-v2__btn course__card-v2__btn-view">
                                         <svg class="course__card-v2__btn-icon" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 31.995 21">
                                             <g id="see-icon" transform="translate(-0.002 -5.5)">
@@ -414,7 +550,8 @@
                                         </svg>
                                     </a>
 
-                                    <a href="dash_instructor-course-update.php?id=<?php echo $formation['formation_id']; ?>" class="course__card-v2__btn course__card-v2__btn-update">
+                                    <a href="dash_instructor-course-update.php?id=<?php echo $formation['formation_id']; ?>"
+                                        class="course__card-v2__btn course__card-v2__btn-update">
 
                                         <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-update"
                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.816 35.972">
@@ -432,7 +569,8 @@
 
                                     </a>
 
-                                    <a href="./formation_code/delete_formation.php?id=<?php echo $formation['formation_id']; ?>" class="course__card-v2__btn course__card-v2__btn-delete">
+                                    <a href="./formation_code/delete_formation.php?id=<?php echo $formation['formation_id']; ?>"
+                                        class="course__card-v2__btn course__card-v2__btn-delete">
 
                                         <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-delete"
                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.884 34.856">
