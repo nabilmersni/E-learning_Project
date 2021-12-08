@@ -103,8 +103,21 @@ function modifier_lesson($lesson, $id){
 
 }
 
+/********************************************Function count lesson*****************************************/
+Function count_lesson($id){
 
-
+	$sql="SELECT count(lesson_id) FROM lessons join chapitres on chapitres.chapter_id = lessons.chapter_id WHERE formation_id='$id' " ;
+    $db = config::getConnexion();
+    try{
+        $query = $db->query($sql);
+        $query->execute();
+   	    $chapter_number =$query->fetchColumn();
+        return $chapter_number;
+    }
+    catch(Exception $e){
+        die('Erreur: '.$e->getMessage());
+    }   
+}
 
 
 

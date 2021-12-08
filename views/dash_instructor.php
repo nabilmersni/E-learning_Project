@@ -30,8 +30,8 @@
         header('location:../views/login.php?auth=false');
     }
 
-    $notifCount = Notification::getNotifUserNumber($user->user_id)->total;
-    $notifications = Notification::getAllNotifUser($user->user_id);
+    $notifCount = Notification::getNotifUserNumber(56)->total;
+    $notifications = Notification::getAllNotifUser(56);
 
 
     $formationC = new FormationC();
@@ -454,7 +454,7 @@
                                         foreach($listeFormations as $formation){ 
                                         $modalCount++;
                                     ?>
-                                    <div class="course__card-v2" style="">
+                                    <div class="course__card-v2" >
                                         <div class="course__card-v2__img-container course__card-v2__img-container-v2"
                                             style="width: 20rem;">
                                             <img src="formation_code/uploads/<?php echo $formation['image']; ?>" alt=""

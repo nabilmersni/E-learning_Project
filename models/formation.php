@@ -10,7 +10,7 @@ class Formation{
     private float $price;
 	private string $image;
 	private string $date_added;
-    private bool $state;
+    private int $state;
     private bool $top_formation;
 	private int $user_id;
 

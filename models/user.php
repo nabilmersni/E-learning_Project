@@ -82,10 +82,9 @@
                 header('location:../views/signUp.php?used_username=true');
             }
             $token = substr(str_shuffle("0123456789abcdefghijklmnopqrstvwxyz"), 0, 49);
-            $requette = "INSERT INTO users VALUES (null,'$this->fullname','$this->username','$this->email','$this->role','$this->phone','$this->password',1,0,'$token',null,null,null,'$this->img_url',null,0)";
-
+            $requette = "INSERT INTO users VALUES (null,'$this->fullname','$this->username','$this->email','$this->role','$this->phone','$this->password',1,0,'$token',null,null,null,'$this->img_url',null,0,0)";
             try {
-                $base->exec($requette);
+                $base->exec($requette );
                 
                 $email_content = array(
                     'Subject' => 'Email Verfication From iLearn',
@@ -202,7 +201,7 @@
             $requette = "SELECT * from users where email='$this->email' and password='$this->password'";
 
             try {
-                $data = $base->query($requette);
+                $data = $base->query($requette );
                 if($data->rowCount() != 1){
                     header('location:../views/login.php?login=false');
                 }else{

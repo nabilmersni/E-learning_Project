@@ -12,7 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../contents/sass/style.css" />
     <link rel="stylesheet" href="../contents/css/chart_style.css" />
-    <link rel="stylesheet" href="../contents/css/dash_instructor-courses.css" />
+
+    <link rel="stylesheet" href="../contents/css/dash_instructor-courses.css ">
 
 
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -23,8 +24,7 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
 
-    <!--image drag and drop -->
-    <link rel="stylesheet" href="../contents/css/image_drag_and_drop.css">
+    <!--font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
     <style>
@@ -32,6 +32,7 @@
             color: red;
             font-style: italic;
             border: 1px solid red;
+            font-size: 1.5rem;
         }
 
         label {
@@ -182,6 +183,18 @@
 
         <div class="dash__container">
             <nav class="dash__top-bar">
+            <a class="secondary-btn_none secondary-btn-topbar submit_course_none">
+                    submit for validation
+
+                    <div class="secondary-btn__svg-container">
+
+                        <svg class="secondary-btn__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52.779 52.779">
+                            <path id="add-icon" d="M52.779,26.389A26.389,26.389,0,0,1,0,26.389a2.062,2.062,0,0,1,4.123,0A22.266,22.266,0,1,0,26.389,4.123a2.062,2.062,0,0,1,0-4.123A26.375,26.375,0,0,1,52.779,26.389ZM16.535,6.371l2.667-1.1a2.062,2.062,0,1,0-1.578-3.809l-2.667,1.1a2.062,2.062,0,0,0,1.578,3.809ZM9.625,11.665l2.041-2.041A2.062,2.062,0,0,0,8.75,6.709L6.709,8.75a2.062,2.062,0,0,0,2.916,2.916ZM2.572,20.318A2.062,2.062,0,0,0,5.266,19.2l1.1-2.667a2.062,2.062,0,0,0-3.809-1.578l-1.1,2.667A2.062,2.062,0,0,0,2.572,20.318Zm23.817-4.237a2.062,2.062,0,0,0-2.062,2.062v6.185H18.143a2.062,2.062,0,0,0,0,4.123h6.185v6.185a2.062,2.062,0,0,0,4.123,0V28.451h6.185a2.062,2.062,0,0,0,0-4.123H28.451V18.143A2.062,2.062,0,0,0,26.389,16.081Z" fill="currentColor" />
+                        </svg>
+
+                    </div>
+                </a>
+
                 <div class="dash__top-bar__container">
                     <div class="dash__top-bar__container__left">
 
@@ -215,18 +228,7 @@
                     </div>
                 </div>
 
-                <a href="#" class="secondary-btn secondary-btn-topbar">
-                    submit for validation
-
-                    <div class="secondary-btn__svg-container">
-
-                        <svg class="secondary-btn__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52.779 52.779">
-                            <path id="add-icon" d="M52.779,26.389A26.389,26.389,0,0,1,0,26.389a2.062,2.062,0,0,1,4.123,0A22.266,22.266,0,1,0,26.389,4.123a2.062,2.062,0,0,1,0-4.123A26.375,26.375,0,0,1,52.779,26.389ZM16.535,6.371l2.667-1.1a2.062,2.062,0,1,0-1.578-3.809l-2.667,1.1a2.062,2.062,0,0,0,1.578,3.809ZM9.625,11.665l2.041-2.041A2.062,2.062,0,0,0,8.75,6.709L6.709,8.75a2.062,2.062,0,0,0,2.916,2.916ZM2.572,20.318A2.062,2.062,0,0,0,5.266,19.2l1.1-2.667a2.062,2.062,0,0,0-3.809-1.578l-1.1,2.667A2.062,2.062,0,0,0,2.572,20.318Zm23.817-4.237a2.062,2.062,0,0,0-2.062,2.062v6.185H18.143a2.062,2.062,0,0,0,0,4.123h6.185v6.185a2.062,2.062,0,0,0,4.123,0V28.451h6.185a2.062,2.062,0,0,0,0-4.123H28.451V18.143A2.062,2.062,0,0,0,26.389,16.081Z" fill="currentColor" />
-                        </svg>
-
-                    </div>
-                </a>
-
+                
             </nav>
 
             <div class="dash__content">
@@ -323,19 +325,19 @@
                                 </div>
 
                                 <div>
-                                    <input class="title-input-border" name="course_title">
+                                    <input class="form__input title-input-border" name="course_title" >
                                 </div>
 
                                 <div class="course__add-v1__title">
-                                    <h4>Short Description</h4>
+                                    <h4 style="padding-top: 1.4rem;">Short Description</h4>
                                 </div>
 
                                 <div>
-                                    <textarea id="short_description" class="description-texterea-border" name="short_description"></textarea>
+                                    <textarea id="short_description" class="form__input description-texterea-border" name="short_description"></textarea>
                                 </div>
 
                                 <div class="course__add-v1__title">
-                                    <h4>Course Description</h4>
+                                    <h4 style="padding-top: 1.4rem;">Course Description</h4>
                                 </div>
 
                                 <!-- End Quill Editor Full -->
@@ -376,7 +378,7 @@
                                         <h4>Course price</h4>
                                     </div>
 
-                                    <label class="switch">
+                                    <label class="switch" >
                                         <input class="" id="hide_prix" type="checkbox">
                                         <span class="slider round"></span>
 
@@ -400,7 +402,7 @@
                                 </div>  -->
                                     <div class="course__add-table-prix">
                                         <h1 class="course__add-table-prix-currence">TND</h1>
-                                        <input name="course_price" class="input-table-prix-currence" type="number">
+                                        <input name="course_price" class="form__input input-table-prix-currence" type="number">
                                     </div>
                                 </div>
 
@@ -432,14 +434,15 @@
                                             Supported file types :<br> jpg, .jpeg ,. gif ou .png
                                             <br> No text on the image.
                                         </p>
+                                        
 
-                                        <label for="course_file_upload" class="course_file_upload_image">Choose a photo</label>
+                                        <label for="course_file_upload" class="course_file_upload_image"><svg class="w-4 h-4 text-white" style="padding-right:0.5rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                            </svg> Choose a photo</label>
                                         <input name="course_image" type="file" id="course_file_upload" value="Choose a photo" class="img_secondary-btn img_secondary-btn-topbar" style="display:none">
                                         <div>
 
-                                            <svg class="w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                                            </svg>
+                                            
 
                                         </div>
 
@@ -447,7 +450,8 @@
                                     </div>
 
                                 </div>
-                                <button type="submit" name="123" id="123">add chapter</button>
+                                <hr class="hr-border" style="margin-top: 30px;">
+                                <button type="submit" name="" class="add_chapter_v1" id="">Add New Course</button>
                                 </forum>
 
 
@@ -513,6 +517,10 @@
 
 
     <script>
+        $.validator.addMethod('positiveNumber',
+            function(value) {
+                return Number(value) > 0;
+            }, '*Please enter a positive number!');
         var $add_formation = $('#add_formation');
         if ($add_formation.length) {
             $add_formation.validate({
@@ -533,7 +541,8 @@
                         required: true
                     },
                     course_price: {
-                        required: true
+                        required: true,
+                        positiveNumber:true
                     },
                     course_image: {
                         required: true

@@ -20,9 +20,9 @@ if( isset($_POST["course_title"]) &&
         $course_categorie = $_POST["course_categorie"];
         $course_level = $_POST["course_level"];
         $course_price = 0;
-        if(isset($_POST["course_price"]) )
+        if(!empty($_POST["course_price"]) )
         {
-            $_POST["course_price"];
+            $course_price= $_POST["course_price"];
         }
         $course_image = $_FILES["course_image"];
         //$course_image = "../contents/img/course-cover.jpg";

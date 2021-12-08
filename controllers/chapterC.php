@@ -56,7 +56,7 @@ function supprimer_chapitre($id){
 
 //***********************************************Fuction ajouter_chapitre**************************************
 function ajouter_chapitre($chapter){
-    $sql = "INSERT INTO chapitres(chapter_title, chapter_description, date_added, formation_id) VALUES ( :chapter_title ,:chapter_description ,:date_added, :formation_id )";
+    $sql = "INSERT INTO chapitres(chapter_title, chapter_description, date_added, formation_id, chapter_duration) VALUES ( :chapter_title ,:chapter_description ,:date_added, :formation_id , :chapter_duration )";
     $db = config::getConnexion();
     try{
     $req = $db->prepare($sql);
@@ -65,7 +65,8 @@ function ajouter_chapitre($chapter){
             'chapter_title' => $chapter->getchapter_title(),
             'chapter_description' => $chapter->getchapter_description(),
             'date_added' => $chapter->getdate_added(),
-            'formation_id' => $chapter->getformation_id()
+            'formation_id' => $chapter->getformation_id(),
+            'chapter_duration' => $chapter->getchapter_duration()
         ]);
      
         //header("Location: ../views/dash_instructor-chapter-add.php");
@@ -80,14 +81,16 @@ function ajouter_chapitre($chapter){
 function modifier_chapitre($chapter, $id){
     $chapter_title = $chapter->getchapter_title();
     $chapter_description = $chapter->getchapter_description();
-    $update_chapter = "UPDATE chapitres SET chapter_title = :chapter_title ,chapter_description = :chapter_description WHERE chapter_id='$id' ";
+    $chapter_duration = $chapter->getchapter_duration();
+    $update_chapter = "UPDATE chapitres SET chapter_title = :chapter_title ,chapter_description = :chapter_description ,chapter_duration = :chapter_duration WHERE chapter_id='$id' ";
     $db = config::getConnexion();
 
     try{
         $query = $db->prepare($update_chapter);
         $query->execute([
              'chapter_title' => $chapter_title,
-             'chapter_description' => $chapter_description 
+             'chapter_description' => $chapter_description,
+             'chapter_duration' => $chapter_duration 
         ]);
         $_SESSION['flash_success'] = "Congratulation Data updated successfully!";
         header("Location: ../views/dash_instructor-chapter-add.php");
@@ -101,6 +104,21 @@ function modifier_chapitre($chapter, $id){
 }
 
 
+/********************************************Function count chapter*****************************************/
+Function count_chapter($id){
+
+	$sql="SELECT count(chapter_id) FROM chapitres WHERE formation_id='$id' " ;
+    $db = config::getConnexion();
+    try{
+        $query = $db->query($sql);
+        $query->execute();
+   	    $chapter_number =$query->fetchColumn();
+        return $chapter_number;
+    }
+    catch(Exception $e){
+        die('Erreur: '.$e->getMessage());
+    }   
+}
 
 
 

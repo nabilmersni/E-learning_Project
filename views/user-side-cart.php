@@ -25,6 +25,16 @@
     $formationIDArray = [];
 
     $paniertStat = Panier::getPanierNumber($user->user_id);
+
+    require_once "../models/notification.php";
+
+    if($user->role == 'admin'){
+        $notifCount = Notification::getNotifAdminNumber()->total;
+        $notifications = Notification::getAllNotifAdmin();
+    }else{
+        $notifCount = Notification::getNotifUserNumber($user->user_id)->total;
+        $notifications = Notification::getAllNotifUser($user->user_id);
+    }
 ?>
 
 <html lang="en">
@@ -33,8 +43,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../contents/css/notif.css" />
     <link rel="stylesheet" href="../contents/sass/style.css" />
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="icon" href="../contents/img/logo-icon-nobg.png">
     <title>I learn</title>
 </head>
@@ -90,20 +102,80 @@
 
                 <div class="divider"></div>
 
-                <a href="#">
-                    <div class="dash__top-bar__svg-container">
-                        <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 43.026 34.421">
-                            <g id="message-icon" transform="translate(0)">
-                                <path id="Path_1045" data-name="Path 1045"
-                                    d="M43.921,8.5A5.284,5.284,0,0,0,38.711,4H6.266a5.284,5.284,0,0,0-5.21,4.5L22.489,22.371Z"
-                                    transform="translate(-0.976 -4)" fill="currentColor" />
-                                <path id="Path_1046" data-name="Path 1046"
-                                    d="M23.292,22.9a1.434,1.434,0,0,1-1.558,0L1,9.486V30.748a5.3,5.3,0,0,0,5.291,5.291H38.735a5.3,5.3,0,0,0,5.291-5.291V9.485Z"
-                                    transform="translate(-1 -1.618)" fill="currentColor" />
-                            </g>
-                        </svg>
+                <script>
+                $(document).ready(function() {
+                    $(".notification_icon").click(function() {
+                        $(".dropdown").toggleClass("active");
+                    })
+                });
+                </script>
+                <div class="notification_wrap">
+                    <div class="dash__top-bar__svg-container ">
+                        <div style="position:relative" class="notification_icon">
+                            <span class="cart-icon__span"><?php echo $notifCount; ?> </span>
+                            <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" x="0"
+                                y="0" viewBox="0 0 48 48" style="enable-background:new 0 0 512 512"
+                                xml:space="preserve">
+                                <g>
+                                    <g xmlns="http://www.w3.org/2000/svg" id="Line">
+                                        <path
+                                            d="m24 2a15 15 0 0 0 -15 15v11.7l-3.32 5a4.08 4.08 0 0 0 3.39 6.3h29.86a4.08 4.08 0 0 0 3.39-6.33l-3.32-4.97v-11.7a15 15 0 0 0 -15-15z"
+                                            fill="currentColor" data-original="currentColor"></path>
+                                        <path d="m24 46a6 6 0 0 0 5.65-4h-11.3a6 6 0 0 0 5.65 4z" fill="currentColor"
+                                            data-original="currentColor"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
                     </div>
-                </a>
+
+                    <div class="dropdown">
+
+                        <?php if($notifCount ==0){
+                                    echo '<div class="empty_alert">
+                                    There is no notifications
+                                </div>';
+                                } ?>
+
+                        <?php 
+                                    while($notification = $notifications->fetchObject()) {
+                                ?>
+
+                        <div class="notify_item">
+                            <div class="notify_img">
+                                <img src="../uploads/defaultUserImage.png" alt="" style="width: 50px">
+                            </div>
+                            <div class="notify_info">
+                                <p><span><?php echo $notification->fullname ?></span>
+                                    <?php echo $notification->content ?></p>
+                                <span class="notify_time">10 minutes ago</span>
+                            </div>
+                            <div class="notify_read">
+                                <a style="text-decoration:none; color:inherit"
+                                    href="../controllers/notificationController.php?event=deleteNotif&notif_id=<?php echo $notification->notif_id ?>">
+                                    <svg class="notify_read_icon" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs"
+                                        x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512"
+                                        xml:space="preserve">
+                                        <g>
+                                            <path xmlns="http://www.w3.org/2000/svg"
+                                                d="m16 5.5c-6.76001 0-13 3.94-15.89996 10.04999-.13.28998-.13.63 0 .90997 2.90997 6.10004 9.14996 10.04004 15.89996 10.04004s12.98999-3.94 15.90002-10.04004c.13-.27997.13-.62 0-.90997-2.90002-6.10999-9.14001-10.04999-15.90002-10.04999zm0 16.83997c-3.48999 0-6.33997-2.84998-6.33997-6.33997s2.84998-6.34003 6.33997-6.34003 6.34003 2.85004 6.34003 6.34003-2.85004 6.33997-6.34003 6.33997z"
+                                                fill="currentColor" data-original="currentColor"></path>
+                                            <circle xmlns="http://www.w3.org/2000/svg" cx="16" cy="16" r="4.2"
+                                                fill="currentColor" data-original="currentColor"></circle>
+                                        </g>
+                                    </svg>
+                                    <p class="notify_read_text">
+                                        Mark as read
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+
+                        <?php } ?>
+                    </div>
+                </div>
 
                 <div class="divider"></div>
 
@@ -268,16 +340,59 @@
                                 <p class="cart__pay__item__name">Visa</p>
                             </div>
                         </div>
+                        <form action="../controllers/couponController.php?event=deleteCoupon" method="post">
+                            <div style="margin-bottom:0rem;margin-top:2rem;" class="form__input__group">
+                                <label for="coupon" class="form__input__label">Coupon code</label>
+                                <input style="max-width:32rem;" id="coupon" name="coupon" type="text"
+                                    class="form__input" placeholder="Enter you Coupon">
+
+                                <svg style="width:2rem; margin-top:-.2rem;" class="form__input__icon"
+                                    xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs"
+                                    x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512"
+                                    xml:space="preserve">
+                                    <g>
+                                        <g xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="196" cy="211" r="15" fill="#585856" data-original="#585856">
+                                            </circle>
+                                            <circle cx="316" cy="301" r="15" fill="#585856" data-original="#585856">
+                                            </circle>
+                                            <path
+                                                d="m467 106h-422c-24.814 0-45 20.186-45 45v60c0 8.291 6.709 15 15 15h15c16.538 0 30 13.462 30 30s-13.462 30-30 30h-15c-8.291 0-15 6.709-15 15v60c0 24.814 20.186 45 45 45h422c24.814 0 45-20.186 45-45v-60c0-8.291-6.709-15-15-15h-15c-16.538 0-30-13.462-30-30s13.462-30 30-30h15c8.291 0 15-6.709 15-15v-60c0-24.814-20.186-45-45-45zm-316 105c0-24.814 20.186-45 45-45s45 20.186 45 45-20.186 45-45 45-45-20.186-45-45zm35.624 131.719c-6.459-5.186-7.514-14.619-2.343-21.094l120-150c5.2-6.431 14.619-7.515 21.093-2.344 6.461 5.186 7.515 14.619 2.344 21.094l-120 150c-5.221 6.482-14.646 7.495-21.094 2.344zm129.376 3.281c-24.814 0-45-20.186-45-45s20.186-45 45-45 45 20.186 45 45-20.186 45-45 45z"
+                                                fill="#585856" data-original="#585856"></path>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <input type="hidden" value="<?php echo $user->user_id ?>" name="user_id">
+
+                            <button style="border:none;cursor:pointer;margin-top:1rem; color:white"
+                                class="course__card-v2__btn course__card-v2__btn-delete">
+                                Apply coupon
+                            </button>
+                        </form>
                     </div>
 
                     <div class="cart__total">
                         <h2 class="cart__total__title">Total</h2>
+                        <?php  
+                            if($user->coupon_active == 0 || $user->coupon_active == NULL){
+                        ?>
                         <h2 class="cart__total__price">$<?php echo $totalPrice;?></h2>
+
+                        <?php }else{ ?>
+                        <div style="display:flex;">
+                            <h2 style="margin-right:1.5rem; color:#FF7244; text-decoration:line-through;"
+                                class="cart__total__price">$<?php echo $totalPrice;?></h2>
+                            <h2 style="color:#34BE82" class="cart__total__price">$<?php echo $totalPrice*0.9;?></h2>
+                        </div>
+
+                        <?php } ?>
                     </div>
 
-
-
-                    <form action="../controllers/achatController.php?event=addAchat" method="POST">
+                    <form style="margin-bottom:3rem" action="../controllers/achatController.php?event=addAchat"
+                        method="POST">
                         <input type="hidden" value="<?php echo $user->user_id ?>" name="user_id">
                         <?php 
                             foreach ($formationIDArray as $formation_id) {

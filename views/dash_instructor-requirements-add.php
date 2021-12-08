@@ -654,7 +654,7 @@ $listeOutcomes = $outcomeC->afficher_outcomes($_GET['id']);
 
                                 <div class="finish_l1">Thank you !</div>
                                 <div class="finish_l2">You are just one click away</div>
-                                <div class="finish_btn">
+                                <div class="finish_btn" style="padding-bottom: 1rem;">
                                     <a class="finish_btn-v1" href="./dash_instructor-chapter-add.php?id=<?php echo $_GET['id']; ?>">Submit</a>
                                 </div>
 

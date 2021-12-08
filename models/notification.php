@@ -11,7 +11,7 @@
     
     function addNotif(){
         $base = config::getConnexion();
-        $requette = "INSERT INTO notifications VALUES (null,'$this->user_id','$this->for_who','$this->content')";
+        $requette = "INSERT INTO notifications VALUES (null,'$this->user_id','$this->for_who','$this->content' ,0)";
 
         try {
             $base->exec($requette);
@@ -34,7 +34,7 @@
 
     static function getAllNotifUser($user_id){
         $base = config::getConnexion();
-        $requette = "SELECT * from notifications inner join users on notifications.user_id = users.user_id WHERE (notifications.user_id='$user_id' and notifications.for_who='user')";
+        $requette = "SELECT * from notifications inner join users on notifications.user_id = users.user_id WHERE (notifications.user_id='$user_id') AND (for_who='user')";
 
         try {
             $data = $base->query($requette);

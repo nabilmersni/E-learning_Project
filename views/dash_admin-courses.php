@@ -36,6 +36,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="icon" href="../contents/img/logo-icon-nobg.png">
+
+    <link rel="stylesheet" href="../contents/css/dash_instructor-courses.css" />
     <title>I learn-dash</title>
 </head>
 
@@ -429,6 +431,8 @@
                                         <span class="notify_time">10 minutes ago</span>
                                     </div>
                                     <div class="notify_read">
+                                    <?php if($notification->id_formation == 0){ ?>
+                                    
                                         <a style="text-decoration:none; color:inherit"
                                             href="../controllers/notificationController.php?event=deleteNotif&notif_id=<?php echo $notification->notif_id ?>">
                                             <svg class="notify_read_icon" xmlns="http://www.w3.org/2000/svg"
@@ -447,6 +451,30 @@
                                                 Mark as read
                                             </p>
                                         </a>
+
+                                        <?php } ?>
+
+                                        <!--------------------------------->
+                                        <?php if($notification->id_formation != 0){ ?>
+                                        <a style="text-decoration:none; color:inherit"
+                                            href="formation_code/delete_notif_admin.php?formation_id=<?php echo $notification->id_formation ?>&notif_id=<?php echo $notification->notif_id ?>">
+                                            <svg class="notify_read_icon" xmlns="http://www.w3.org/2000/svg"
+                                                version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                xmlns:svgjs="http://svgjs.com/svgjs" x="0" y="0" viewBox="0 0 32 32"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve">
+                                                <g>
+                                                    <path xmlns="http://www.w3.org/2000/svg"
+                                                        d="m16 5.5c-6.76001 0-13 3.94-15.89996 10.04999-.13.28998-.13.63 0 .90997 2.90997 6.10004 9.14996 10.04004 15.89996 10.04004s12.98999-3.94 15.90002-10.04004c.13-.27997.13-.62 0-.90997-2.90002-6.10999-9.14001-10.04999-15.90002-10.04999zm0 16.83997c-3.48999 0-6.33997-2.84998-6.33997-6.33997s2.84998-6.34003 6.33997-6.34003 6.34003 2.85004 6.34003 6.34003-2.85004 6.33997-6.34003 6.33997z"
+                                                        fill="currentColor" data-original="currentColor"></path>
+                                                    <circle xmlns="http://www.w3.org/2000/svg" cx="16" cy="16" r="4.2"
+                                                        fill="currentColor" data-original="currentColor"></circle>
+                                                </g>
+                                            </svg>
+                                            <p class="notify_read_text">
+                                                Check course
+                                            </p>
+                                        </a>
+                                        <?php } ?>
                                     </div>
                                 </div>
 
@@ -535,6 +563,18 @@
                                     <?php echo $formation['categorie']; ?>
                                 </div>
 
+                                <?php if($formation['state'] == 1){  ?>
+                                <span class="state_course_accepted">accepted</span>
+                                <?php } ?>
+
+                                <?php if($formation['state'] == 2){  ?>
+                                <span class="state_course_refused">refused</span>
+                                <?php } ?>
+
+                                <?php if($formation['state'] == 0){  ?>
+                                <span class="state_course_waiting">waiting</span>
+                                <?php } ?>
+
                                 <div class="course__card-v2__action-btns">
                                     <a href="course-details.php?id=<?php echo $formation['formation_id']; ?>"
                                         class="course__card-v2__btn course__card-v2__btn-view">
@@ -550,7 +590,7 @@
                                         </svg>
                                     </a>
 
-                                    <a href="dash_instructor-course-update.php?id=<?php echo $formation['formation_id']; ?>"
+                                    <a href="dash_admin-course-update.php?id=<?php echo $formation['formation_id']; ?>"
                                         class="course__card-v2__btn course__card-v2__btn-update">
 
                                         <svg class="course__card-v2__btn-icon course__card-v2__btn-icon-update"

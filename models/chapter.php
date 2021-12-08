@@ -6,12 +6,14 @@ class Chapter{
 	private string $chapter_description;
 	private string $date_added;
 	private int $formation_id;
+	private int $chapter_duration;	
 
-	public function __construct($chapter_title, $chapter_description,$date_added, $formation_id){
+	public function __construct($chapter_title, $chapter_description,$date_added, $formation_id, $chapter_duration){
 		$this->chapter_title = $chapter_title;
 		$this->chapter_description = $chapter_description;
 		$this->date_added = $date_added;
 		$this->formation_id = $formation_id;
+		$this->chapter_duration = $chapter_duration;
 	}
 
 	public function getchapter_id()
@@ -56,6 +58,15 @@ class Chapter{
     public function setformation_id()
 	{
 		$this->formation_id = $formation_id;
+	}
+
+	public function getchapter_duration()
+	{
+		return $this->chapter_duration;
+	}
+    public function setchapter_duration()
+	{
+		$this->chapter_duration = $chapter_duration;
 	}
 
 	

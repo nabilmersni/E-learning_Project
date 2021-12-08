@@ -23,17 +23,15 @@
 
                 <form id="update_chapter_id" action="formation_code/update_chapter.php?id=<?php echo $chapter['chapter_id']; ?>&id_f=<?php echo $_GET['id']; ?>" method="POST">
                     <div class="dash__instructor-my-courses">
-                        <div class="add_new_lesson-v1__item">
+                    <?php
+                        $chapter_row = $chapterC->recuperer_chapitre($chapter['chapter_id']);
+                        foreach ($chapter_row as $row) {
+                        ?>    
+                    <div class="add_new_lesson-v1__item">
                             <h4>chapter title</h4>
                         </div>
 
-                        <?php
-                        $chapter_row = $chapterC->recuperer_chapitre($chapter['chapter_id']);
-                        foreach ($chapter_row as $row) {
-                        ?>
-
-
-                            <div>
+                          <div>
                                 <input class="add_new_lesson-v1__input-border" name="chapter_title" value="<?php echo $row['chapter_title']; ?>">
                             </div>
 
@@ -44,6 +42,15 @@
                             <div>
                                 <textarea name="chapter_description" id="" class="add_new_lesson-v1__texterea-border"><?php echo $row['chapter_description']; ?></textarea>
                             </div>
+
+                            <div class="add_new_lesson-v1__item">
+                            <h4>chapter duration</h4>
+                        </div>
+
+                          <div>
+                                <input type="number" class="add_new_lesson-v1__input-border" name="chapter_duration" value="<?php echo $row['chapter_duration']; ?>">
+                            </div>
+
 
                         <?php
                         }

@@ -39,6 +39,8 @@ $(document).ready(function (){
 });
 
 
+
+
 $(document).ready(function (){
     $("#create_chapter").click(function(){
         $("#show_create_chapter").show(300)

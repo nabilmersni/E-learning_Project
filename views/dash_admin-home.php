@@ -470,7 +470,8 @@
                         </div>
                     </div>
 
-                    <a href="#" class="secondary-btn secondary-btn-topbar">
+                    <a href="../controllers/couponController.php?event=addCoupon"
+                        class="secondary-btn secondary-btn-topbar">
                         Generate Coupons
 
                         <div class="secondary-btn__svg-container">

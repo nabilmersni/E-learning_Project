@@ -21,18 +21,17 @@ if(
         $course_categorie = $_POST["course_categorie"];
         $course_level = $_POST["course_level"];
         $course_price = 0;
-        if(isset($_POST["course_price"]) )
+        if(!empty($_POST["course_price"]) )
         {
-            $_POST["course_price"];
+            $course_price=$_POST["course_price"];
         }
-        $course_image = $_FILES["course_image"];
 
-        $date_added = date("d/m/Y - h:i:s A");//
-        $state = 0;//
-        $top_formation = 0;//
-        $user_id = $_SESSION['user']->user_id;//
-
-        $img_name = $_FILES['course_image']['name'];
+        $course_image = $_POST["get_course_image"];
+        $new_img_name = $_POST["get_course_image"];
+        if(!empty($_FILES["course_image"]))
+        {
+            $course_image = $_FILES["course_image"];
+            $img_name = $_FILES['course_image']['name'];
 	    $img_size = $_FILES['course_image']['size'];
 	    $tmp_name = $_FILES['course_image']['tmp_name'];
 	    $error = $_FILES['course_image']['error'];
@@ -51,6 +50,15 @@ if(
                 
             }
         }
+        }
+
+            
+
+        $date_added = date("d/m/Y - h:i:s A");//
+        $state = 0;//
+        $top_formation = 0;//
+        $user_id = $_SESSION['user']->user_id;//
+
 
         $formation = new Formation($course_title, $short_description, $course_description, $course_categorie, $course_level, $course_price, $new_img_name, $date_added, $state, $top_formation, $user_id );
         

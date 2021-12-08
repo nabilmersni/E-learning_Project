@@ -108,7 +108,7 @@ if ($test == 1) {
 
                     foreach ($listeFormations as $formation) {
                     ?>
-                    <a style="text-decoration: none;" href="./course-details.php">
+                    <a style="text-decoration: none;" href="./course-details.php?id=<?php echo $formation['formation_id']; ?>">
                         <div class="course__card-v3">
                             <div class="course__card-v3__thumbnail-container">
                                 <img src="./formation_code/uploads/<?php echo $formation['image']; ?>" alt="course img"

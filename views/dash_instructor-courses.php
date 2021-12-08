@@ -37,8 +37,8 @@
     $formationC = new FormationC();
     $listeFormations = $formationC->afficher_formations_instructor($user->user_id);
 
-    $notifCount = Notification::getNotifAdminNumber()->total;
-    $notifications = Notification::getAllNotifAdmin();
+    $notifCount = Notification::getNotifUserNumber(56)->total;
+    $notifications = Notification::getAllNotifUser(56);
 
     $modalCount = 0;
 ?>
@@ -58,6 +58,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="icon" href="../contents/img/logo-icon-nobg.png">
+
+    <link rel="stylesheet" href="../contents/css/dash_instructor-courses.css" />
     <title>I learn-dash</title>
 </head>
 
@@ -334,6 +336,8 @@
                                                 Mark as read
                                             </p>
                                         </a>
+                                        
+                                        
                                     </div>
                                 </div>
 
@@ -357,7 +361,7 @@
                 </div>
 
 
-                <a href="dash_instructor-courses-add.php" class="secondary-btn secondary-btn-topbar">
+                <a href="dash_instructor-courses-add.php" class="secondary-btn secondary-btn-topbar color1_btn">
                     Add New Course
 
                     <div class="secondary-btn__svg-container">
@@ -380,7 +384,8 @@
                             class="dash__instructor-my-courses__title">Courses
                             List</h1>
 
-                        <a style="" href="#" class="secondary-btn secondary-btn__latest-course">
+                        <a href="dash_instructor-offres.php"
+                            class="secondary-btn secondary-btn__latest-course">
                             See All Offers
                             <div class="secondary-btn__svg-container secondary-btn__latest-course__svg-container">
 
@@ -413,17 +418,50 @@
                         </div>
 
                         <div class="course__card-v2__content">
-                            <h1 class="course__card-v2__title2">
-                                <?php echo $formation['name']; ?>
-                            </h1>
-                            <p class="course__card-v2__title2__instructor"> <span>Created By</span>
-                                <?php echo $formation['fullname']; ?>
-                            </p>
+                            <div style="display:flex">
+                                <h1 class="course__card-v2__title2">
+                                    <?php echo $formation['name']; ?>
+                                </h1>
 
+
+
+                            </div>
+                            <div style="display:flex">
+                                <p style="margin-right:auto;" class="course__card-v2__title2__instructor"> <span>Created
+                                        By</span>
+                                    <?php echo $formation['fullname']; ?>
+                                </p>
+                                <?php 
+                                if($formation['offer_price'] == NULL){ ?>
+                                <span style="color:#585856">$<?php echo $formation['price']; ?></span>
+                                <?php }else{ ?>
+                                <span style="color:#FF7244; margin-right:2rem;text-decoration:line-through">
+                                    $<?php echo $formation['offer_price']; ?>
+                                </span>
+                                <span style="color:#34BE82">$<?php echo $formation['price']; ?></span>
+                                <?php } ?>
+                            </div>
                             <div class="course__card-v2__cate-action">
                                 <div class="course__card-v2__category">
                                     <?php echo $formation['categorie']; ?>
                                 </div>
+
+                                <?php if($formation['sent_for_validation'] == 0){  ?>
+                                <a href="formation_code/add_notification_admin.php?formation_id=<?php echo$formation['formation_id']; ?>&user_id=<?php echo $user->user_id; ?>" class="state_course_waiting sent">sent</a>
+                                <?php } ?>
+
+
+                                <?php if($formation['sent_for_validation'] == 1){ if($formation['state'] == 1){  ?>
+                                <span class="state_course_accepted">accepted</span>
+                                <?php } ?>
+
+                                <?php if($formation['state'] == 2){  ?>
+                                <span class="state_course_refused">refused</span>
+                                <?php } ?>
+
+                                <?php if($formation['state'] == 0){  ?>
+                                <span class="state_course_waiting">waiting</span>
+                                <?php } }?>
 
                                 <div class="course__card-v2__action-btns">
                                     <a href="course-details.php?id=<?php echo $formation['formation_id']; ?>"
@@ -525,9 +563,15 @@
                                                 loop autoplay>
                                             </lottie-player>
                                             <form style="display:inline-block;"
-                                                action="../controllers/userController.php?event=block" method="POST">
+                                                action="../controllers/offerController.php?event=addOffer"
+                                                method="POST">
                                                 <input type="hidden" value="<?php echo $formation['formation_id']; ?>"
+                                                    name="formation_id">
+                                                <input type="hidden" value="<?php echo $user->user_id; ?>"
                                                     name="user_id">
+                                                <input type="hidden" value="<?php echo $formation['price']; ?>"
+                                                    name="formation_price">
+
                                                 <div style="margin-top: 2rem;" class="form__input__group">
                                                     <label for="reduction"
                                                         class="form__input__label">Reduction(%)</label>
