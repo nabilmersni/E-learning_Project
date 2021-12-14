@@ -3,10 +3,10 @@
 $Lesson_row = $lessonC->recuperer_lesson($lesson['lesson_id']);
 foreach ($Lesson_row as $row) {
 ?>
-    <div id="show_update_lesson<?php echo $row['lesson_id']; ?>"  hidden>
+    <div id="show_update_lesson<?php echo $row['lesson_id']; ?>" style="display: none;">
 
 
-        <div class="add_new_lesson" >
+        <div class="add_new_lesson">
 
 
 
@@ -70,6 +70,10 @@ foreach ($Lesson_row as $row) {
 
                                 </div>
                             </div>
+                            <div>
+                                <input type="text" class="add_new_lesson-v1__input-border" value="<?php echo $row['lesson_video']; ?>" name="lesson_video_url" style="display: none;">
+                            </div>
+                            
                             <div class="add_new_lesson-v1__input_video_device_icon" style="padding-left:33%">
                                 <svg id="my_device_icon" aria-hidden="true" focusable="false" width="26" height="26" viewBox="0 0 32 32">
                                     <g fill="none" fillRule="evenodd">

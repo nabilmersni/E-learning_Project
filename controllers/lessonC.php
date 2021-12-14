@@ -23,6 +23,38 @@ Function afficher_lessons($id){
 	}   
 }
 
+/********************************************Function afficher lesson selon page order*****************************************/
+Function afficher_lessons_page_order($id){
+
+	$sql="SELECT * FROM lessons WHERE chapter_id='$id' ORDER BY page_order ASC";
+	$db = config::getConnexion();
+	try{
+		$liste = $db->query($sql);
+		return $liste;
+	}
+	catch(Exception $e){
+		die('Erreur: '.$e->getMessage());
+	}   
+}
+
+/********************************************Function afficher video*****************************************/
+Function afficher_video($id){
+
+	$sql="SELECT lesson_video FROM lessons WHERE lesson_id='$id' ";
+	$db = config::getConnexion();
+	try{
+        $query = $db->query($sql);
+        $query->execute();
+   	    $video =$query->fetchColumn();
+        return $video;
+
+	}
+	catch(Exception $e){
+		die('Erreur: '.$e->getMessage());
+	}   
+}
+
+
 //*****************************************Function récupérer lesson***********************************************
 Function recuperer_lesson($id){
 
@@ -118,6 +150,44 @@ Function count_lesson($id){
         die('Erreur: '.$e->getMessage());
     }   
 }
+
+//******************************************Fonction modifier lessons order*********************************************
+function modifier_lesson_order(){
+    
+    for($i=0; $i<count($_POST["page_id_array"]); $i++)
+    {
+        $page_id = $_POST["page_id_array"][$i];
+        $update_lesson = "UPDATE lessons SET page_order = :page_order WHERE lesson_id='$page_id' ";
+    $db = config::getConnexion();
+
+    try{
+        $query = $db->prepare($update_lesson);
+        $query->execute([
+        'page_order' => $i 
+        ]);
+        $_SESSION['flash_success'] = "Congratulation Data updated successfully!";
+        header("Location: ../views/dash_instructor-chapter-add.php");
+
+    }
+    catch(Exception $e)
+    {
+        die('Erreuer: '.$e->getMessage() );
+    }
+
+
+    }
+    
+    
+    
+}
+
+
+
+
+
+
+
+
 
 
 

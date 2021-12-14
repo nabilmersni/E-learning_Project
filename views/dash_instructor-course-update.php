@@ -290,7 +290,7 @@ $listeFormations = $formationC->recuperer_formation($id);
                         </div>
 
                         <a href="dash_instructor-requirements-add.php?id=<?php echo $_GET['id'] ?>" class="button_b2 " id="button_b2_req">
-                            <i class="far fa-bell-exclamation" style="padding-right:0.5rem"></i>
+                        <i class="fal fa-bell-exclamation" style="padding-right:0.5rem"></i>
                             Requirements</a>
                         <button class="button_b3 " id="button_b3_req">
                             <i class="fas fa-arrows-alt" style="padding-right:0.5rem"></i>

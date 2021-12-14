@@ -6,11 +6,9 @@ include_once('../controllers/chapterC.php');
 include_once('../controllers/lessonC.php');
 
 
-$questionC = new QuestionC();
-$listeQuestions = $questionC->afficher_questions();
 
 $chapterC = new ChapterC();
-$listeChapters = $chapterC->afficher_chapitres($_GET['id']);
+$listeChapters = $chapterC->afficher_chapitres_page_order($_GET['id']);
 
 $reponseC = new ReponseC();
 
@@ -18,6 +16,43 @@ $lessonC = new LessonC();
 
 
 $i = 0;
+
+
+require_once "../models/user.php";
+require_once "../models/notification.php";
+
+
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (isset($_SESSION['user'])) {
+    $_SESSION['user'] = User::getOneUser($_SESSION['user']->user_id);
+
+    $user = $_SESSION['user'];
+    if ($user->status == 0) {
+        session_unset();
+        session_destroy();
+        header('location:../views/login.php?accountDisbaled=true');
+    }
+
+    if ($user->role != 'instructor') {
+        header('location:../views/login.php');
+    }
+
+    if ($user->cv_status == 0) {
+        header('location:../views/dash_instructor-uploadCV.php');
+    }
+} else {
+    header('location:../views/login.php?auth=false');
+}
+
+$notifCount = Notification::getNotifUserNumber(56)->total;
+$notifications = Notification::getAllNotifUser(56);
+
+
+$modalCount = 0;
+
 
 ?>
 
@@ -28,6 +63,7 @@ $i = 0;
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../contents/css/notif.css" />
     <link rel="stylesheet" href="../contents/sass/style.css" />
     <link rel="stylesheet" href="../contents/css/chart_style.css" />
     <link rel="stylesheet" href="../contents/css/dash_instructor-courses.css" />
@@ -36,6 +72,7 @@ $i = 0;
 
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="icon" href="../contents/img/logo-icon-nobg.png">
     <title>I learn-dash</title>
 
@@ -68,7 +105,7 @@ $i = 0;
             <img class="dash__side-bar__logo" src="../contents/img/logo-icon-nobg.png" alt="logo">
 
             <div class="dash__side-bar__list">
-                <a href="./dash_instructor.php" class="dash__side-bar__item">
+                <a href="#" class="dash__side-bar__item active">
                     <div class="dash__side-bar__item__icon">
                         <svg class="dash__side-bar__item__icon-svg" id="dashboard-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44.432 44.432">
                             <g id="dashboard-icon-2" data-name="dashboard-icon">
@@ -82,7 +119,7 @@ $i = 0;
                     <h1 class="dash__side-bar__item__txt">Dashboard</h1>
                 </a>
 
-                <a href="#" class="dash__side-bar__item active">
+                <a href="./dash_instructor-courses.php" class="dash__side-bar__item">
                     <div class="dash__side-bar__item__icon">
                         <svg class="dash__side-bar__item__icon-svg id=" course-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 49 37.435">
                             <g id="Group_26" data-name="Group 26" transform="translate(0 0)">
@@ -100,18 +137,34 @@ $i = 0;
                     <h1 class="dash__side-bar__item__txt">My courses</h1>
                 </a>
 
-                <a href="#" class="dash__side-bar__item">
+                <!-- <a href="#" class="dash__side-bar__item">
                     <div class="dash__side-bar__item__icon">
-                        <svg class="dash__side-bar__item__icon-svg" id="dollar-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45.958 45.958">
+                        <svg class="dash__side-bar__item__icon-svg" id="dollar-icon" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 45.958 45.958">
                             <g id="Group_27" data-name="Group 27">
-                                <path id="Path_1036" data-name="Path 1036" d="M22.979,0A22.979,22.979,0,1,0,45.958,22.979,22.978,22.978,0,0,0,22.979,0ZM24.37,33.215v2.66a.712.712,0,0,1-.739.717H21.858a.722.722,0,0,1-.751-.717V33.449a15.221,15.221,0,0,1-4.524-.9,1.42,1.42,0,0,1-.872-1.679L16,29.748a1.422,1.422,0,0,1,1.89-.972,11.409,11.409,0,0,0,4.086.793c1.906,0,3.211-.736,3.211-2.074,0-1.271-1.07-2.074-3.546-2.911-3.579-1.2-6.03-2.876-6.03-6.121,0-2.943,2.083-5.251,5.644-5.954V10.083a.8.8,0,0,1,.771-.787H23.8a.757.757,0,0,1,.721.787v2.191a13.2,13.2,0,0,1,3.621.6,1.425,1.425,0,0,1,.944,1.7l-.254,1.008A1.419,1.419,0,0,1,27,16.58a10.241,10.241,0,0,0-3.38-.559c-2.174,0-2.877.937-2.877,1.874,0,1.1,1.171,1.806,4.014,2.877,3.98,1.405,5.579,3.245,5.579,6.254C30.33,30,28.227,32.547,24.37,33.215Z" fill="currentColor" />
+                                <path id="Path_1036" data-name="Path 1036"
+                                    d="M22.979,0A22.979,22.979,0,1,0,45.958,22.979,22.978,22.978,0,0,0,22.979,0ZM24.37,33.215v2.66a.712.712,0,0,1-.739.717H21.858a.722.722,0,0,1-.751-.717V33.449a15.221,15.221,0,0,1-4.524-.9,1.42,1.42,0,0,1-.872-1.679L16,29.748a1.422,1.422,0,0,1,1.89-.972,11.409,11.409,0,0,0,4.086.793c1.906,0,3.211-.736,3.211-2.074,0-1.271-1.07-2.074-3.546-2.911-3.579-1.2-6.03-2.876-6.03-6.121,0-2.943,2.083-5.251,5.644-5.954V10.083a.8.8,0,0,1,.771-.787H23.8a.757.757,0,0,1,.721.787v2.191a13.2,13.2,0,0,1,3.621.6,1.425,1.425,0,0,1,.944,1.7l-.254,1.008A1.419,1.419,0,0,1,27,16.58a10.241,10.241,0,0,0-3.38-.559c-2.174,0-2.877.937-2.877,1.874,0,1.1,1.171,1.806,4.014,2.877,3.98,1.405,5.579,3.245,5.579,6.254C30.33,30,28.227,32.547,24.37,33.215Z"
+                                    fill="currentColor" />
                             </g>
                         </svg>
                     </div>
                     <h1 class="dash__side-bar__item__txt">My earning</h1>
+                </a> -->
+
+                <a href="./dash_instructor-availability.php" class="dash__side-bar__item">
+                    <div class="dash__side-bar__item__icon">
+                        <svg class="dash__side-bar__item__icon-svg" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                            <g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m256 0c-140.61 0-256 115.39-256 256s115.39 256 256 256 256-115.39 256-256-115.39-256-256-256zm116.673 118.114c5.858-5.858 15.355-5.858 21.213 0s5.858 15.355 0 21.213-15.355 5.858-21.213 0-5.858-15.355 0-21.213zm-131.673-42.114c0-8.291 6.709-15 15-15s15 6.709 15 15v30c0 8.291-6.709 15-15 15s-15-6.709-15-15zm-165 195c-8.291 0-15-6.709-15-15s6.709-15 15-15h30c8.291 0 15 6.709 15 15s-6.709 15-15 15zm63.327 122.886c-5.858 5.858-15.355 5.858-21.213 0s-5.858-15.355 0-21.213c5.858-5.859 15.355-5.859 21.213 0 5.858 5.858 5.858 15.355 0 21.213zm0-254.559c-5.858 5.858-15.355 5.858-21.213 0s-5.858-15.355 0-21.213 15.355-5.858 21.213 0 5.858 15.355 0 21.213zm131.673 296.673c0 8.291-6.709 15-15 15s-15-6.709-15-15v-30c0-8.291 6.709-15 15-15s15 6.709 15 15zm85.605-79.395c-5.859 5.859-15.352 5.859-21.211 0l-90-90c-2.812-2.812-4.394-6.621-4.394-10.605v-90c0-8.291 6.709-15 15-15s15 6.709 15 15v83.789l85.605 85.605c5.86 5.86 5.86 15.352 0 21.211zm37.281 37.281c-5.858 5.858-15.355 5.858-21.213 0s-5.858-15.355 0-21.213c5.858-5.859 15.355-5.859 21.213 0 5.857 5.858 5.857 15.355 0 21.213zm57.114-137.886c0 8.291-6.709 15-15 15h-30c-8.291 0-15-6.709-15-15s6.709-15 15-15h30c8.291 0 15 6.709 15 15z" fill="currentColor" data-original="currentColor"></path>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <h1 class="dash__side-bar__item__txt">Set availability</h1>
                 </a>
 
-                <a href="#" class="dash__side-bar__item">
+                <a href="./dash-instructor-profile.php" class="dash__side-bar__item">
                     <div class="dash__side-bar__item__icon">
                         <svg class="dash__side-bar__item__icon-svg" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" x="0" y="0" viewBox="0 0 460.8 460.8" style="enable-background:new 0 0 512 512" xml:space="preserve">
                             <g>
@@ -186,40 +239,114 @@ $i = 0;
         <div class="dash__container">
             <nav class="dash__top-bar">
                 <div class="dash__top-bar__container">
+
                     <div class="dash__top-bar__container__left">
 
-                        <div class="dash__top-bar__svg-container">
-                            <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.917 46.917">
-                                <g id="logout-icon" transform="translate(0 -0.004)">
-                                    <path id="Path_1043" data-name="Path 1043" d="M29.323,25.417a1.954,1.954,0,0,0-1.955,1.955v7.82a1.957,1.957,0,0,1-1.955,1.955H19.548V7.823a3.94,3.94,0,0,0-2.662-3.716l-.579-.194h9.106a1.957,1.957,0,0,1,1.955,1.955v5.865a1.955,1.955,0,0,0,3.909,0V5.868A5.872,5.872,0,0,0,25.413,0H4.4a1.535,1.535,0,0,0-.209.043C4.1.039,4.005,0,3.91,0A3.913,3.913,0,0,0,0,3.913V39.1a3.94,3.94,0,0,0,2.662,3.716l11.765,3.922a4.047,4.047,0,0,0,1.212.182,3.913,3.913,0,0,0,3.909-3.91V41.056h5.865a5.872,5.872,0,0,0,5.865-5.865v-7.82a1.954,1.954,0,0,0-1.955-1.955Zm0,0" fill="currentColor" />
-                                    <path id="Path_1044" data-name="Path 1044" d="M298.263,115.058l-7.82-7.819a1.954,1.954,0,0,0-3.337,1.382v5.865h-7.819a1.955,1.955,0,1,0,0,3.909h7.819v5.865a1.954,1.954,0,0,0,3.337,1.382l7.82-7.82a1.953,1.953,0,0,0,0-2.764Zm0,0" transform="translate(-251.919 -96.888)" fill="currentColor" />
-                                </g>
-                            </svg>
-                        </div>
+                        <a href="../controllers/userController.php?event=logout">
+                            <div class="dash__top-bar__svg-container">
+                                <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.917 46.917">
+                                    <g id="logout-icon" transform="translate(0 -0.004)">
+                                        <path id="Path_1043" data-name="Path 1043" d="M29.323,25.417a1.954,1.954,0,0,0-1.955,1.955v7.82a1.957,1.957,0,0,1-1.955,1.955H19.548V7.823a3.94,3.94,0,0,0-2.662-3.716l-.579-.194h9.106a1.957,1.957,0,0,1,1.955,1.955v5.865a1.955,1.955,0,0,0,3.909,0V5.868A5.872,5.872,0,0,0,25.413,0H4.4a1.535,1.535,0,0,0-.209.043C4.1.039,4.005,0,3.91,0A3.913,3.913,0,0,0,0,3.913V39.1a3.94,3.94,0,0,0,2.662,3.716l11.765,3.922a4.047,4.047,0,0,0,1.212.182,3.913,3.913,0,0,0,3.909-3.91V41.056h5.865a5.872,5.872,0,0,0,5.865-5.865v-7.82a1.954,1.954,0,0,0-1.955-1.955Zm0,0" fill="currentColor" />
+                                        <path id="Path_1044" data-name="Path 1044" d="M298.263,115.058l-7.82-7.819a1.954,1.954,0,0,0-3.337,1.382v5.865h-7.819a1.955,1.955,0,1,0,0,3.909h7.819v5.865a1.954,1.954,0,0,0,3.337,1.382l7.82-7.82a1.953,1.953,0,0,0,0-2.764Zm0,0" transform="translate(-251.919 -96.888)" fill="currentColor" />
+                                    </g>
+                                </svg>
+                            </div>
+                        </a>
 
                         <div class="divider"></div>
 
-                        <div class="dash__top-bar__svg-container">
-                            <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 43.026 34.421">
-                                <g id="message-icon" transform="translate(0)">
-                                    <path id="Path_1045" data-name="Path 1045" d="M43.921,8.5A5.284,5.284,0,0,0,38.711,4H6.266a5.284,5.284,0,0,0-5.21,4.5L22.489,22.371Z" transform="translate(-0.976 -4)" fill="currentColor" />
-                                    <path id="Path_1046" data-name="Path 1046" d="M23.292,22.9a1.434,1.434,0,0,1-1.558,0L1,9.486V30.748a5.3,5.3,0,0,0,5.291,5.291H38.735a5.3,5.3,0,0,0,5.291-5.291V9.485Z" transform="translate(-1 -1.618)" fill="currentColor" />
-                                </g>
-                            </svg>
+                        <!-- <a href="#">
+                            <div class="dash__top-bar__svg-container">
+                                <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 43.026 34.421">
+                                    <g id="message-icon" transform="translate(0)">
+                                        <path id="Path_1045" data-name="Path 1045"
+                                            d="M43.921,8.5A5.284,5.284,0,0,0,38.711,4H6.266a5.284,5.284,0,0,0-5.21,4.5L22.489,22.371Z"
+                                            transform="translate(-0.976 -4)" fill="currentColor" />
+                                        <path id="Path_1046" data-name="Path 1046"
+                                            d="M23.292,22.9a1.434,1.434,0,0,1-1.558,0L1,9.486V30.748a5.3,5.3,0,0,0,5.291,5.291H38.735a5.3,5.3,0,0,0,5.291-5.291V9.485Z"
+                                            transform="translate(-1 -1.618)" fill="currentColor" />
+                                    </g>
+                                </svg>
+                            </div>
+                        </a> -->
+                        <script>
+                            $(document).ready(function() {
+                                $(".notification_icon").click(function() {
+                                    $(".dropdown").toggleClass("active");
+                                })
+                            });
+                        </script>
+                        <div class="notification_wrap">
+                            <div class="dash__top-bar__svg-container ">
+                                <div style="position:relative" class="notification_icon">
+                                    <span class="cart-icon__span"><?php echo $notifCount; ?> </span>
+                                    <svg class="dash__top-bar__svg" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" x="0" y="0" viewBox="0 0 48 48" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                                        <g>
+                                            <g xmlns="http://www.w3.org/2000/svg" id="Line">
+                                                <path d="m24 2a15 15 0 0 0 -15 15v11.7l-3.32 5a4.08 4.08 0 0 0 3.39 6.3h29.86a4.08 4.08 0 0 0 3.39-6.33l-3.32-4.97v-11.7a15 15 0 0 0 -15-15z" fill="currentColor" data-original="currentColor"></path>
+                                                <path d="m24 46a6 6 0 0 0 5.65-4h-11.3a6 6 0 0 0 5.65 4z" fill="currentColor" data-original="currentColor"></path>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div class="dropdown">
+
+                                <?php if ($notifCount == 0) {
+                                    echo '<div class="empty_alert">
+                                    There is no notifications
+                                </div>';
+                                } ?>
+
+                                <?php
+                                while ($notification = $notifications->fetchObject()) {
+                                ?>
+
+                                    <div class="notify_item">
+                                        <div class="notify_img">
+                                            <img src="../uploads/defaultUserImage.png" alt="" style="width: 50px">
+                                        </div>
+                                        <div class="notify_info">
+                                            <p><span><?php echo $notification->fullname ?></span>
+                                                <?php echo $notification->content ?></p>
+                                            <span class="notify_time">10 minutes ago</span>
+                                        </div>
+                                        <div class="notify_read">
+                                            <a style="text-decoration:none; color:inherit" href="../controllers/notificationController.php?event=deleteNotif&notif_id=<?php echo $notification->notif_id ?>">
+                                                <svg class="notify_read_icon" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                                                    <g>
+                                                        <path xmlns="http://www.w3.org/2000/svg" d="m16 5.5c-6.76001 0-13 3.94-15.89996 10.04999-.13.28998-.13.63 0 .90997 2.90997 6.10004 9.14996 10.04004 15.89996 10.04004s12.98999-3.94 15.90002-10.04004c.13-.27997.13-.62 0-.90997-2.90002-6.10999-9.14001-10.04999-15.90002-10.04999zm0 16.83997c-3.48999 0-6.33997-2.84998-6.33997-6.33997s2.84998-6.34003 6.33997-6.34003 6.34003 2.85004 6.34003 6.34003-2.85004 6.33997-6.34003 6.33997z" fill="currentColor" data-original="currentColor"></path>
+                                                        <circle xmlns="http://www.w3.org/2000/svg" cx="16" cy="16" r="4.2" fill="currentColor" data-original="currentColor"></circle>
+                                                    </g>
+                                                </svg>
+                                                <p class="notify_read_text">
+                                                    Mark as read
+                                                </p>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                <?php } ?>
+                            </div>
                         </div>
+
+
+
 
                     </div>
 
                     <div class="dash__top-bar__container__right">
-                        <h1 class="dash__top-bar__fullname">Braiek Ali</h1>
+                        <h1 class="dash__top-bar__fullname"><?php echo $user->fullname ?></h1>
                         <div class="dash__top-bar__img-container">
-                            <img class="dash__top-bar__img" src="../contents/img/ali.jpg" alt="">
+                            <img class="dash__top-bar__img" src="<?php echo '../uploads/' . $user->img_url ?>" alt="">
                         </div>
                     </div>
                 </div>
 
-                <a href="#" class="secondary-btn secondary-btn-topbar">
-                    submit for validation
+                <a href="" class="secondary-btn secondary-btn-topbar">
+                    Submit for validation
 
                     <div class="secondary-btn__svg-container">
 
@@ -234,10 +361,13 @@ $i = 0;
 
             <div class="dash__content">
                 <div class="dash__instructor-my-courses">
-                    <h1 class="dash__instructor-my-courses__title">Cursus</h1>
+                    <div class="sort_btn_line">
+                    <div class="dash__instructor-my-courses__title" ><a href="dash_instructor-course-update.php?id=<?php echo $_GET['id']; ?>" class="dash__instructor-my-courses__title sort_back_btn">Back</a>
+                </div>
 
-
-
+                    <a href="dashboard_instructor_chapter_sort.php?id=<?php echo $_GET['id']; ?>" class="dash__instructor-my-courses__title sort_btn"><i class="fas fa-sort-amount-up-alt"></i> Sort</a>
+                    </div>
+                    
                     <!-- part2------------- -->
                     <div class="public_information">
 
@@ -256,6 +386,10 @@ $i = 0;
 
 
                                         <div style="padding-right: 1.9rem;">
+                                        <!--bouton trier-->
+                                        <a href="dashboard_instructor_lesson_sort.php?id=<?php echo $_GET['id']; ?>&id_chapter=<?php echo $chapter['chapter_id']; ?>" class="delete-button trier_btn"><i class="fas fa-sort-amount-up-alt"></i></a>
+                                        
+                                        <!--bouton trier-->
                                             <!--bouton modifier-->
 
                                             <span id="modifier_chapter_btn<?php echo $i; ?>" onclick="show_update_chapter_button( x='<?php echo $i; ?>')">
@@ -312,7 +446,7 @@ $i = 0;
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z">
                                             </path>
                                         </svg>
-                                        <div id="lesson_hover_v1<?php echo $i; ?>" class="cursor" onclick="lesson_add_button_show( x='<?php echo $i; ?>'  )">
+                                        <div id="lesson_hover_v1<?php echo $i; ?>" class="cursor lesson_btn_hover" onclick="lesson_add_button_show( x='<?php echo $i; ?>'  )">
                                             <h6>Lesson</h6>
                                         </div>
                                         </a>
@@ -489,16 +623,6 @@ $i = 0;
                     </div>
 
 
-
-
-
-
-
-
-
-
-
-
                 </div>
             </div>
         </div>
@@ -510,310 +634,6 @@ $i = 0;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <?php
-    //if( !(isset($_SESSION['update_question'])) )
-    //{
-    //    echo 'hidden';
-    //    unset($_SESSION['update_question']);
-    //}
-    ?>
-
-
-
-
-
-
-
-
-
-
-
-    <!--show edit quiz part1 -->
-    <div id="show_update_quiz_p1" hidden>
-
-
-        <div class="add_new_lesson">
-
-
-
-            <div class="add_new_lesson_v1">
-                <div class="add_lesson_header">
-                    <div class="add_new_lesson_v1_title">Add a lesson</div>
-
-                    <div id="x_button_quiz_p1" class="x_botton_lesson">
-
-                        <svg id="x_button_x_lesson" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#4a5bcf">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                        </svg>
-
-
-                    </div>
-
-                </div>
-
-
-
-                <hr class="hr-border" style="position: relative; bottom: 10px; ">
-                <div class="dash__content" style="position: relative;bottom: 100px;">
-
-                    <!--  <form action="#" method="POST">  -->
-                    <div class="dash__instructor-my-courses">
-                        <div class="add_new_lesson-v1__item">
-                            <h4>Lesson title</h4>
-                        </div>
-
-                        <div>
-                            <input class="add_new_lesson-v1__input-border" name="lesson_title" placeholder="My lesson title">
-                        </div>
-
-                        <div class="add_new_lesson-v1__item" style="padding-top:2.5rem">
-                            <h4>Description du cours</h4>
-                        </div>
-
-                        <div>
-                            <textarea name="lesson_description" id="" class="add_new_lesson-v1__texterea-border" placeholder="Description for my lesson"></textarea>
-                        </div>
-
-
-
-                        <input class="save-btn save-btn-topbar" type="submit" value="Save" style="position:relative ;bottom:3rem">
-
-                    </div>
-                    <!--   </form>   -->
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <!--show edit quiz part1 -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--show edit quiz -->
-    <div id="show_update_quiz" style="display: none;">
-
-
-        <div class="add_new_lesson_quiz">
-
-
-
-            <div class="add_new_lesson_v1_quiz">
-                <div class="add_lesson_header">
-                    <div class="add_new_lesson_v1_title">Add a lesson</div>
-
-                    <div id="x_button_quiz" class="x_botton_lesson">
-
-                        <svg id="x_button_x_lesson" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#4a5bcf">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                        </svg>
-
-
-                    </div>
-
-                </div>
-
-
-
-                <hr class="hr-border" style="position: relative; bottom: 10px; ">
-                <div class="dash__content" style="position: relative;bottom: 100px;">
-
-                    <!--  <form action="#" method="POST">  -->
-                    <div class="dash__instructor-my-courses">
-
-
-                        <div class="add_new_lesson-v1__item">
-                            <h4>Quiz questions</h4>
-                        </div>
-
-
-                        <!--quiz question-->
-                        <?php
-
-                        foreach ($listeQuestions as $question) {
-                        ?>
-                            <div class="add_quiz_container">
-                                <div class="add_quiz_content">
-                                    <div class="add_quiz_content_l1">
-                                        <div class="add_quiz_question">
-                                            <?php echo $question['question_content']; ?>
-                                        </div>
-                                        <div class="add_quiz_content_l1-v1">
-                                            <!--button delete-->
-                                            <a href="update_question.php?id_c=<?php echo $_GET['id'] ?>&id_q=<?php echo $question['question_id'] ?> ">
-                                                <i class="fas fa-pencil-alt" style="color:green"></i>
-                                            </a>
-                                            <span>
-                                                <a href="./formation_code/delete_question.php?id=<?php echo $question['question_id']; ?>">
-                                                    <svg class="quiz_delete_button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                                    </svg>
-                                                </a>
-                                            </span>
-                                            <!--button delete-->
-                                            <!--bouton up-->
-                                            <span id="quiz_up_button">
-                                                <svg class="quiz_up-button" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
-                                                </svg>
-                                            </span>
-                                            <!--bouton up-->
-
-                                            <!--bouton down-->
-                                            <span id="quiz_down_button" hidden>
-                                                <svg class="quiz_up-button" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                                </svg>
-                                            </span>
-                                            <!--bouton down-->
-
-
-                                        </div>
-                                    </div>
-
-
-
-                                    <?php
-
-                                    $listeReponses = $reponseC->afficher_reponses($question['question_id']);
-                                    ?>
-                                    <?php
-
-                                    foreach ($listeReponses as $reponse) {
-
-                                    ?>
-                                        <!--quiz option div-->
-                                        <div class="add_quiz_content_l2">
-                                            <div class="add_quiz_option">
-                                                <input type="checkbox">
-                                                <?php echo $reponse['reponse_content']; ?>
-                                            </div>
-                                            <div class="add_quiz_content_l1-v2">
-                                                <!--button delete-->
-
-                                                <span>
-                                                    <a href="./formation_code/delete_reponse.php?id=<?php echo $reponse['reponse_id']; ?>" class="">
-
-                                                        <svg class="quiz_delete_button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                                        </svg>
-                                                    </a>
-                                                </span>
-                                                <!--button delete-->
-
-                                            </div>
-                                        </div>
-                                        <!--quiz option div-->
-                                    <?php
-                                    }
-                                    ?>
-
-
-
-
-                                    <!--Add option button-->
-                                    <div>
-                                        <form method="POST" action="formation_code/add_reponse.php?id=<?php echo $question['question_id']; ?>  " class="add_quiz_line_button" id="add_option_form_id">
-                                            <div>
-                                                <input name="reponse_content" class="add_quiz_line_button_input" type="text" placeholder="Add option">
-                                            </div>
-                                            <div>
-                                                <input class="add_quiz_button" type="submit" value="add">
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                    <!--Add option button-->
-
-
-
-                                </div>
-
-
-                            </div>
-
-                        <?php
-                        }
-                        ?>
-
-
-                        <!--Add question button-->
-                        <div class="add_question_line_button">
-                            <form method="POST" action="formation_code/add_question.php" id="add_new_question_form_id" class="add_question_line_button">
-                                <div>
-                                    <input name="question_content" class="add_qestion_line_button_input" type="text" placeholder="New question...">
-                                </div>
-
-                                <div>
-                                    <input class="add_question_button" type="submit" value="add qustion">
-                                </div>
-                            </form>
-                        </div>
-
-                        <!--quiz question-->
-
-
-
-
-
-
-
-
-
-                        <input class="save-btn save-btn-topbar" type="submit" value="Save">
-
-                    </div>
-                    <!--   </form>   -->
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <!--show edit quiz -->
 
     <script src="../contents/js/revenue-chart.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -873,7 +693,7 @@ $i = 0;
         //hide update_quiz_p1
         $(document).ready(function() {
             $("#x_button_quiz_p1").click(function() {
-                $("#show_update_quiz_p1").hide(300)
+                $("#show_update_quiz_p1").hide(0)
 
             });
 
@@ -882,7 +702,7 @@ $i = 0;
 
         $(document).ready(function() {
             $("#edit_quiz").click(function() {
-                $("#show_update_quiz_p1").show(300)
+                $("#show_update_quiz_p1").show(0)
 
             });
 
@@ -944,7 +764,7 @@ $i = 0;
                     },
                     chapter_duration: {
                         required: true,
-                        positiveNumber:true
+                        positiveNumber: true
                     }
                 },
                 messages: {
@@ -1057,7 +877,7 @@ $i = 0;
         //lesson add button show 
 
         function lesson_add_button_show(x) {
-            $("#show_add_new_lesson" + x).show(300)
+            $("#show_add_new_lesson" + x).show(0)
         }
 
         //hover lesson
@@ -1079,46 +899,6 @@ $i = 0;
         }
 
         //end hover lesson
-
-
-        /*   
-
-        
-
-        $(document).ready(function (){
-            for(var i=0;i<3;i++){
-
-            alert(i)
-            $("#up_button"+(i).toString()).click(function(){
-                alert("#up_button"+(i).toString())
-                $("#lesson_lines"+(i).toString()).toggle(20)
-                $("#down_button"+(i).toString()).toggle()
-                $("#up_button"+(i).toString()).toggle()
-            
-                
-
-            });
-        }
-        });
-
-        /////////////test
-        //lessons toggle
-
-        ////////////////
-        $(document).ready(function (){
-            
-            for(var i=0;i<3;i++){
-
-            $("#down_button"+(i).toString()).click(function(){
-                $("#lesson_lines"+(i).toString()).toggle(20)
-                $("#down_button"+(i).toString()).toggle()
-                $("#up_button"+(i).toString()).toggle()
-
-            });
-        }
-            
-        });
-        */
     </script>
 
 </body>

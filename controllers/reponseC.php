@@ -24,6 +24,20 @@ Function afficher_reponses($question_id){
 	}   
 }
 
+/********************************************Function afficher reponse selon page order*****************************************/
+Function afficher_reponses_page_order($question_id){
+
+	$sql="SELECT * FROM reponses WHERE question_id='$question_id' ORDER BY page_order ASC";
+	$db = config::getConnexion();
+	try{
+		$liste = $db->query($sql);
+		return $liste;
+	}
+	catch(Exception $e){
+		die('Erreur: '.$e->getMessage());
+	}   
+}
+
 //*****************************************Function récupérer reponse***********************************************
 Function recuperer_reponse($id){
 
@@ -67,13 +81,87 @@ function ajouter_reponse($reponse){
         ]);
      
         $_SESSION['update_question'] = "";
-        header("Location: ../dash_instructor-chapter-add.php");
+      //  header("Location: ../dash_instructor-chapter-add.php");
     }
     catch(Exception $e){
         die('Erreuer: '.$e->getMessage());
     }
 
 }
+
+//******************************************Fonction modifier reponse*********************************************
+function modifier_reponse($reponse, $id){
+    $reponse_content = $reponse->getreponse_content();
+    $update_reponse = "UPDATE reponses SET reponse_content = :reponse_content  WHERE reponse_id='$id' ";
+    $db = config::getConnexion();
+
+    try{
+        $query = $db->prepare($update_reponse);
+        $query->execute([
+             'reponse_content' => $reponse_content
+        ]);
+        $_SESSION['flash_success'] = "Congratulation Data updated successfully!";
+        //  header("Location: ../views/dash_instructor-chapter-add.php");
+
+    }
+    catch(Exception $e)
+    {
+        die('Erreuer: '.$e->getMessage() );
+    }
+
+}
+
+//******************************************Fonction bonne reponse*********************************************
+function bonne_reponse($id, $bonne_reponse){
+    $update_reponse = "UPDATE reponses SET bonne_reponse = :bonne_reponse  WHERE reponse_id='$id' ";
+    $db = config::getConnexion();
+
+    try{
+        $query = $db->prepare($update_reponse);
+        $query->execute([
+             'bonne_reponse' => $bonne_reponse
+        ]);
+        $_SESSION['flash_success'] = "Congratulation Data updated successfully!";
+        //  header("Location: ../views/dash_instructor-chapter-add.php");
+
+    }
+    catch(Exception $e)
+    {
+        die('Erreuer: '.$e->getMessage() );
+    }
+
+}
+
+//******************************************Fonction modifier reponses order*********************************************
+function modifier_reponse_order(){
+    
+    for($i=0; $i<count($_POST["page_id_array"]); $i++)
+    {
+        $page_id = $_POST["page_id_array"][$i];
+        $update_reponse = "UPDATE reponses SET page_order = :page_order WHERE reponse_id='$page_id' ";
+    $db = config::getConnexion();
+
+    try{
+        $query = $db->prepare($update_reponse);
+        $query->execute([
+        'page_order' => $i 
+        ]);
+        $_SESSION['flash_success'] = "Congratulation Data updated successfully!";
+        //header("Location: ../views/dash_instructor-chapter-add.php");
+
+    }
+    catch(Exception $e)
+    {
+        die('Erreuer: '.$e->getMessage() );
+    }
+
+
+    }
+    
+    
+    
+}
+
 
 
 

@@ -12,9 +12,12 @@ if(isset($_POST["reponse_content"]) )
         //$question_id = 8;
     
         $reponse = new Reponse($reponse_content, $question_id );
+
+        $id_l = $_GET['id_l'];
+        $id_f = $_GET['id_f'];
     
         $reponseC->ajouter_reponse($reponse);
-        //header('Location: ../views/dash_instructor-chapter-add.php');
+        header("Location: ../dash_instructor-quiz-add.php?id_f=$id_f&id_l=$id_l"); 
     }
     else
         {

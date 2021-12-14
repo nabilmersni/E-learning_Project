@@ -41,6 +41,7 @@ $(document).ready(function (){
 
 
 
+
 $(document).ready(function (){
     $("#create_chapter").click(function(){
         $("#show_create_chapter").show(300)
@@ -62,14 +63,7 @@ $(document).ready(function (){
 
 ////////////////////////////////
 function lesson_add_button_show(x) {
-
-    $("#lesson_hover_v1" + x).click(function() {
-        $("#show_add_new_lesson").show(300)
-
-
-
-    });
-
+    $("#show_add_new_lesson").show(0)
 }
 /////////////////////////////////
 
@@ -220,47 +214,37 @@ $(document).ready(function (){
 */
 //hide lesson
 function lesson_add_x_button(x){
-    $("#x_button_lesson" + x).click(function(){
-        $("#show_add_new_lesson"+x).hide(300)
-
-    });
-
+        $("#show_add_new_lesson"+x).hide(0)
 }
 
 //hide update lesson
 function lesson_update_x_button(x){
-    $("#x_button_lesson" + x).click(function(){
-        $("#show_update_lesson"+x).hide(300)
+        $("#show_update_lesson"+x).hide(0)
+}
 
-    });
-
+//hide update quiz-lesson
+function quiz_update_x_button(x){
+    $("#show_update_quiz_p1"+x).hide(0)
 }
 
 //show update lesson
 function lesson_show_update_x_button(x){
-    $("#update_lesson_button_show" + x).click(function(){
-        $("#show_update_lesson"+x).show(300)
+        $("#show_update_lesson"+x).show(0)
+}
 
-    });
-
+//show update quiz-lesson
+function quiz_show_update_x_button(x){
+    $("#show_update_quiz_p1"+x).show(0)
 }
 
 //show update chapter
 function show_update_chapter_button(x){
-    $("#modifier_chapter_btn" + x).click(function(){
-        $("#show_update_chapter"+x).show(300)
-
-    });
-
+        $("#show_update_chapter"+x).show(0)
 }
 
 //hide update chapter
 function chapter_hide_update_button(x){
-    $("#x_update_chapter" + x).click(function(){
-        $("#show_update_chapter"+x).hide(300)
-
-    });
-
+        $("#show_update_chapter"+x).hide(0)
 }
 
 

@@ -1,7 +1,7 @@
 <!--lesson line-->
 <div id="lesson_lines<?php echo $i; ?>" class="chapter-lesson" class="lesson_lines_test">
     <?php
-    $listeLessons = $lessonC->afficher_lessons($chapter['chapter_id']);
+    $listeLessons = $lessonC->afficher_lessons_page_order($chapter['chapter_id']);
     foreach ($listeLessons as $lesson) {
     ?>
         <!--quiz lesson-->
@@ -18,17 +18,24 @@
 
                 <div style="padding-right: 1.9rem;">
 
-                    <i class="fas fa-edit " id="edit_quiz"></i>
-                    <svg id="update_lesson_button_p1" class="chapter-lesson-l1-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <span class="option_quiz" >
+                <a style="text-decoration:none;color:currentColor" href="dash_instructor-quiz-add.php?id_f=<?php echo $_GET['id']; ?>&id_l=<?php echo $lesson['lesson_id']; ?> ">
+                    
+               <i class="fas fa-question" style="padding-right: 1.25rem;position:relative;bottom: 0.25em;"></i>
+            </a>    
+            </span>
+                
+                    <span class="update_lesson_btn_hover" id="edit_quiz<?php echo $lesson['lesson_id']; ?>"  onclick="quiz_show_update_x_button( x='<?php echo $lesson['lesson_id']; ?>')">
+                    <svg  class="chapter-lesson-l1-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
                         </path>
                     </svg>
+                    </span>
 
-                    <a style="text-decoration:none;color:currentColor" href="formation_code/delete_lesson.php?id_f=<?php echo $_GET['id']; ?>&id_l=<?php echo $lesson['lesson_id']; ?> ">
                         <svg id="update_lesson_button" class="chapter-lesson-l1-icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                         </svg>
-                    </a>
+                    
 
                 </div>
             </div>
@@ -72,7 +79,8 @@
 
 
 
-<?php include("formation_code/dashboard_instructor_update_lesson.php"); ?>  
+<?php include("formation_code/dashboard_instructor_update_lesson.php"); ?>
+<?php include("formation_code/dashboard_instructor_update_quiz.php"); ?>  
     <?php
     }
     ?>

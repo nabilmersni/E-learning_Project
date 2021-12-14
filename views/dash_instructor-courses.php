@@ -464,7 +464,7 @@
                                 <?php } }?>
 
                                 <div class="course__card-v2__action-btns">
-                                    <a href="course-details.php?id=<?php echo $formation['formation_id']; ?>"
+                                    <a href="user-side-course-detail.php?id=<?php echo $formation['formation_id']; ?>"
                                         class="course__card-v2__btn course__card-v2__btn-view">
                                         <svg class="course__card-v2__btn-icon" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 31.995 21">

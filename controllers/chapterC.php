@@ -24,6 +24,20 @@ Function afficher_chapitres($id){
 	}   
 }
 
+/********************************************Function afficher chapitre selon page order*****************************************/
+Function afficher_chapitres_page_order($id){
+
+	$sql="SELECT * FROM chapitres WHERE formation_id = '$id' ORDER BY page_order ASC ";
+	$db = config::getConnexion();
+	try{
+		$liste = $db->query($sql);
+		return $liste;
+	}
+	catch(Exception $e){
+		die('Erreur: '.$e->getMessage());
+	}   
+}
+
 //*****************************************Function récupérer chapitre***********************************************
 Function recuperer_chapitre($id){
 
@@ -118,6 +132,38 @@ Function count_chapter($id){
     catch(Exception $e){
         die('Erreur: '.$e->getMessage());
     }   
+}
+
+
+
+//******************************************Fonction modifier chapitres order*********************************************
+function modifier_chapitre_order(){
+    
+    for($i=0; $i<count($_POST["page_id_array"]); $i++)
+    {
+        $page_id = $_POST["page_id_array"][$i];
+        $update_chapter = "UPDATE chapitres SET page_order = :page_order WHERE chapter_id='$page_id' ";
+    $db = config::getConnexion();
+
+    try{
+        $query = $db->prepare($update_chapter);
+        $query->execute([
+        'page_order' => $i 
+        ]);
+        $_SESSION['flash_success'] = "Congratulation Data updated successfully!";
+        header("Location: ../views/dash_instructor-chapter-add.php");
+
+    }
+    catch(Exception $e)
+    {
+        die('Erreuer: '.$e->getMessage() );
+    }
+
+
+    }
+    
+    
+    
 }
 
 

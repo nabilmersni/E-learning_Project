@@ -11,9 +11,9 @@ include_once (__DIR__.'\..\models\question.php');
 class QuestionC{
 
 /********************************************Function afficher question*****************************************/
-Function afficher_questions(){
+Function afficher_questions($lesson_id){
 
-	$sql="SELECT * FROM questions";
+	$sql="SELECT * FROM questions WHERE lesson_id='$lesson_id'";
 	$db = config::getConnexion();
 	try{
 		$liste = $db->query($sql);
@@ -23,6 +23,21 @@ Function afficher_questions(){
 		die('Erreur: '.$e->getMessage());
 	}   
 }
+
+/********************************************Function afficher question selon page order*****************************************/
+Function afficher_questions_page_order($lesson_id){
+
+	$sql="SELECT * FROM questions WHERE lesson_id='$lesson_id' ORDER BY page_order ASC";
+	$db = config::getConnexion();
+	try{
+		$liste = $db->query($sql);
+		return $liste;
+	}
+	catch(Exception $e){
+		die('Erreur: '.$e->getMessage());
+	}   
+}
+
 
 //*****************************************Function récupérer question***********************************************
 Function recuperer_question($id){
@@ -68,12 +83,64 @@ function ajouter_question($question){
         ]);
      
         $_SESSION['update_question'] = "";
-        header("Location: ../dash_instructor-chapter-add.php");
+       // header("Location: ../dash_instructor-chapter-add.php");
     }
     catch(Exception $e){
         die('Erreuer: '.$e->getMessage());
     }
 
+}
+
+//******************************************Fonction modifier question*********************************************
+function modifier_question($question, $id){
+    $question_content = $question->getquestion_content();
+    $update_question = "UPDATE questions SET question_content = :question_content  WHERE question_id='$id' ";
+    $db = config::getConnexion();
+
+    try{
+        $query = $db->prepare($update_question);
+        $query->execute([
+             'question_content' => $question_content
+        ]);
+        $_SESSION['flash_success'] = "Congratulation Data updated successfully!";
+        //  header("Location: ../views/dash_instructor-chapter-add.php");
+
+    }
+    catch(Exception $e)
+    {
+        die('Erreuer: '.$e->getMessage() );
+    }
+
+}
+
+//******************************************Fonction modifier questions order*********************************************
+function modifier_question_order(){
+    
+    for($i=0; $i<count($_POST["page_id_array"]); $i++)
+    {
+        $page_id = $_POST["page_id_array"][$i];
+        $update_question = "UPDATE questions SET page_order = :page_order WHERE question_id='$page_id' ";
+    $db = config::getConnexion();
+
+    try{
+        $query = $db->prepare($update_question);
+        $query->execute([
+        'page_order' => $i 
+        ]);
+        $_SESSION['flash_success'] = "Congratulation Data updated successfully!";
+        //header("Location: ../views/dash_instructor-chapter-add.php");
+
+    }
+    catch(Exception $e)
+    {
+        die('Erreuer: '.$e->getMessage() );
+    }
+
+
+    }
+    
+    
+    
 }
 
 
@@ -84,8 +151,5 @@ function ajouter_question($question){
 
 
 
+
 }//end class QuestionC
-
-
-
-?>

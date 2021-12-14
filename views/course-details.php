@@ -26,8 +26,8 @@ $listeOutcome = $outcomeC->afficher_outcomes($_GET['id']);
 
 $chapterC = new ChapterC();
 $count_chapters = $chapterC->count_chapter($_GET['id']);
-$listeChapters = $chapterC->afficher_chapitres($_GET['id']);
-$listeChapter = $chapterC->afficher_chapitres($_GET['id']);
+$listeChapters = $chapterC->afficher_chapitres_page_order($_GET['id']);
+$listeChapter = $chapterC->afficher_chapitres_page_order($_GET['id']);
 
 $lessonC = new LessonC();
 $count_lessons = $lessonC->count_lesson($_GET['id']);
@@ -175,7 +175,7 @@ $listeRequirements = $requirementC->afficher_requirements($_GET['id']);
                                 </h2>
                                 <div id="lesson_show<?php echo $chapter['chapter_id']; ?>" style="display: none;">
                                     <?php
-                                    $listeLessons = $lessonC->afficher_lessons($chapter['chapter_id']);
+                                    $listeLessons = $lessonC->afficher_lessons_page_order($chapter['chapter_id']);
                                     foreach ($listeLessons as $lesson) { ?>
                                         <a style="text-decoration: none;" href="#">
                                             <div class="course__content__lesson">
@@ -228,7 +228,7 @@ $listeRequirements = $requirementC->afficher_requirements($_GET['id']);
                                 <!--- ----- ----- ---- ------ ---- ----->
                                 <div id="lesson_show<?php echo $chapters['chapter_id']; ?>" style="display: none;">
                                     <?php
-                                    $listeLessons = $lessonC->afficher_lessons($chapters['chapter_id']);
+                                    $listeLessons = $lessonC->afficher_lessons_page_order($chapters['chapter_id']);
                                     foreach ($listeLessons as $lesson) { ?>
                                         <a style="text-decoration: none;" href="#">
                                             <div class="course__content__lesson">

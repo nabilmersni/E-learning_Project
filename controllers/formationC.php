@@ -191,7 +191,7 @@ function modifier_formation($formation, $id){
 function sent_for_validation( $id){
     $sent_for_validation = 1;
     
-    $update_formation = "UPDATE formations SET sent_for_validation = :sent_for_validation WHERE formations.user_id='$id' ";
+    $update_formation = "UPDATE formations SET sent_for_validation = :sent_for_validation WHERE formation_id='$id' ";
     $db = config::getConnexion();
 
     try{

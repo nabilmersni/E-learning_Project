@@ -12,7 +12,16 @@ if(isset($_POST["lesson_title"]) && isset($_POST['lesson_description']) )
         $lesson_description = $_POST['lesson_description'];
         //$lesson_video = $_FILES['lesson_video'];
 
-        $new_video_name ="";
+        if(isset($_POST['lesson_video_url']) && !empty($_POST['lesson_video_url'])){
+
+            $new_video_name =$_POST['lesson_video_url'];
+        }
+        else
+        {
+            $new_video_name = "";
+        }
+        
+        if(!empty($_FILES['lesson_video'])){
             $lesson_video = $_FILES['lesson_video'];
             //------------------------------------
         $video_name = $_FILES['lesson_video']['name'];
@@ -34,6 +43,9 @@ if(isset($_POST["lesson_title"]) && isset($_POST['lesson_description']) )
                 
             }
         }
+
+        }    
+        
         //------------------------------------
     
         
@@ -47,8 +59,3 @@ if(isset($_POST["lesson_title"]) && isset($_POST['lesson_description']) )
             $_SESSION['error'] = "Missing information!"  ;
             header('Location: ../views/signUp.php');
         }
-
-
-
-
-?>
