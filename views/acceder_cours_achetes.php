@@ -41,7 +41,7 @@ if ($user->role == 'admin') {
 
 
 $chapterC = new ChapterC();
-$listeChapters = $chapterC->afficher_chapitres_page_order(114);
+$listeChapters = $chapterC->afficher_chapitres_page_order($_GET['formation_id']);
 
 $lessonC = new LessonC();
 $lesson_video = $lessonC->afficher_video($_GET['lesson_id']);
@@ -265,26 +265,34 @@ $lesson_video = $lessonC->afficher_video($_GET['lesson_id']);
                             $listeLessons = $lessonC->afficher_lessons_page_order($chapter['chapter_id']);
                             foreach ($listeLessons as $lesson) {
                             ?>
-                                <a style="text-decoration: none;" href="acceder_cours_achetes.php?lesson_id=<?php echo $lesson['lesson_id'] ?>">
-                                    <div class="course__content__lesson">
-                                        <?php if (strcmp($lesson['lesson_type'], "video") == 0) {
-                                        ?>
+                                <?php if (strcmp($lesson['lesson_type'], "video") == 0) {
+                                ?>
+                                    <a style="text-decoration: none;" href="acceder_cours_achetes.php?formation_id=<?php echo $_GET['formation_id'] ;?>&lesson_id=<?php echo $lesson['lesson_id'] ?>">
+                                        <div class="course__content__lesson">
+
                                             <img src="../contents/img/play-button.png" alt="" class="course__content__lesson__icon">
-                                        <?php }
-                                        ?>
 
-                                        <?php if (strcmp($lesson['lesson_type'], "quiz") == 0) {
-                                        ?>
+                                            <p class="course__content__lesson__title">
+                                                <?php echo $lesson['lesson_title'];
+                                                ?>
+                                            </p>
+                                        </div>
+                                    </a>
+                                <?php } ?>
+                                <?php if (strcmp($lesson['lesson_type'], "quiz") == 0) {
+
+                                ?>
+                                    <a style="text-decoration: none;" href="acceder_cours_achete-quiz.php?formation_id=<?php echo $_GET['formation_id'] ;?>&lesson_id=<?php echo $lesson['lesson_id'] ?>&test=btn&page_order=-1 ">
+                                        <div class="course__content__lesson">
                                             <span class="course__content__lesson__icon" style="color: #585856;"><i class="fas fa-question-circle fa-lg"></i></span>
-                                        <?php }
-                                        ?>
 
-                                        <p class="course__content__lesson__title">
-                                            <?php echo $lesson['lesson_title'];
-                                            ?>
-                                        </p>
-                                    </div>
-                                </a>
+                                            <p class="course__content__lesson__title">
+                                                <?php echo $lesson['lesson_title'];
+                                                ?>
+                                            </p>
+                                        </div>
+                                    </a>
+                                <?php } ?>
                             <?php }
                             ?>
                         </div>

@@ -3,6 +3,9 @@ require_once "../models/user.php";
 require_once "../models/panier.php";
 include_once('../controllers/chapterC.php');
 include_once('../controllers/lessonC.php');
+include_once('../controllers/questionC.php');
+include_once('../controllers/reponseC.php');
+//include_once('data.php');
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -41,9 +44,20 @@ if ($user->role == 'admin') {
 
 
 $chapterC = new ChapterC();
-$listeChapters = $chapterC->afficher_chapitres_page_order($_GET['formation_id']);
+$listeChapters = $chapterC->afficher_chapitres_page_order(114);
 
 $lessonC = new LessonC();
+
+$test = $_GET['test'];
+
+$questionC = new QuestionC();
+$listeQuestions = $questionC->afficher_question($_GET['lesson_id'], $_GET['page_order']);
+$nb_questions = $questionC->count_question($_GET['lesson_id']);
+
+
+$reponseC = new ReponseC();
+
+$i = 0;
 
 ?>
 
@@ -59,10 +73,15 @@ $lessonC = new LessonC();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="icon" href="../contents/img/logo-icon-nobg.png">
     <link rel="stylesheet" href="../contents/css/dash_instructor-courses.css" />
+    <link rel="stylesheet" href="../contents/css/btn_quiz.css" />
+    <link rel="stylesheet" href="../contents/sass/pagination.css" />
+
+
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
     <title>I learn</title>
+
 </head>
 
 <body class="all-course-body">
@@ -209,9 +228,106 @@ $lessonC = new LessonC();
 
 
     <div class="acceder_cours">
-        <div class="video_affichee">
+        <!-- afficher quiz -->
+        <div class="quiz_affichee">
+            <?php if (strcmp($test, "btn") == 0) { ?>
+                <h1 class="dash__instructor-my-courses__title dashh">Quiz</h1>
 
-            <video class="video_affichee-v1" src="formation_code/uploads/.." controls></video>
+                <a href="#">
+                    <div class="wrapper btn_pos_quiz">
+                        <a class="cta" href="acceder_cours_achete-quiz.php?formation_id=<?php echo $_GET['formation_id'] ;?>&lesson_id=<?php echo $_GET['lesson_id'] ?>&test=quiz&page_order=0">
+                            <span>START</span>
+                            <span class="span_transform">
+                                <svg width="66px" height="43px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <path class="one" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                                        <path class="two" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                                        <path class="three" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF"></path>
+                                    </g>
+                                </svg>
+                            </span>
+
+                        </a>
+                    </div>
+
+                </a>
+
+            <?php } ?>
+            <!---------------------------------------------------------------------------------------------->
+
+            <?php if (strcmp($test, "quiz") == 0) { ?>
+                <?php
+                foreach ($listeQuestions as $question) {
+                ?>
+                    <div class="question_class">
+                        <?php echo $question['question_content']; ?>
+                    </div>
+
+                    <!-- affichage reponse-->
+                    <?php
+                    $listeReponses = $reponseC->afficher_reponses_page_order($question['question_id']);
+                    foreach ($listeReponses as $reponse) {
+                    ?>
+                        <?php if ($reponse['checked'] == 0) { ?>
+                            <a href="formation_code/update_bonne_reponse.php?formation_id=<?php echo $_GET['formation_id'] ?>&lesson_id=<?php echo $_GET['lesson_id'] ?>&test=quiz&page_order=<?php echo $_GET['page_order'] ?>&reponse_id=<?php echo $reponse['reponse_id'] ?>" style="text-decoration: none;color:white">
+
+                                <div class="reponse_class-quiz">
+                                    <?php echo $reponse['reponse_content']; ?>
+
+                                </div>
+
+                            </a>
+                        <?php } ?>
+
+                        <?php if ($reponse['checked'] == 1) { ?>
+                            <a href="formation_code/update_bonne_reponse.php?formation_id=<?php echo $_GET['formation_id'] ?>&lesson_id=<?php echo $_GET['lesson_id'] ?>&test=quiz&page_order=<?php echo $_GET['page_order'] ?>&reponse_id=<?php echo $reponse['reponse_id'] ?>" style="text-decoration: none;color:white">
+
+                                <div class="reponse_class-quiz" style="background-color: #FF7244;">
+                                    <?php echo $reponse['reponse_content']; ?>
+
+                                </div>
+
+                            </a>
+                        <?php } ?>
+
+
+
+                    <?php } ?>
+                    <!--end reponse-->
+
+
+
+                <?php } ?>
+
+
+            <?php } ?>
+
+            <?php
+            if ($_GET['page_order'] >= 0 && $_GET['page_order'] < $nb_questions -1) { ?>
+
+                <a href="acceder_cours_achete-quiz.php?formation_id=<?php echo $_GET['formation_id'] ;?>&lesson_id=<?php echo $_GET['lesson_id'] ?>&test=quiz&page_order=<?php echo $_GET['page_order'] + 1 ?>" class="next_btn_quiz">
+                    Next
+                </a>
+            <?php } ?>
+
+            <?php if ($_GET['page_order'] > 0 && $_GET['page_order'] < $nb_questions-1) { ?>
+                <a href="acceder_cours_achete-quiz.php?formation_id=<?php echo $_GET['formation_id'] ;?>&lesson_id=<?php echo $_GET['lesson_id'] ?>&test=quiz&page_order=<?php echo $_GET['page_order'] - 1 ?>" class="next_btn_quiz preview_btn_quiz">
+                    Preview
+                </a>
+            <?php } ?>
+
+            <?php
+            if ($_GET['page_order'] >= $nb_questions -1) { ?>
+
+                <a href="acceder_cours_achete-quiz.php?formation_id=<?php echo $_GET['formation_id'] ;?>&lesson_id=<?php echo $_GET['lesson_id'] ?>&test=quiz&page_order=<?php echo $_GET['page_order'] - 1 ?>" class="next_btn_quiz preview_btn_quiz prev-finish_btn_quiz ">
+                    Preview
+                </a>
+
+                <a href="acceder_cours_achete-score-quiz.php?formation_id=<?php echo $_GET['formation_id'] ;?>&lesson_id=<?php echo $_GET['lesson_id'] ?>&test=quiz&page_order=0" class="next_btn_quiz finish_btn_quiz">
+                    Finish
+                </a>
+            <?php } ?>
+
 
         </div>
 
@@ -281,7 +397,7 @@ $lessonC = new LessonC();
                                 <?php if (strcmp($lesson['lesson_type'], "quiz") == 0) {
 
                                 ?>
-                                    <a style="text-decoration: none;" href="acceder_cours_achete-quiz.php?formation_id=<?php echo $_GET['formation_id'] ;?>&lesson_id=<?php echo $lesson['lesson_id'] ?>&test=btn&page_order=-1">
+                                    <a style="text-decoration: none;" href="acceder_cours_achete-quiz.php?formation_id=<?php echo $_GET['formation_id'] ;?>&lesson_id=<?php echo $lesson['lesson_id'] ?>&test=btn&page_order=-1 ">
                                         <div class="course__content__lesson">
                                             <span class="course__content__lesson__icon" style="color: #585856;"><i class="fas fa-question-circle fa-lg"></i></span>
 
@@ -292,7 +408,6 @@ $lessonC = new LessonC();
                                         </div>
                                     </a>
                                 <?php } ?>
-
                             <?php }
                             ?>
                         </div>
@@ -315,6 +430,8 @@ $lessonC = new LessonC();
         </div>
 
     </div>
+
+
 
 
 

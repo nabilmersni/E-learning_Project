@@ -163,9 +163,79 @@ function modifier_reponse_order(){
 }
 
 
+/********************************************Function count bonne_reponse*****************************************/
+Function count_bonne_reponse($id){   
+     
+	$sql="SELECT count(reponse_id) FROM reponses join questions on reponses.question_id = questions.question_id  WHERE questions.lesson_id='$id' and bonne_reponse='1' " ;
+    $db = config::getConnexion();
+    try{
+        $query = $db->query($sql);
+        $query->execute();
+   	    $reponse_number =$query->fetchColumn();
+        return $reponse_number;
+    }
+    catch(Exception $e){
+        die('Erreur: '.$e->getMessage());
+    }   
+}
 
 
 
+
+/********************************************Function get checked*****************************************/
+Function get_checked($id){
+
+	$sql="SELECT checked FROM reponses  WHERE reponse_id='$id' " ;
+    $db = config::getConnexion();
+    try{
+        $query = $db->query($sql);
+        $query->execute();
+   	    $reponse_number =$query->fetchColumn();
+        return $reponse_number;
+    }
+    catch(Exception $e){
+        die('Erreur: '.$e->getMessage());
+    }   
+}
+
+//******************************************Fonction modifier cheched*********************************************
+function modifier_bonne_reponse($id ,$num){
+ 
+        $update_reponse = "UPDATE reponses SET checked = :checked WHERE reponse_id='$id' ";
+    $db = config::getConnexion();
+
+    try{
+        $query = $db->prepare($update_reponse);
+        $query->execute([
+        'checked' => $num
+        ]);
+        $_SESSION['flash_success'] = "Congratulation Data updated successfully!";
+        //header("Location: ../views/dash_instructor-chapter-add.php");
+
+    }
+    catch(Exception $e)
+    {
+        die('Erreuer: '.$e->getMessage() );
+    }
+    
+}
+
+
+/********************************************Function count score*****************************************/
+Function count_score($id){
+
+	$sql="SELECT count(*) FROM reponses join questions on reponses.question_id = questions.question_id  WHERE questions.lesson_id='$id' and reponses.bonne_reponse='1' and reponses.checked='1' " ;
+    $db = config::getConnexion();
+    try{
+        $query = $db->query($sql);
+        $query->execute();
+   	    $reponse_number =$query->fetchColumn();
+        return $reponse_number;
+    }
+    catch(Exception $e){
+        die('Erreur: '.$e->getMessage());
+    }   
+}
 
 
 

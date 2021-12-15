@@ -354,7 +354,7 @@
                         while($formation = $data->fetchObject()) {
                     ?>
                     <a style="text-decoration: none;"
-                        href="./user-side-course-detail.php?formation_id=<?php echo $formation->formation_id ;?>">
+                        href="./acceder_cours_achete.php?formation_id=<?php echo $formation->formation_id ;?>">
                         <div class="course__card-v3">
                             <div class="course__card-v3__thumbnail-container">
                                 <img src="./formation_code/uploads/<?php echo $formation->image;?>" alt="course img"

@@ -3,6 +3,9 @@ require_once "../models/user.php";
 require_once "../models/panier.php";
 include_once('../controllers/chapterC.php');
 include_once('../controllers/lessonC.php');
+include_once('../controllers/questionC.php');
+include_once('../controllers/reponseC.php');
+//include_once('data.php');
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -41,9 +44,28 @@ if ($user->role == 'admin') {
 
 
 $chapterC = new ChapterC();
-$listeChapters = $chapterC->afficher_chapitres_page_order($_GET['formation_id']);
+$listeChapters = $chapterC->afficher_chapitres_page_order(114);
 
 $lessonC = new LessonC();
+
+$test = $_GET['test'];
+
+$questionC = new QuestionC();
+$listeQuestions = $questionC->afficher_question($_GET['lesson_id'], $_GET['page_order']);
+$nb_questions = $questionC->count_question($_GET['lesson_id']);
+
+
+$reponseC = new ReponseC();
+$count_score = $reponseC->count_score($_GET['lesson_id']);
+
+$bonne_reponse = $reponseC->count_bonne_reponse($_GET['lesson_id']);
+
+$percentage = ($count_score * 100) / $bonne_reponse;
+
+$wrong = $bonne_reponse - $count_score;
+
+
+$i = 0;
 
 ?>
 
@@ -59,10 +81,15 @@ $lessonC = new LessonC();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="icon" href="../contents/img/logo-icon-nobg.png">
     <link rel="stylesheet" href="../contents/css/dash_instructor-courses.css" />
+    <link rel="stylesheet" href="../contents/css/btn_quiz.css" />
+    <link rel="stylesheet" href="../contents/css/score.css" />
+
+
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
     <title>I learn</title>
+
 </head>
 
 <body class="all-course-body">
@@ -209,9 +236,48 @@ $lessonC = new LessonC();
 
 
     <div class="acceder_cours">
-        <div class="video_affichee">
+        <!-- afficher quiz -->
+        <div class="quiz_affichee">
 
-            <video class="video_affichee-v1" src="formation_code/uploads/.." controls></video>
+            <!---------------------------------------------------------------------------------------------->
+
+            <table>
+                <tr>
+                    <td class="td_titre"> Total Question </td>
+                    <td class="total-question"> <?php echo $nb_questions ?> </td>
+                </tr>
+
+                <tr>
+                    <td class="td_titre"> Correct </td>
+                    <td class="total-correct"> <?php echo $count_score; ?></td>
+                </tr>
+
+                <tr>
+                    <td class="td_titre"> Wrong </td>
+                    <td class="total-correct" style="color: red;"> <?php echo $wrong; ?></td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="td_titre"> Your Total Score </td>
+                    <td class="total-question"> <?php echo round($percentage, 2); ?> %</td>
+                </tr>
+            </table>
+
+            <?php if ($percentage < 50) { ?>
+                <a href="acceder_cours_achete-quiz.php?formation_id=<?php echo $_GET['formation_id']; ?>&lesson_id=<?php echo $_GET['lesson_id'] ?>&test=btn&page_order=-1">
+                    <button class="next"> Try again </button>
+                </a>
+            <?php } ?>
+
+            <?php if ($percentage > 50) { ?>
+                <a href="formation_code/certification.php?id=<?php echo $_GET['formation_id']; ?>">
+                    <button class="certif_btn"> Get Certification </button>
+                </a>
+            <?php } ?>
+
+
 
         </div>
 
@@ -266,7 +332,7 @@ $lessonC = new LessonC();
                             ?>
                                 <?php if (strcmp($lesson['lesson_type'], "video") == 0) {
                                 ?>
-                                    <a style="text-decoration: none;" href="acceder_cours_achetes.php?formation_id=<?php echo $_GET['formation_id'] ;?>&lesson_id=<?php echo $lesson['lesson_id'] ?>">
+                                    <a style="text-decoration: none;" href="acceder_cours_achetes.php?formation_id=<?php echo $_GET['formation_id'] ?>&lesson_id=<?php echo $lesson['lesson_id'] ?>">
                                         <div class="course__content__lesson">
 
                                             <img src="../contents/img/play-button.png" alt="" class="course__content__lesson__icon">
@@ -281,7 +347,7 @@ $lessonC = new LessonC();
                                 <?php if (strcmp($lesson['lesson_type'], "quiz") == 0) {
 
                                 ?>
-                                    <a style="text-decoration: none;" href="acceder_cours_achete-quiz.php?formation_id=<?php echo $_GET['formation_id'] ;?>&lesson_id=<?php echo $lesson['lesson_id'] ?>&test=btn&page_order=-1">
+                                    <a style="text-decoration: none;" href="acceder_cours_achete-quiz.php?formation_id=<?php echo $_GET['formation_id'] ?>&lesson_id=<?php echo $lesson['lesson_id'] ?>&test=btn&page_order=-1 ">
                                         <div class="course__content__lesson">
                                             <span class="course__content__lesson__icon" style="color: #585856;"><i class="fas fa-question-circle fa-lg"></i></span>
 
@@ -292,7 +358,6 @@ $lessonC = new LessonC();
                                         </div>
                                     </a>
                                 <?php } ?>
-
                             <?php }
                             ?>
                         </div>
@@ -315,6 +380,8 @@ $lessonC = new LessonC();
         </div>
 
     </div>
+
+
 
 
 

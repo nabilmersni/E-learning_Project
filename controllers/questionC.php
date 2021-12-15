@@ -24,6 +24,20 @@ Function afficher_questions($lesson_id){
 	}   
 }
 
+/********************************************Function afficher une seule question*****************************************/
+Function afficher_question($lesson_id ,$num){
+
+	$sql="SELECT * FROM questions WHERE lesson_id='$lesson_id' and page_order='$num' ";
+	$db = config::getConnexion();
+	try{
+		$liste = $db->query($sql);
+		return $liste;
+	}
+	catch(Exception $e){
+		die('Erreur: '.$e->getMessage());
+	}   
+}
+
 /********************************************Function afficher question selon page order*****************************************/
 Function afficher_questions_page_order($lesson_id){
 
@@ -144,7 +158,21 @@ function modifier_question_order(){
 }
 
 
+/********************************************Function count question*****************************************/
+Function count_question($id){
 
+	$sql="SELECT count(question_id) FROM questions  WHERE lesson_id='$id' " ;
+    $db = config::getConnexion();
+    try{
+        $query = $db->query($sql);
+        $query->execute();
+   	    $question_number =$query->fetchColumn();
+        return $question_number;
+    }
+    catch(Exception $e){
+        die('Erreur: '.$e->getMessage());
+    }   
+}
 
 
 
